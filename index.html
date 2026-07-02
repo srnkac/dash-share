@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>srnkac — Projects</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #171a21;
+    --border: #262b36;
+    --text: #e6e8ec;
+    --muted: #9aa2b1;
+    --accent: #6ea8fe;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px;
+  }
+  main {
+    width: 100%;
+    max-width: 640px;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  header img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+  }
+  header h1 {
+    font-size: 1.25rem;
+    margin: 0 0 4px;
+  }
+  header a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  header a:hover { color: var(--accent); }
+  h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  ul {
+    list-style: none;
+    margin: 0 0 40px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  li a {
+    display: block;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+  }
+  li a:hover {
+    border-color: var(--accent);
+  }
+  li a span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 2px;
+  }
+  footer {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="https://github.com/srnkac.png" alt="srnkac avatar">
+    <div>
+      <h1>srnkac</h1>
+      <a href="https://github.com/srnkac" target="_blank" rel="noopener">github.com/srnkac</a>
+    </div>
+  </header>
 
+  <section>
+    <h2>Briefings</h2>
+    <ul>
+      <li>
+        <a href="drugs-worldwide-briefing.html">
+          Most-Used Drugs in the European Union — Health Impact Briefing
+          <span>English</span>
+        </a>
+      </li>
+      <li>
+        <a href="drugs-worldwide-briefing-sk.html">
+          Najpoužívanejšie drogy v Európskej únii — brífing o vplyve na zdravie
+          <span>Slovenčina</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    Built and maintained by <a href="https://github.com/srnkac" style="color: var(--muted);">srnkac</a>.
+  </footer>
+</main>
+</body>
+</html>
