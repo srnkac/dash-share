@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Most-Used Drugs in the European Union — Health Impact Briefing</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --bg:#0f0f10;
+    --surface:#1a1a1d;
+    --surface-2:#202024;
+    --border:#2a2a2d;
+    --text:#ffffff;
+    --text-2:#a0a0a0;
+    --accent:#D97757;
+    --accent-muted:rgba(217,119,87,0.15);
+    --red:#e5484d;
+    --red-muted:rgba(229,72,77,0.15);
+    --amber:#f5a623;
+    --amber-muted:rgba(245,166,35,0.15);
+    --green:#4cc38a;
+    --green-muted:rgba(76,195,138,0.15);
+    --blue:#5b9dd9;
+    --blue-muted:rgba(91,157,217,0.15);
+    --purple:#a67bdb;
+    --purple-muted:rgba(166,123,219,0.15);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
+  section{padding:64px 0;border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+
+  h1,h2,h3,h4{font-weight:700;letter-spacing:-0.02em;}
+  h1{font-size:40px;line-height:1.15;}
+  h2{font-size:28px;margin-bottom:12px;}
+  h3{font-size:18px;margin-bottom:8px;}
+  .eyebrow{
+    text-transform:uppercase;font-size:12px;font-weight:700;letter-spacing:0.08em;
+    color:var(--accent);margin-bottom:12px;display:block;
+  }
+  p{color:var(--text-2);font-size:15px;max-width:720px;}
+  .lede{font-size:17px;color:var(--text-2);max-width:760px;margin-bottom:32px;}
+
+  /* HERO */
+  .hero{
+    padding:88px 0 56px;
+    background:radial-gradient(ellipse 900px 500px at 30% -10%, rgba(217,119,87,0.16), transparent 60%);
+    border-bottom:1px solid var(--border);
+  }
+  .hero .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+  .pill{
+    background:var(--surface-2);border:1px solid var(--border);
+    padding:6px 12px;border-radius:100px;font-size:12px;color:var(--text-2);
+  }
+  .hero h1 span{color:var(--accent);}
+
+  /* STAT CARDS */
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px;}
+  .stat-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:22px 20px;
+  }
+  .stat-card .num{font-size:28px;font-weight:800;color:var(--text);letter-spacing:-0.02em;}
+  .stat-card .lbl{font-size:13px;color:var(--text-2);margin-top:6px;}
+  .stat-card .tag{display:inline-block;margin-top:10px;font-size:11px;padding:3px 8px;border-radius:100px;}
+  .tag.red{background:var(--red-muted);color:var(--red);}
+  .tag.amber{background:var(--amber-muted);color:var(--amber);}
+  .tag.green{background:var(--green-muted);color:var(--green);}
+  .tag.blue{background:var(--blue-muted);color:var(--blue);}
+
+  /* BAR CHART */
+  .barchart{margin-top:28px;}
+  .bar-row{margin-bottom:16px;}
+  .bar-row .bar-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;gap:12px;}
+  .bar-row .bar-top .name{font-weight:600;color:var(--text);}
+  .bar-row .bar-top .val{color:var(--text-2);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;}
+  .bar-track{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;height:14px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px 0 0 8px;min-width:4px;}
+  .bar-fill.orange{background:linear-gradient(90deg,#D97757,#e59a7d);}
+  .bar-fill.red{background:linear-gradient(90deg,#c23b40,#e5484d);}
+  .bar-fill.blue{background:linear-gradient(90deg,#3f7bb0,#5b9dd9);}
+  .bar-fill.grey{background:linear-gradient(90deg,#55555a,#77777d);}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;margin-top:20px;font-size:13.5px;}
+  thead th{
+    text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    color:var(--text-2);padding:10px 14px;border-bottom:1px solid var(--border);
+  }
+  tbody td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;}
+  tbody tr:nth-child(odd){background:rgba(255,255,255,0.015);}
+  tbody tr:hover{background:var(--surface-2);}
+  .table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+  .table-wrap table{margin-top:0;}
+  .table-wrap thead{background:var(--surface);}
+
+  .badge{display:inline-block;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:600;white-space:nowrap;}
+  .badge.g1{background:var(--red-muted);color:var(--red);}
+  .badge.g3{background:var(--green-muted);color:var(--green);}
+  .badge.unclass{background:var(--amber-muted);color:var(--amber);}
+  .badge.none{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border);}
+
+  /* CALLOUT */
+  .callout{
+    border-left:3px solid var(--accent);background:var(--accent-muted);
+    padding:18px 20px;border-radius:8px;margin-top:24px;
+  }
+  .callout.red{border-color:var(--red);background:var(--red-muted);}
+  .callout.blue{border-color:var(--blue);background:var(--blue-muted);}
+  .callout p{color:var(--text);font-size:14.5px;max-width:none;}
+  .callout .lbl{font-size:11px;text-transform:uppercase;font-weight:700;letter-spacing:0.06em;color:var(--text-2);margin-bottom:6px;display:block;}
+
+  /* DONUT */
+  .donut-wrap{display:flex;align-items:center;gap:36px;margin-top:28px;flex-wrap:wrap;}
+  .donut{
+    width:190px;height:190px;border-radius:50%;flex-shrink:0;
+    background:conic-gradient(
+      var(--red) 0% 14.5%,
+      var(--amber) 14.5% 20.5%,
+      var(--blue) 20.5% 20.65%,
+      var(--surface-2) 20.65% 100%
+    );
+    position:relative;
+  }
+  .donut::after{
+    content:"";position:absolute;inset:26px;background:var(--bg);border-radius:50%;
+    display:flex;
+  }
+  .donut-legend{display:flex;flex-direction:column;gap:12px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:13.5px;}
+  .dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+  .dot.red{background:var(--red);} .dot.amber{background:var(--amber);} .dot.blue{background:var(--blue);} .dot.grey{background:var(--surface-2);border:1px solid var(--border);} .dot.purple{background:var(--purple);} .dot.green{background:var(--green);}
+  .legend-item b{color:var(--text);} .legend-item span.sub{color:var(--text-2);}
+
+  .donut-row{display:flex;gap:48px;flex-wrap:wrap;margin-top:28px;}
+  .donut-col{flex:1;min-width:260px;}
+  .donut-col h4{font-size:14px;margin-bottom:16px;color:var(--text-2);font-weight:600;}
+  .donut.small{width:170px;height:170px;}
+
+  .type-badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:0.03em;white-space:nowrap;}
+  .type-badge.risk{background:var(--purple-muted);color:var(--purple);}
+  .type-badge.icd{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border);}
+  tr.risk-row{background:var(--purple-muted) !important;}
+  tr.risk-row td{color:var(--text);}
+  tr.sub-row td:first-child{padding-left:32px;color:var(--text-2);font-size:13px;}
+
+  /* ORGAN SYSTEM CARDS */
+  .organ-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px;}
+  .organ-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+  .organ-card h4{font-size:14px;margin-bottom:6px;color:var(--text);display:flex;align-items:center;gap:8px;}
+  .organ-card p{font-size:13.5px;margin:0;max-width:none;color:var(--text-2);}
+  @media (max-width:760px){.organ-grid{grid-template-columns:1fr;}}
+
+  /* WORKED CALC BOX */
+  .calc-box{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:22px 24px;margin-top:24px;font-size:13.5px;
+  }
+  .calc-box .row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--border);gap:16px;}
+  .calc-box .row:last-child{border-bottom:none;font-weight:700;color:var(--accent);}
+  .calc-box .row span:first-child{color:var(--text-2);}
+  .calc-box .row span:last-child{color:var(--text);font-variant-numeric:tabular-nums;text-align:right;}
+  .calc-box .row:last-child span{color:var(--accent);}
+
+  /* POLICY CARDS */
+  .policy-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:24px;margin-top:16px;
+  }
+  .policy-card .head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+  .policy-card h3{margin-bottom:0;}
+  .policy-card ul{margin:12px 0 0 0;padding-left:18px;}
+  .policy-card li{color:var(--text-2);font-size:14px;margin-bottom:8px;}
+  .policy-card li b{color:var(--text);}
+  .priority{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;}
+  .priority.p1{background:var(--red-muted);color:var(--red);}
+  .priority.p2{background:var(--amber-muted);color:var(--amber);}
+  .priority.p3{background:var(--blue-muted);color:var(--blue);}
+
+  footer{padding:48px 0 80px;}
+  footer .src-list{columns:2;column-gap:40px;margin-top:16px;}
+  footer .src-list li{font-size:12px;color:var(--text-2);margin-bottom:8px;break-inside:avoid;}
+  footer .src-list a{color:var(--text-2);}
+  footer .fine{font-size:12px;color:var(--text-2);margin-top:32px;}
+
+  @media (max-width:760px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:30px;}
+    .donut-wrap{flex-direction:column;align-items:flex-start;}
+    footer .src-list{columns:1;}
+    .bar-row .bar-top{flex-direction:column;gap:2px;}
+    .bar-row .bar-top .val{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Government Health Policy Briefing — European Union Edition</span>
+    <h1>The EU's most-used drugs, <span>ranked by real harm</span> — not by legal status</h1>
+    <p class="lede" style="margin-top:18px;">Every figure below is scoped to the European Union: alcohol, tobacco, caffeine, cannabis, opioids, cocaine and amphetamines compared on EU usage, EU mortality and EU cause-of-death — plus a new modelled estimate of how much alcohol contributes to cancer deaths beyond the official count, through its interaction with tobacco.</p>
+    <div class="meta">
+      <span class="pill">Prepared 2 July 2026</span>
+      <span class="pill">Sources: EUDA/EMCDDA · WHO/Europe · European Commission · Eurostat · ECIS · IARC</span>
+      <span class="pill">EU population baseline: 450.4M (2025) · 4.84M deaths (2023)</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Executive Summary</span>
+    <h2>Legal drugs kill far more Europeans than illegal ones</h2>
+    <p class="lede">Of the ~4.84 million deaths recorded in the EU in 2023, tobacco and alcohol together account for roughly 1 million — around 20%. All illegal drugs combined account for about 0.15%. Alcohol's true cancer toll is larger still once its interaction with tobacco is counted.</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num">~700,000</div>
+        <div class="lbl">EU deaths/year attributable to tobacco</div>
+        <span class="tag red">14.5% of all EU deaths</span>
+      </div>
+      <div class="stat-card">
+        <div class="num">~291,000</div>
+        <div class="lbl">EU deaths/year attributable to alcohol</div>
+        <span class="tag amber">6.0% of all EU deaths</span>
+      </div>
+      <div class="stat-card">
+        <div class="num">~7,500</div>
+        <div class="lbl">EU drug-induced deaths/year (all illicit drugs, 2023)</div>
+        <span class="tag green">0.15% of all EU deaths</span>
+      </div>
+      <div class="stat-card">
+        <div class="num">+~15,000</div>
+        <div class="lbl">Modelled additional EU cancer deaths/year from alcohol×tobacco synergy — on top of the official alcohol count</div>
+        <span class="tag blue">See analysis below</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">European Reach</span>
+    <h2>Who uses what, across the EU</h2>
+    <p class="lede">Legal, socially normalised substances dwarf illegal drugs in user numbers across the Union — by one to two orders of magnitude.</p>
+    <div class="barchart">
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Alcohol</span><span class="val">~295 million current drinkers (77% of EU adults)</span></div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Tobacco / nicotine</span><span class="val">~117 million smokers (26% of EU population)</span></div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:40%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Cannabis</span><span class="val">24 million past-year users, ages 15–64 (8.4%)</span></div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:8.1%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Cocaine</span><span class="val">2.7 million past-year users, ages 15–34 only*</span></div>
+        <div class="bar-track"><div class="bar-fill grey" style="width:0.9%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Amphetamines / ATS</span><span class="val">1.6 million past-year users, ages 15–34 only*</span></div>
+        <div class="bar-track"><div class="bar-fill grey" style="width:0.5%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Opioids (high-risk users)</span><span class="val">860,000 high-risk users, EU-27 (2023)</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:0.3%"></div></div>
+      </div>
+    </div>
+    <p style="margin-top:10px;font-size:12.5px;">*Cocaine and ATS figures cover the 15–34 age bracket only — the full 15–64 EU total is not consistently published, so these bars understate the true all-adult user count and are not directly comparable in scale to the alcohol/tobacco/cannabis figures above.</p>
+    <div class="callout blue">
+      <span class="lbl">Not pictured: caffeine</span>
+      <p>Caffeine is almost certainly the single most-used psychoactive substance in the EU — plausibly a majority of its 450 million residents via coffee, tea and soft drinks. No EU agency publishes a rigorous region-wide user count, so it is excluded from the chart rather than estimated imprecisely.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Where It Actually Comes From</span>
+    <h2>EU cause-of-death, by substance</h2>
+    <p class="lede">4.84 million EU residents died in 2023. Here is the share attributable to each category of substance use.</p>
+    <div class="donut-wrap">
+      <div class="donut"></div>
+      <div class="donut-legend">
+        <div class="legend-item"><span class="dot red"></span><b>Tobacco — 14.5%</b> <span class="sub">(~700,000 deaths)</span></div>
+        <div class="legend-item"><span class="dot amber"></span><b>Alcohol — 6.0%</b> <span class="sub">(~291,000 deaths)</span></div>
+        <div class="legend-item"><span class="dot blue"></span><b>All illicit drugs — 0.15%</b> <span class="sub">(~7,500 deaths)</span></div>
+        <div class="legend-item"><span class="dot grey"></span><b>All other causes — 79.35%</b> <span class="sub">(cardiovascular, cancer, respiratory, etc.)</span></div>
+      </div>
+    </div>
+    <h3 style="margin-top:40px;">EU drug-induced deaths: where the 7,500 come from (2023)</h3>
+    <div class="barchart">
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Opioids (involved in 69% of cases)</span><span class="val">~5,175 deaths</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">— of which heroin specifically</span><span class="val">~1,200 deaths</span></div>
+        <div class="bar-track"><div class="bar-fill grey" style="width:23%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Cocaine (rising — 956 → 1,051 in reporting countries)</span><span class="val">~1,050+ deaths</span></div>
+        <div class="bar-track"><div class="bar-fill amber" style="width:20%"></div></div>
+      </div>
+    </div>
+    <p style="margin-top:16px;">Emerging risk: <b style="color:var(--text)">nitazenes</b> — synthetic opioids up to 1,000× stronger than morphine — are implicated in a growing share of overdoses in Estonia and Latvia, per EUDA's early-warning system.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">The Full Picture</span>
+    <h2>How tobacco and alcohol rank against every other cause of death in the EU</h2>
+    <p class="lede">Substance-attributable deaths aren't a separate bucket from "real" diseases — tobacco and alcohol kill people <i>through</i> cardiovascular disease, cancer and respiratory disease. Ranked alongside the EU's other leading causes of death, they sit near the very top.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Cause of death</th><th>EU deaths/year</th><th>Share of all EU deaths</th><th>Data year</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td><b>Circulatory diseases</b> (heart disease, stroke, etc.)</td><td>~1,588,000</td><td>32.8%</td><td>2023</td><td><span class="type-badge icd">ICD category</span></td></tr>
+          <tr><td><b>Cancer</b> (all types)</td><td>~1,157,000</td><td>23.9%</td><td>2023</td><td><span class="type-badge icd">ICD category</span></td></tr>
+          <tr class="risk-row"><td><b>Tobacco</b> (attributable — sits inside the categories above)</td><td>~700,000</td><td>14.5%</td><td>2023</td><td><span class="type-badge risk">Risk factor</span></td></tr>
+          <tr><td><b>Respiratory diseases</b> (non-cancer, e.g. COPD, pneumonia)</td><td>~377,500</td><td>7.8%</td><td>2023</td><td><span class="type-badge icd">ICD category</span></td></tr>
+          <tr class="risk-row"><td><b>Alcohol</b> (attributable — sits inside the categories above)</td><td>~291,000</td><td>6.0%</td><td>2016–19</td><td><span class="type-badge risk">Risk factor</span></td></tr>
+          <tr><td><b>External causes</b> (accidents, suicide, homicide, falls)</td><td>~242,000</td><td>5.0%</td><td>2023</td><td><span class="type-badge icd">ICD category</span></td></tr>
+          <tr class="sub-row"><td>— of which road traffic</td><td>~20,400</td><td>0.4%</td><td>2023</td><td></td></tr>
+          <tr class="sub-row"><td>— of which suicide</td><td>~47,346</td><td>1.0%</td><td>2021</td><td></td></tr>
+          <tr><td><b>Dementia</b>, incl. Alzheimer's</td><td>~177,000</td><td>3.7%</td><td>2022</td><td><span class="type-badge icd">ICD category</span></td></tr>
+          <tr><td><b>Diabetes mellitus</b></td><td>~114,400</td><td>2.4%</td><td>2016</td><td><span class="type-badge icd">ICD category</span></td></tr>
+          <tr class="risk-row"><td><b>All illicit drugs combined</b> (attributable)</td><td>~7,500</td><td>0.15%</td><td>2023</td><td><span class="type-badge risk">Risk factor</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <span class="lbl">Read the table this way, not as a simple sum</span>
+      <p>Rows marked <span class="type-badge risk">Risk factor</span> are not a separate category from the <span class="type-badge icd">ICD category</span> rows — they cut across them. A tobacco-caused lung cancer death is counted once, inside "Cancer"; a tobacco-caused heart attack is counted inside "Circulatory diseases." So the table does not sum to 4.84 million, and it shouldn't. What it does show: if tobacco were its own disease category, it would rank <b>third</b> — above respiratory disease, above dementia, above every external cause of death combined, and about 93× larger than every illegal drug combined.</p>
+    </div>
+
+    <h3 style="margin-top:44px;">EU deaths by broad category — and where cancer deaths actually come from</h3>
+    <div class="donut-row">
+      <div class="donut-col">
+        <h4>All EU deaths, 2023 (4.84 million)</h4>
+        <div class="donut small" style="background:conic-gradient(
+          var(--red) 0% 32.8%,
+          var(--amber) 32.8% 56.7%,
+          var(--blue) 56.7% 64.5%,
+          var(--purple) 64.5% 69.5%,
+          var(--surface-2) 69.5% 100%
+        );"></div>
+        <div class="donut-legend" style="margin-top:18px;">
+          <div class="legend-item"><span class="dot red"></span><b>Circulatory — 32.8%</b></div>
+          <div class="legend-item"><span class="dot amber"></span><b>Cancer — 23.9%</b></div>
+          <div class="legend-item"><span class="dot blue"></span><b>Respiratory — 7.8%</b></div>
+          <div class="legend-item"><span class="dot purple"></span><b>External causes — 5.0%</b></div>
+          <div class="legend-item"><span class="dot grey"></span><b>All other (diabetes, dementia, infectious, etc.) — 30.5%</b></div>
+        </div>
+      </div>
+      <div class="donut-col">
+        <h4>Inside the EU's ~1.27M cancer deaths (2020, EU-27)</h4>
+        <div class="donut small" style="background:conic-gradient(
+          var(--red) 0% 20.3%,
+          var(--amber) 20.3% 32.6%,
+          var(--green) 32.6% 39.8%,
+          var(--blue) 39.8% 44.0%,
+          var(--purple) 44.0% 47.4%,
+          var(--surface-2) 47.4% 100%
+        );"></div>
+        <div class="donut-legend" style="margin-top:18px;">
+          <div class="legend-item"><span class="dot red"></span><b>Lung — 20.3%</b> <span class="sub">(257,300)</span></div>
+          <div class="legend-item"><span class="dot amber"></span><b>Colorectal — 12.3%</b> <span class="sub">(156,100)</span></div>
+          <div class="legend-item"><span class="dot green"></span><b>Breast (female) — 7.2%</b> <span class="sub">(91,800)</span></div>
+          <div class="legend-item"><span class="dot blue"></span><b>Liver — 4.2%</b> <span class="sub">(53,900)</span></div>
+          <div class="legend-item"><span class="dot purple"></span><b>Oral cavity / pharynx / larynx — 3.4%</b> <span class="sub">(43,400)</span></div>
+          <div class="legend-item"><span class="dot grey"></span><b>All other cancer sites — 52.6%</b></div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:16px;font-size:12.5px;">Lung cancer is ~80–90% smoking-attributable in Europe; oral cavity, pharynx and larynx cancers are the sites most affected by the alcohol×tobacco synergy detailed in the next section. Cancer-site figures are EU-27, 2020 (ECIS); the broad-category chart uses 2023 Eurostat totals — a small year mismatch, noted for transparency.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Carcinogenicity</span>
+    <h2>Which of these substances actually cause cancer?</h2>
+    <p class="lede">IARC (WHO's cancer research agency) classifies carcinogens by strength of evidence, not degree of risk. Only two substances on this list meet the highest bar — and they are the two the EU consumes most.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Substance</th><th>IARC classification</th><th>Basis</th></tr></thead>
+        <tbody>
+          <tr><td><b>Alcohol</b> (ethanol in beverages)</td><td><span class="badge g1">Group 1 — Carcinogenic</span></td><td>Causes cancers of oral cavity, pharynx, larynx, oesophagus, liver, colorectum and female breast. Dose–response, no safe threshold.</td></tr>
+          <tr><td><b>Tobacco</b> (smoked & smokeless)</td><td><span class="badge g1">Group 1 — Carcinogenic</span></td><td>Causes an estimated 19% of all cancers; lung, mouth, throat, bladder, pancreas, cervix and more.</td></tr>
+          <tr><td><b>Cannabis</b> (smoked)</td><td><span class="badge unclass">Not yet classified</span></td><td>Smoke contains similar combustion carcinogens (PAHs) to tobacco, but epidemiological cancer evidence is "suggestive, not conclusive." IARC's first formal review is scheduled for Nov 2026.</td></tr>
+          <tr><td><b>Opioids</b></td><td><span class="badge none">No classification</span></td><td>No established carcinogenic mechanism; used medically at scale.</td></tr>
+          <tr><td><b>Cocaine / Amphetamines</b></td><td><span class="badge none">No classification</span></td><td>No established carcinogenic mechanism; harm is overwhelmingly cardiovascular.</td></tr>
+          <tr><td><b>Caffeine / coffee</b></td><td><span class="badge g3">Group 3 — Not classifiable</span></td><td>Downgraded from a weaker 2B classification in 2016 after review of 1,000+ studies.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Deep Dive — Alcohol</span>
+    <h2>How alcohol affects the body, system by system</h2>
+    <p class="lede">Alcohol is not a single-organ risk. It is one of the few substances on this list that measurably damages nearly every organ system, with evidence strong enough that major health bodies have stopped describing any dose as "protective."</p>
+    <div class="organ-grid">
+      <div class="organ-card">
+        <h4>🫀 Liver</h4>
+        <p>Fatty liver → alcoholic hepatitis → cirrhosis. Risk rises steeply above roughly 2 drinks/day sustained over years.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🎗️ Cancer</h4>
+        <p>IARC Group 1 carcinogen — causally linked to cancers of the mouth, throat, oesophagus, liver, colorectum and breast. Risk rises with consumption and there is no threshold below which it is zero; even light/moderate drinking raises breast cancer risk in women. (Full modelled analysis below.)</p>
+      </div>
+      <div class="organ-card">
+        <h4>❤️ Cardiovascular system</h4>
+        <p>Chronic heavy use raises blood pressure, causes cardiomyopathy, and increases stroke and atrial-fibrillation risk. The old "red wine is heart-healthy" claim has been substantially walked back: large cohort and Mendelian-randomization studies suggest the earlier observational link was confounded (sick-quitter effect, lifestyle factors). WHO and a growing number of national guidelines no longer endorse any protective dose.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🧠 Brain &amp; nervous system</h4>
+        <p>Neurotoxic — impairs memory and cognition. Chronic heavy use is linked to reduced brain volume and higher dementia risk, plus peripheral neuropathy.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🧩 Mental health &amp; addiction</h4>
+        <p>Dependence, worsened anxiety and depression, and disrupted sleep architecture — alcohol suppresses REM sleep despite its sedative onset effect.</p>
+      </div>
+      <div class="organ-card">
+        <h4>⚖️ Metabolic system</h4>
+        <p>Weight gain (7 kcal/g of "empty" calories), pancreatitis risk, and interference with blood sugar regulation.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🛡️ Immune system &amp; injury</h4>
+        <p>Weakened immune function, plus materially increased risk of injury and accidents while intoxicated.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🤰 Pregnancy</h4>
+        <p>No known safe amount. Prenatal exposure carries a risk of fetal alcohol spectrum disorders (FASD).</p>
+      </div>
+    </div>
+    <div class="callout">
+      <span class="lbl">Dose matters — but not the way it used to be taught</span>
+      <p>Risk is roughly dose-dependent for most of the conditions above, but for cancer specifically it is non-linear and starts from zero. That distinction is the main shift in public-health messaging over the last several years: away from "moderate drinking is fine" and toward "less is better, none is best."</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">New Analysis — Answering the Harder Question</span>
+    <h2>How much does alcohol contribute to cancer deaths not officially "caused by" alcohol?</h2>
+    <p class="lede">Official statistics credit alcohol with ~79,000 EU cancer deaths a year. That number is real — but it is built on a model that assigns each cancer death to one dominant risk factor. It structurally cannot capture what happens when alcohol and tobacco act together.</p>
+
+    <h3>Step 1 — The official, direct count</h3>
+    <p>A peer-reviewed EU-27 study estimated <b style="color:var(--text)">78,985 alcohol-attributable cancer deaths in 2016</b> (95% CI 75,498–91,102): 56,207 in men, 22,778 in women, and 1.9 million years of life lost. These deaths are drawn from the seven cancer sites IARC recognises as causally linked to alcohol: oral cavity, pharynx, larynx, oesophagus, colorectum, liver and female breast.</p>
+
+    <h3 style="margin-top:32px;">Step 2 — Where the official model likely undercounts</h3>
+    <p>For three of those sites — oral cavity, pharynx and larynx — alcohol rarely acts alone. The INHANCE consortium's pooled analysis of head-and-neck cancer (Hashibe et al., <i>Cancer Epidemiology, Biomarkers & Prevention</i>, 2009) found the combined effect of alcohol and tobacco is <b style="color:var(--text)">greater than multiplicative</b> (interaction ψ = 2.15, 95% CI 1.53–3.04) — the two substances amplify each other's damage rather than simply adding to it.</p>
+    <div class="calc-box">
+      <div class="row"><span>Population attributable risk, head & neck cancer — alcohol alone</span><span>4%</span></div>
+      <div class="row"><span>Population attributable risk — tobacco alone</span><span>33%</span></div>
+      <div class="row"><span>Population attributable risk — joint / synergistic effect (both required)</span><span>35%</span></div>
+      <div class="row"><span>Total attributable to tobacco + alcohol combined</span><span>72%</span></div>
+    </div>
+
+    <h3 style="margin-top:32px;">Step 3 — Translating that into EU deaths</h3>
+    <p>EU-27 records ~43,400 deaths a year from oral cavity, pharynx and larynx cancer combined (ECIS, 2020: 31,800 + 11,600). Applying the INHANCE breakdown to that total:</p>
+    <div class="calc-box">
+      <div class="row"><span>EU-27 oral cavity + pharynx + larynx cancer deaths/year</span><span>~43,400</span></div>
+      <div class="row"><span>Attributable to alcohol acting alone (4%)</span><span>~1,700</span></div>
+      <div class="row"><span>Attributable to tobacco acting alone (33%)</span><span>~14,300</span></div>
+      <div class="row"><span>Attributable to the alcohol × tobacco joint effect (35%)</span><span>~15,200</span></div>
+    </div>
+    <div class="callout red">
+      <span class="lbl">The estimate</span>
+      <p>Roughly <b>15,000 EU deaths a year</b> from head-and-neck cancers occur only because alcohol and tobacco are consumed together — deaths that a standalone "alcohol-attributable" statistic does not credit to alcohol, because in isolation (no smoking present) alcohol alone would explain only ~1,700 of these same deaths. Counting the synergy, alcohol is a necessary contributing cause in up to <b>39% of EU head-and-neck cancer deaths (~16,900/year)</b> — roughly ten times higher than an "alcohol acting alone" model would suggest.</p>
+    </div>
+
+    <h3 style="margin-top:32px;">Step 4 — Two more pathways, not quantified here</h3>
+    <p>Two further mechanisms plausibly add to alcohol's cancer burden but lack a robust EU-wide quantitative estimate, so no number is given — flagging them is more honest than inventing one:</p>
+    <ul style="margin-top:12px;padding-left:20px;">
+      <li style="color:var(--text-2);font-size:14px;margin-bottom:8px;"><b style="color:var(--text)">Obesity-mediation:</b> alcohol is calorically dense (7 kcal/g) and contributes to weight gain; obesity is itself an established cause of at least 13 cancer types. The share of EU obesity-driven cancer deaths attributable to alcohol specifically has not been reliably isolated in the literature.</li>
+      <li style="color:var(--text-2);font-size:14px;margin-bottom:8px;"><b style="color:var(--text)">HPV-immune interaction:</b> some evidence suggests heavy drinking may impair immune clearance of HPV, a separate and growing driver of oropharyngeal cancer — a mechanism distinct from the tobacco synergy above, but not yet quantified at population level.</li>
+    </ul>
+
+    <div class="callout" style="margin-top:28px;">
+      <span class="lbl">Bottom line — and its limits</span>
+      <p>Between the official direct count (~79,000/year) and the modelled tobacco-synergy addition confined to head-and-neck cancers (~15,000/year), alcohol's plausible true cancer footprint in the EU is meaningfully larger than the headline statistic suggests — though the two figures are <b>not simply additive</b>: it is not established how much of the ~79,000 official figure already implicitly reflects some joint risk, since studies vary in whether they adjust for smoking. Treat ~79,000 as a firm floor, ~15,000 as a well-evidenced but separately-modelled additional exposure specific to head-and-neck cancers, and the true combined total as genuinely uncertain — plausibly in the ~85,000–95,000+ range, not a precise figure any agency currently publishes.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">A Sharper Lens</span>
+    <h2>Per-user risk in the EU: danger concentrated vs. danger diffuse</h2>
+    <p class="lede">Dividing EU deaths by EU user counts for the same year reveals something the total death tolls hide: a person who becomes a high-risk opioid user faces almost exactly the same annual death rate as the EU's average smoker.</p>
+    <div class="barchart">
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Opioids (high-risk users)</span><span class="val">~6.0 deaths per 1,000 users/year</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Tobacco</span><span class="val">~6.0 deaths per 1,000 users/year</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:99%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Alcohol</span><span class="val">~1.0 death per 1,000 users/year</span></div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:17%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Cannabis</span><span class="val">Near zero direct fatal-overdose risk</span></div>
+        <div class="bar-track"><div class="bar-fill grey" style="width:2%"></div></div>
+      </div>
+    </div>
+    <div class="callout">
+      <span class="lbl">Read this carefully</span>
+      <p>Tobacco: ~700,000 EU deaths ÷ ~117 million EU smokers. Opioids: ~5,175 EU opioid-involved deaths ÷ 860,000 EU high-risk users. Alcohol: ~291,000 EU deaths ÷ ~295 million EU drinkers. These are order-of-magnitude estimates dividing same-region, same-era figures — not epidemiologically adjusted for dose, age or years of use. Cocaine and ATS are omitted: EU-wide, all-adult user totals for these two are not consistently published, so no reliable denominator exists.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Complementary Evidence</span>
+    <h2>Expert-panel harm ranking (Nutt et al., <i>The Lancet</i>, 2010, UK)</h2>
+    <p class="lede">The most widely cited multi-criteria expert assessment of a European country scored 20 drugs 0–100 on harm to the user <i>and</i> harm to others (crime, family, economic cost). It is now 16 years old, but no comparably rigorous EU-wide update exists — and EU health bodies still cite it.</p>
+    <div class="barchart">
+      <div class="bar-row">

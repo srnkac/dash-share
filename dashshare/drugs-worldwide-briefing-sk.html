@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Najpoužívanejšie drogy v Európskej únii — brífing o vplyve na zdravie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --bg:#0f0f10;
+    --surface:#1a1a1d;
+    --surface-2:#202024;
+    --border:#2a2a2d;
+    --text:#ffffff;
+    --text-2:#a0a0a0;
+    --accent:#D97757;
+    --accent-muted:rgba(217,119,87,0.15);
+    --red:#e5484d;
+    --red-muted:rgba(229,72,77,0.15);
+    --amber:#f5a623;
+    --amber-muted:rgba(245,166,35,0.15);
+    --green:#4cc38a;
+    --green-muted:rgba(76,195,138,0.15);
+    --blue:#5b9dd9;
+    --blue-muted:rgba(91,157,217,0.15);
+    --purple:#a67bdb;
+    --purple-muted:rgba(166,123,219,0.15);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
+  section{padding:64px 0;border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+
+  h1,h2,h3,h4{font-weight:700;letter-spacing:-0.02em;}
+  h1{font-size:40px;line-height:1.15;}
+  h2{font-size:28px;margin-bottom:12px;}
+  h3{font-size:18px;margin-bottom:8px;}
+  .eyebrow{
+    text-transform:uppercase;font-size:12px;font-weight:700;letter-spacing:0.08em;
+    color:var(--accent);margin-bottom:12px;display:block;
+  }
+  p{color:var(--text-2);font-size:15px;max-width:720px;}
+  .lede{font-size:17px;color:var(--text-2);max-width:760px;margin-bottom:32px;}
+
+  /* HERO */
+  .hero{
+    padding:88px 0 56px;
+    background:radial-gradient(ellipse 900px 500px at 30% -10%, rgba(217,119,87,0.16), transparent 60%);
+    border-bottom:1px solid var(--border);
+  }
+  .hero .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+  .pill{
+    background:var(--surface-2);border:1px solid var(--border);
+    padding:6px 12px;border-radius:100px;font-size:12px;color:var(--text-2);
+  }
+  .hero h1 span{color:var(--accent);}
+
+  /* STAT CARDS */
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px;}
+  .stat-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:22px 20px;
+  }
+  .stat-card .num{font-size:28px;font-weight:800;color:var(--text);letter-spacing:-0.02em;}
+  .stat-card .lbl{font-size:13px;color:var(--text-2);margin-top:6px;}
+  .stat-card .tag{display:inline-block;margin-top:10px;font-size:11px;padding:3px 8px;border-radius:100px;}
+  .tag.red{background:var(--red-muted);color:var(--red);}
+  .tag.amber{background:var(--amber-muted);color:var(--amber);}
+  .tag.green{background:var(--green-muted);color:var(--green);}
+  .tag.blue{background:var(--blue-muted);color:var(--blue);}
+
+  /* BAR CHART */
+  .barchart{margin-top:28px;}
+  .bar-row{margin-bottom:16px;}
+  .bar-row .bar-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;gap:12px;}
+  .bar-row .bar-top .name{font-weight:600;color:var(--text);}
+  .bar-row .bar-top .val{color:var(--text-2);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;}
+  .bar-track{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;height:14px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px 0 0 8px;min-width:4px;}
+  .bar-fill.orange{background:linear-gradient(90deg,#D97757,#e59a7d);}
+  .bar-fill.red{background:linear-gradient(90deg,#c23b40,#e5484d);}
+  .bar-fill.blue{background:linear-gradient(90deg,#3f7bb0,#5b9dd9);}
+  .bar-fill.grey{background:linear-gradient(90deg,#55555a,#77777d);}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;margin-top:20px;font-size:13.5px;}
+  thead th{
+    text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    color:var(--text-2);padding:10px 14px;border-bottom:1px solid var(--border);
+  }
+  tbody td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;}
+  tbody tr:nth-child(odd){background:rgba(255,255,255,0.015);}
+  tbody tr:hover{background:var(--surface-2);}
+  .table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+  .table-wrap table{margin-top:0;}
+  .table-wrap thead{background:var(--surface);}
+
+  .badge{display:inline-block;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:600;white-space:nowrap;}
+  .badge.g1{background:var(--red-muted);color:var(--red);}
+  .badge.g3{background:var(--green-muted);color:var(--green);}
+  .badge.unclass{background:var(--amber-muted);color:var(--amber);}
+  .badge.none{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border);}
+
+  /* CALLOUT */
+  .callout{
+    border-left:3px solid var(--accent);background:var(--accent-muted);
+    padding:18px 20px;border-radius:8px;margin-top:24px;
+  }
+  .callout.red{border-color:var(--red);background:var(--red-muted);}
+  .callout.blue{border-color:var(--blue);background:var(--blue-muted);}
+  .callout p{color:var(--text);font-size:14.5px;max-width:none;}
+  .callout .lbl{font-size:11px;text-transform:uppercase;font-weight:700;letter-spacing:0.06em;color:var(--text-2);margin-bottom:6px;display:block;}
+
+  /* DONUT */
+  .donut-wrap{display:flex;align-items:center;gap:36px;margin-top:28px;flex-wrap:wrap;}
+  .donut{
+    width:190px;height:190px;border-radius:50%;flex-shrink:0;
+    background:conic-gradient(
+      var(--red) 0% 14.5%,
+      var(--amber) 14.5% 20.5%,
+      var(--blue) 20.5% 20.65%,
+      var(--surface-2) 20.65% 100%
+    );
+    position:relative;
+  }
+  .donut::after{
+    content:"";position:absolute;inset:26px;background:var(--bg);border-radius:50%;
+    display:flex;
+  }
+  .donut-legend{display:flex;flex-direction:column;gap:12px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:13.5px;}
+  .dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+  .dot.red{background:var(--red);} .dot.amber{background:var(--amber);} .dot.blue{background:var(--blue);} .dot.grey{background:var(--surface-2);border:1px solid var(--border);} .dot.purple{background:var(--purple);} .dot.green{background:var(--green);}
+  .legend-item b{color:var(--text);} .legend-item span.sub{color:var(--text-2);}
+
+  .donut-row{display:flex;gap:48px;flex-wrap:wrap;margin-top:28px;}
+  .donut-col{flex:1;min-width:260px;}
+  .donut-col h4{font-size:14px;margin-bottom:16px;color:var(--text-2);font-weight:600;}
+  .donut.small{width:170px;height:170px;}
+
+  .type-badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:0.03em;white-space:nowrap;}
+  .type-badge.risk{background:var(--purple-muted);color:var(--purple);}
+  .type-badge.icd{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border);}
+  tr.risk-row{background:var(--purple-muted) !important;}
+  tr.risk-row td{color:var(--text);}
+  tr.sub-row td:first-child{padding-left:32px;color:var(--text-2);font-size:13px;}
+
+  /* ORGAN SYSTEM CARDS */
+  .organ-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px;}
+  .organ-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+  .organ-card h4{font-size:14px;margin-bottom:6px;color:var(--text);display:flex;align-items:center;gap:8px;}
+  .organ-card p{font-size:13.5px;margin:0;max-width:none;color:var(--text-2);}
+  @media (max-width:760px){.organ-grid{grid-template-columns:1fr;}}
+
+  /* WORKED CALC BOX */
+  .calc-box{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:22px 24px;margin-top:24px;font-size:13.5px;
+  }
+  .calc-box .row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--border);gap:16px;}
+  .calc-box .row:last-child{border-bottom:none;font-weight:700;color:var(--accent);}
+  .calc-box .row span:first-child{color:var(--text-2);}
+  .calc-box .row span:last-child{color:var(--text);font-variant-numeric:tabular-nums;text-align:right;}
+  .calc-box .row:last-child span{color:var(--accent);}
+
+  /* POLICY CARDS */
+  .policy-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:24px;margin-top:16px;
+  }
+  .policy-card .head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+  .policy-card h3{margin-bottom:0;}
+  .policy-card ul{margin:12px 0 0 0;padding-left:18px;}
+  .policy-card li{color:var(--text-2);font-size:14px;margin-bottom:8px;}
+  .policy-card li b{color:var(--text);}
+  .priority{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;}
+  .priority.p1{background:var(--red-muted);color:var(--red);}
+  .priority.p2{background:var(--amber-muted);color:var(--amber);}
+  .priority.p3{background:var(--blue-muted);color:var(--blue);}
+
+  footer{padding:48px 0 80px;}
+  footer .src-list{columns:2;column-gap:40px;margin-top:16px;}
+  footer .src-list li{font-size:12px;color:var(--text-2);margin-bottom:8px;break-inside:avoid;}
+  footer .src-list a{color:var(--text-2);}
+  footer .fine{font-size:12px;color:var(--text-2);margin-top:32px;}
+
+  @media (max-width:760px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:30px;}
+    .donut-wrap{flex-direction:column;align-items:flex-start;}
+    footer .src-list{columns:1;}
+    .bar-row .bar-top{flex-direction:column;gap:2px;}
+    .bar-row .bar-top .val{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Vládny zdravotno-politický brífing — vydanie pre Európsku úniu</span>
+    <h1>Najpoužívanejšie drogy v EÚ, <span>zoradené podľa skutočnej škodlivosti</span> — nie podľa právneho statusu</h1>
+    <p class="lede" style="margin-top:18px;">Všetky nižšie uvedené údaje sa vzťahujú výlučne na Európsku úniu: alkohol, tabak, kofeín, kanabis, opioidy, kokaín a amfetamíny sú porovnané podľa užívania v EÚ, úmrtnosti v EÚ a príčin úmrtí v EÚ — spolu s novým modelovaným odhadom, akou mierou alkohol prispieva k úmrtiam na rakovinu nad rámec oficiálneho počtu, prostredníctvom svojej interakcie s tabakom.</p>
+    <div class="meta">
+      <span class="pill">Pripravené 2. júla 2026</span>
+      <span class="pill">Zdroje: EUDA/EMCDDA · WHO/Európa · Európska komisia · Eurostat · ECIS · IARC</span>
+      <span class="pill">Základ: populácia EÚ 450,4 mil. (2025) · 4,84 mil. úmrtí (2023)</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Zhrnutie</span>
+    <h2>Legálne drogy zabíjajú oveľa viac Európanov než nelegálne</h2>
+    <p class="lede">Z približne 4,84 milióna úmrtí zaznamenaných v EÚ v roku 2023 pripadá na tabak a alkohol dokopy zhruba 1 milión — okolo 20 %. Všetky nelegálne drogy spolu tvoria približne 0,15 %. Skutočný počet úmrtí na rakovinu spôsobených alkoholom je ešte vyšší, ak sa započíta jeho interakcia s tabakom.</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num">~700 000</div>
+        <div class="lbl">úmrtí v EÚ/rok pripísateľných tabaku</div>
+        <span class="tag red">14,5 % všetkých úmrtí v EÚ</span>
+      </div>
+      <div class="stat-card">
+        <div class="num">~291 000</div>
+        <div class="lbl">úmrtí v EÚ/rok pripísateľných alkoholu</div>
+        <span class="tag amber">6,0 % všetkých úmrtí v EÚ</span>
+      </div>
+      <div class="stat-card">
+        <div class="num">~7 500</div>
+        <div class="lbl">úmrtí v EÚ spôsobených drogami/rok (všetky nelegálne drogy, 2023)</div>
+        <span class="tag green">0,15 % všetkých úmrtí v EÚ</span>
+      </div>
+      <div class="stat-card">
+        <div class="num">+~15 000</div>
+        <div class="lbl">Modelovaný dodatočný počet úmrtí na rakovinu v EÚ/rok v dôsledku synergie alkoholu a tabaku — navyše k oficiálnemu počtu pripísanému alkoholu</div>
+        <span class="tag blue">Pozri analýzu nižšie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Rozšírenosť v EÚ</span>
+    <h2>Kto čo užíva naprieč EÚ</h2>
+    <p class="lede">Legálne, spoločensky bežné látky počtom používateľov ďaleko prevyšujú nelegálne drogy naprieč Úniou — o jeden až dva rády.</p>
+    <div class="barchart">
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Alkohol</span><span class="val">~295 miliónov súčasných konzumentov (77 % dospelých v EÚ)</span></div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Tabak / nikotín</span><span class="val">~117 miliónov fajčiarov (26 % populácie EÚ)</span></div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:40%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Kanabis</span><span class="val">24 miliónov užívateľov za posledný rok, vek 15 – 64 (8,4 %)</span></div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:8.1%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Kokaín</span><span class="val">2,7 milióna užívateľov za posledný rok, len vek 15 – 34*</span></div>
+        <div class="bar-track"><div class="bar-fill grey" style="width:0.9%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Amfetamíny / ATS</span><span class="val">1,6 milióna užívateľov za posledný rok, len vek 15 – 34*</span></div>
+        <div class="bar-track"><div class="bar-fill grey" style="width:0.5%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Opioidy (vysokorizikoví užívatelia)</span><span class="val">860 000 vysokorizikových užívateľov, EÚ-27 (2023)</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:0.3%"></div></div>
+      </div>
+    </div>
+    <p style="margin-top:10px;font-size:12.5px;">*Údaje o kokaíne a ATS pokrývajú len vekovú skupinu 15 – 34 rokov — celkový údaj za celú EÚ vo veku 15 – 64 sa nepublikuje jednotne, takže tieto stĺpce podhodnocujú skutočný počet dospelých užívateľov a nie sú priamo porovnateľné svojím rozsahom s vyššie uvedenými údajmi o alkohole/tabaku/kanabise.</p>
+    <div class="callout blue">
+      <span class="lbl">Na grafe chýba: kofeín</span>
+      <p>Kofeín je takmer s istotou najpoužívanejšou psychoaktívnou látkou v EÚ — prostredníctvom kávy, čaju a nealkoholických nápojov ho pravdepodobne konzumuje väčšina z jej 450 miliónov obyvateľov. Žiadna agentúra EÚ nepublikuje presný celoúniový počet užívateľov, preto je z grafu vynechaný, namiesto nepresného odhadu.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Odkiaľ to skutočne pochádza</span>
+    <h2>Príčiny úmrtí v EÚ podľa látky</h2>
+    <p class="lede">V roku 2023 zomrelo 4,84 milióna obyvateľov EÚ. Tu je podiel pripísateľný jednotlivým kategóriám užívania látok.</p>
+    <div class="donut-wrap">
+      <div class="donut"></div>
+      <div class="donut-legend">
+        <div class="legend-item"><span class="dot red"></span><b>Tabak — 14,5 %</b> <span class="sub">(~700 000 úmrtí)</span></div>
+        <div class="legend-item"><span class="dot amber"></span><b>Alkohol — 6,0 %</b> <span class="sub">(~291 000 úmrtí)</span></div>
+        <div class="legend-item"><span class="dot blue"></span><b>Všetky nelegálne drogy — 0,15 %</b> <span class="sub">(~7 500 úmrtí)</span></div>
+        <div class="legend-item"><span class="dot grey"></span><b>Všetky ostatné príčiny — 79,35 %</b> <span class="sub">(kardiovaskulárne ochorenia, rakovina, respiračné ochorenia atď.)</span></div>
+      </div>
+    </div>
+    <h3 style="margin-top:40px;">Úmrtia spôsobené drogami v EÚ: odkiaľ pochádza 7 500 prípadov (2023)</h3>
+    <div class="barchart">
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Opioidy (podieľajú sa na 69 % prípadov)</span><span class="val">~5 175 úmrtí</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">— z toho konkrétne heroín</span><span class="val">~1 200 úmrtí</span></div>
+        <div class="bar-track"><div class="bar-fill grey" style="width:23%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Kokaín (nárast — 956 → 1 051 v hlásiacich krajinách)</span><span class="val">~1 050+ úmrtí</span></div>
+        <div class="bar-track"><div class="bar-fill amber" style="width:20%"></div></div>
+      </div>
+    </div>
+    <p style="margin-top:16px;">Rastúce riziko: <b style="color:var(--text)">nitazény</b> — syntetické opioidy až 1000-krát silnejšie než morfín — sa podieľajú na rastúcom podiele predávkovaní v Estónsku a Lotyšsku, podľa systému včasného varovania agentúry EUDA.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Celkový obraz</span>
+    <h2>Ako sa tabak a alkohol umiestňujú medzi ostatnými príčinami úmrtí v EÚ</h2>
+    <p class="lede">Úmrtia pripísateľné látkam nie sú oddelenou kategóriou od „skutočných" chorôb — tabak a alkohol zabíjajú ľudí <i>prostredníctvom</i> kardiovaskulárnych ochorení, rakoviny a respiračných ochorení. V porovnaní s ostatnými hlavnými príčinami úmrtí v EÚ sa radia takmer na samý vrchol.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Príčina úmrtia</th><th>Úmrtia v EÚ/rok</th><th>Podiel na všetkých úmrtiach v EÚ</th><th>Rok údajov</th><th>Typ</th></tr></thead>
+        <tbody>
+          <tr><td><b>Ochorenia obehovej sústavy</b> (srdcové ochorenia, mŕtvica atď.)</td><td>~1 588 000</td><td>32,8 %</td><td>2023</td><td><span class="type-badge icd">Kategória MKCH</span></td></tr>
+          <tr><td><b>Rakovina</b> (všetky typy)</td><td>~1 157 000</td><td>23,9 %</td><td>2023</td><td><span class="type-badge icd">Kategória MKCH</span></td></tr>
+          <tr class="risk-row"><td><b>Tabak</b> (pripísateľné — je súčasťou vyššie uvedených kategórií)</td><td>~700 000</td><td>14,5 %</td><td>2023</td><td><span class="type-badge risk">Rizikový faktor</span></td></tr>
+          <tr><td><b>Respiračné ochorenia</b> (nenádorové, napr. CHOCHP, zápal pľúc)</td><td>~377 500</td><td>7,8 %</td><td>2023</td><td><span class="type-badge icd">Kategória MKCH</span></td></tr>
+          <tr class="risk-row"><td><b>Alkohol</b> (pripísateľné — je súčasťou vyššie uvedených kategórií)</td><td>~291 000</td><td>6,0 %</td><td>2016 – 19</td><td><span class="type-badge risk">Rizikový faktor</span></td></tr>
+          <tr><td><b>Vonkajšie príčiny</b> (nehody, samovraždy, vraždy, pády)</td><td>~242 000</td><td>5,0 %</td><td>2023</td><td><span class="type-badge icd">Kategória MKCH</span></td></tr>
+          <tr class="sub-row"><td>— z toho cestná doprava</td><td>~20 400</td><td>0,4 %</td><td>2023</td><td></td></tr>
+          <tr class="sub-row"><td>— z toho samovraždy</td><td>~47 346</td><td>1,0 %</td><td>2021</td><td></td></tr>
+          <tr><td><b>Demencia</b>, vrátane Alzheimerovej choroby</td><td>~177 000</td><td>3,7 %</td><td>2022</td><td><span class="type-badge icd">Kategória MKCH</span></td></tr>
+          <tr><td><b>Diabetes mellitus</b> (cukrovka)</td><td>~114 400</td><td>2,4 %</td><td>2016</td><td><span class="type-badge icd">Kategória MKCH</span></td></tr>
+          <tr class="risk-row"><td><b>Všetky nelegálne drogy spolu</b> (pripísateľné)</td><td>~7 500</td><td>0,15 %</td><td>2023</td><td><span class="type-badge risk">Rizikový faktor</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <span class="lbl">Ako čítať túto tabuľku — nie ako jednoduchý súčet</span>
+      <p>Riadky označené ako <span class="type-badge risk">Rizikový faktor</span> nie sú samostatnou kategóriou popri riadkoch <span class="type-badge icd">Kategória MKCH</span> — prelínajú sa s nimi. Úmrtie na rakovinu pľúc spôsobené tabakom sa počíta raz, v rámci kategórie „Rakovina"; infarkt spôsobený tabakom sa počíta v rámci „Ochorení obehovej sústavy". Tabuľka sa preto nesčítava na 4,84 milióna, a ani by nemala. Ukazuje však toto: keby bol tabak samostatnou kategóriou chorôb, umiestnil by sa na <b>treťom mieste</b> — pred respiračnými ochoreniami, pred demenciou, pred všetkými vonkajšími príčinami úmrtí spolu, a bol by približne 93-krát väčší než všetky nelegálne drogy dokopy.</p>
+    </div>
+
+    <h3 style="margin-top:44px;">Úmrtia v EÚ podľa širokých kategórií — a odkiaľ skutočne pochádzajú úmrtia na rakovinu</h3>
+    <div class="donut-row">
+      <div class="donut-col">
+        <h4>Všetky úmrtia v EÚ, 2023 (4,84 milióna)</h4>
+        <div class="donut small" style="background:conic-gradient(
+          var(--red) 0% 32.8%,
+          var(--amber) 32.8% 56.7%,
+          var(--blue) 56.7% 64.5%,
+          var(--purple) 64.5% 69.5%,
+          var(--surface-2) 69.5% 100%
+        );"></div>
+        <div class="donut-legend" style="margin-top:18px;">
+          <div class="legend-item"><span class="dot red"></span><b>Obehová sústava — 32,8 %</b></div>
+          <div class="legend-item"><span class="dot amber"></span><b>Rakovina — 23,9 %</b></div>
+          <div class="legend-item"><span class="dot blue"></span><b>Dýchacia sústava — 7,8 %</b></div>
+          <div class="legend-item"><span class="dot purple"></span><b>Vonkajšie príčiny — 5,0 %</b></div>
+          <div class="legend-item"><span class="dot grey"></span><b>Všetko ostatné (cukrovka, demencia, infekčné choroby atď.) — 30,5 %</b></div>
+        </div>
+      </div>
+      <div class="donut-col">
+        <h4>Vnútri ~1,27 milióna úmrtí na rakovinu v EÚ (2020, EÚ-27)</h4>
+        <div class="donut small" style="background:conic-gradient(
+          var(--red) 0% 20.3%,
+          var(--amber) 20.3% 32.6%,
+          var(--green) 32.6% 39.8%,
+          var(--blue) 39.8% 44.0%,
+          var(--purple) 44.0% 47.4%,
+          var(--surface-2) 47.4% 100%
+        );"></div>
+        <div class="donut-legend" style="margin-top:18px;">
+          <div class="legend-item"><span class="dot red"></span><b>Pľúca — 20,3 %</b> <span class="sub">(257 300)</span></div>
+          <div class="legend-item"><span class="dot amber"></span><b>Hrubé črevo a konečník — 12,3 %</b> <span class="sub">(156 100)</span></div>
+          <div class="legend-item"><span class="dot green"></span><b>Prsník (ženy) — 7,2 %</b> <span class="sub">(91 800)</span></div>
+          <div class="legend-item"><span class="dot blue"></span><b>Pečeň — 4,2 %</b> <span class="sub">(53 900)</span></div>
+          <div class="legend-item"><span class="dot purple"></span><b>Ústna dutina / hltan / hrtan — 3,4 %</b> <span class="sub">(43 400)</span></div>
+          <div class="legend-item"><span class="dot grey"></span><b>Všetky ostatné lokalizácie rakoviny — 52,6 %</b></div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:16px;font-size:12.5px;">Rakovina pľúc je v Európe približne z 80 – 90 % pripísateľná fajčeniu; rakovina ústnej dutiny, hltana a hrtana sú lokalizácie najviac ovplyvnené synergiou alkoholu a tabaku, podrobne opísanou v nasledujúcej časti. Údaje podľa lokalizácie rakoviny pochádzajú z EÚ-27, 2020 (ECIS); graf širokých kategórií používa súhrnné údaje Eurostatu za rok 2023 — mierny nesúlad rokov uvádzame kvôli transparentnosti.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Karcinogenita</span>
+    <h2>Ktoré z týchto látok skutočne spôsobujú rakovinu?</h2>
+    <p class="lede">IARC (agentúra WHO pre výskum rakoviny) klasifikuje karcinogény podľa sily dôkazov, nie podľa miery rizika. Najprísnejšie kritérium spĺňajú len dve látky z tohto zoznamu — a práve tie sú v EÚ najviac konzumované.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Látka</th><th>Klasifikácia IARC</th><th>Zdôvodnenie</th></tr></thead>
+        <tbody>
+          <tr><td><b>Alkohol</b> (etanol v nápojoch)</td><td><span class="badge g1">Skupina 1 – Karcinogénne</span></td><td>Spôsobuje rakovinu ústnej dutiny, hltana, hrtana, pažeráka, pečene, hrubého čreva a konečníka a prsníka u žien. Vzťah dávka – účinok, bez bezpečnej hranice.</td></tr>
+          <tr><td><b>Tabak</b> (fajčený aj bezdymový)</td><td><span class="badge g1">Skupina 1 – Karcinogénne</span></td><td>Spôsobuje odhadom 19 % všetkých druhov rakoviny; pľúca, ústa, hrdlo, močový mechúr, pankreas, krčok maternice a ďalšie.</td></tr>
+          <tr><td><b>Kanabis</b> (fajčený)</td><td><span class="badge unclass">Zatiaľ neklasifikované</span></td><td>Dym obsahuje podobné karcinogény zo spaľovania (PAU) ako tabakový dym, epidemiologické dôkazy o rakovine sú však „naznačujúce, nie presvedčivé". Prvé formálne hodnotenie IARC je naplánované na november 2026.</td></tr>
+          <tr><td><b>Opioidy</b></td><td><span class="badge none">Bez klasifikácie</span></td><td>Nemajú preukázaný karcinogénny mechanizmus; vo veľkom sa používajú v medicíne.</td></tr>
+          <tr><td><b>Kokaín / amfetamíny</b></td><td><span class="badge none">Bez klasifikácie</span></td><td>Nemajú preukázaný karcinogénny mechanizmus; škodlivosť je prevažne kardiovaskulárna.</td></tr>
+          <tr><td><b>Kofeín / káva</b></td><td><span class="badge g3">Skupina 3 – Neklasifikovateľné</span></td><td>V roku 2016 preradené z nižšej kategórie 2B po preskúmaní vyše 1 000 štúdií.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Hĺbková analýza — Alkohol</span>
+    <h2>Ako alkohol pôsobí na telo, systém po systéme</h2>
+    <p class="lede">Alkohol nie je rizikom len pre jeden orgán. Je jednou z mála látok na tomto zozname, ktorá merateľne poškodzuje takmer každý orgánový systém — dôkazy sú natoľko silné, že hlavné zdravotnícke orgány prestali akúkoľvek dávku označovať za „ochrannú".</p>
+    <div class="organ-grid">
+      <div class="organ-card">
+        <h4>🫀 Pečeň</h4>
+        <p>Stukovatenie pečene → alkoholová hepatitída → cirhóza. Riziko prudko stúpa nad približne 2 nápoje denne pri dlhodobom užívaní počas rokov.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🎗️ Rakovina</h4>
+        <p>Karcinogén skupiny 1 podľa IARC — príčinne spojený s rakovinou úst, hrdla, pažeráka, pečene, hrubého čreva a konečníka a prsníka. Riziko stúpa so spotrebou a neexistuje hranica, pod ktorou by bolo nulové; aj ľahké až mierne pitie zvyšuje riziko rakoviny prsníka u žien. (Kompletná modelovaná analýza nižšie.)</p>
+      </div>
+      <div class="organ-card">
+        <h4>❤️ Kardiovaskulárny systém</h4>
+        <p>Chronické nadmerné užívanie zvyšuje krvný tlak, spôsobuje kardiomyopatiu a zvyšuje riziko mozgovej príhody a fibrilácie predsiení. Staršie tvrdenie, že „červené víno je zdravé pre srdce", bolo výrazne prehodnotené: rozsiahle kohortové štúdie a štúdie mendelovskej randomizácie naznačujú, že skoršia pozorovacia súvislosť bola skreslená (efekt „chorých abstinentov", životný štýl). WHO a čoraz viac národných odporúčaní už neuznáva žiadnu „ochrannú" dávku.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🧠 Mozog a nervový systém</h4>
+        <p>Neurotoxický — zhoršuje pamäť a kognitívne funkcie. Chronické nadmerné užívanie súvisí so zmenšením objemu mozgu a vyšším rizikom demencie, ako aj s periférnou neuropatiou.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🧩 Duševné zdravie a závislosť</h4>
+        <p>Závislosť, zhoršenie úzkosti a depresie a narušená štruktúra spánku — alkohol potláča REM spánok napriek tomu, že spočiatku pôsobí upokojujúco.</p>
+      </div>
+      <div class="organ-card">
+        <h4>⚖️ Metabolický systém</h4>
+        <p>Nárast hmotnosti (7 kcal/g „prázdnych" kalórií), riziko pankreatitídy a narušenie regulácie hladiny cukru v krvi.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🛡️ Imunitný systém a zranenia</h4>
+        <p>Oslabená funkcia imunitného systému a výrazne zvýšené riziko zranení a nehôd pri opitosti.</p>
+      </div>
+      <div class="organ-card">
+        <h4>🤰 Tehotenstvo</h4>
+        <p>Neexistuje žiadne známe bezpečné množstvo. Prenatálna expozícia nesie riziko fetálneho alkoholového spektra porúch (FASD).</p>
+      </div>
+    </div>
+    <div class="callout">
+      <span class="lbl">Na dávke záleží — no nie tak, ako sa učilo predtým</span>
+      <p>Pri väčšine vyššie uvedených ochorení riziko približne stúpa s dávkou, no v prípade rakoviny je tento vzťah nelineárny a začína už od nuly. Práve tento rozdiel je hlavnou zmenou v komunikácii verejného zdravia za posledných niekoľko rokov: od posolstva „mierne pitie je v poriadku" smerom k „menej je lepšie, najlepšie je nič".</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Nová analýza — odpoveď na náročnejšiu otázku</span>
+    <h2>Akou mierou prispieva alkohol k úmrtiam na rakovinu, ktoré nie sú oficiálne „spôsobené" alkoholom?</h2>
+    <p class="lede">Oficiálne štatistiky pripisujú alkoholu približne 79 000 úmrtí na rakovinu v EÚ ročne. Toto číslo je reálne — je však postavené na modeli, ktorý priraďuje každé úmrtie na rakovinu jednému dominantnému rizikovému faktoru. Štrukturálne preto nedokáže zachytiť, čo sa deje, keď alkohol a tabak pôsobia spoločne.</p>
+
+    <h3>Krok 1 — Oficiálny, priamy počet</h3>
+    <p>Recenzovaná štúdia za EÚ-27 odhadla <b style="color:var(--text)">78 985 úmrtí na rakovinu pripísateľných alkoholu v roku 2016</b> (95 % interval spoľahlivosti 75 498 – 91 102): 56 207 u mužov, 22 778 u žien, a 1,9 milióna stratených rokov života. Tieto úmrtia pochádzajú zo siedmich lokalizácií rakoviny, ktoré IARC uznáva ako príčinne spojené s alkoholom: ústna dutina, hltan, hrtan, pažerák, hrubé črevo a konečník, pečeň a prsník u žien.</p>
+
+    <h3 style="margin-top:32px;">Krok 2 — Kde oficiálny model pravdepodobne podhodnocuje</h3>
+    <p>Pri troch z týchto lokalizácií — ústna dutina, hltan a hrtan — alkohol len zriedka pôsobí samostatne. Spoločná analýza konzorcia INHANCE zameraná na nádory hlavy a krku (Hashibe a kol., <i>Cancer Epidemiology, Biomarkers & Prevention</i>, 2009) zistila, že kombinovaný účinok alkoholu a tabaku je <b style="color:var(--text)">väčší než multiplikatívny</b> (interakcia ψ = 2,15, 95 % IS 1,53 – 3,04) — obe látky navzájom zosilňujú svoje poškodenie, namiesto toho, aby sa jednoducho sčítavali.</p>
+    <div class="calc-box">
+      <div class="row"><span>Populačné pripísateľné riziko, nádory hlavy a krku — samotný alkohol</span><span>4 %</span></div>
+      <div class="row"><span>Populačné pripísateľné riziko — samotný tabak</span><span>33 %</span></div>
+      <div class="row"><span>Populačné pripísateľné riziko — spoločný / synergický efekt (potrebné oboje)</span><span>35 %</span></div>
+      <div class="row"><span>Celkovo pripísateľné tabaku a alkoholu spolu</span><span>72 %</span></div>
+    </div>
+
+    <h3 style="margin-top:32px;">Krok 3 — Prepočet na úmrtia v EÚ</h3>
+    <p>EÚ-27 eviduje ročne približne 43 400 úmrtí na rakovinu ústnej dutiny, hltana a hrtana spolu (ECIS, 2020: 31 800 + 11 600). Po uplatnení rozdelenia INHANCE na tento súčet:</p>
+    <div class="calc-box">
+      <div class="row"><span>Úmrtia na rakovinu ústnej dutiny + hltana + hrtana v EÚ-27/rok</span><span>~43 400</span></div>
+      <div class="row"><span>Pripísateľné samotnému alkoholu (4 %)</span><span>~1 700</span></div>
+      <div class="row"><span>Pripísateľné samotnému tabaku (33 %)</span><span>~14 300</span></div>
+      <div class="row"><span>Pripísateľné spoločnému účinku alkoholu a tabaku (35 %)</span><span>~15 200</span></div>
+    </div>
+    <div class="callout red">
+      <span class="lbl">Odhad</span>
+      <p>Približne <b>15 000 úmrtí v EÚ ročne</b> na nádory hlavy a krku nastáva len preto, že sa alkohol a tabak konzumujú spoločne — ide o úmrtia, ktoré samostatná štatistika „pripísateľné alkoholu" nezapočítava alkoholu, pretože samotný alkohol (bez prítomnosti fajčenia) by vysvetlil len približne 1 700 z týchto istých úmrtí. Ak sa započíta synergia, alkohol je nevyhnutnou prispievajúcou príčinou až v <b>39 % úmrtí na nádory hlavy a krku v EÚ (~16 900/rok)</b> — teda približne desaťkrát viac, než by naznačoval model „samotného alkoholu".</p>
+    </div>
+
+    <h3 style="margin-top:32px;">Krok 4 — Ďalšie dve cesty, tu nekvantifikované</h3>
+    <p>K záťaži spôsobenej alkoholom pravdepodobne prispievajú aj ďalšie dva mechanizmy, chýba pre ne však spoľahlivý celoúniový kvantitatívny odhad, preto tu nie je uvedené žiadne číslo — je čestnejšie na ne upozorniť, než si číslo vymyslieť:</p>
+    <ul style="margin-top:12px;padding-left:20px;">
+      <li style="color:var(--text-2);font-size:14px;margin-bottom:8px;"><b style="color:var(--text)">Sprostredkovanie obezitou:</b> alkohol má vysokú energetickú hodnotu (7 kcal/g) a prispieva k nárastu hmotnosti; obezita samotná je preukázanou príčinou najmenej 13 typov rakoviny. Podiel úmrtí na rakovinu súvisiacich s obezitou v EÚ, ktorý možno konkrétne pripísať alkoholu, sa v literatúre spoľahlivo nepodarilo izolovať.</li>
+      <li style="color:var(--text-2);font-size:14px;margin-bottom:8px;"><b style="color:var(--text)">Interakcia s imunitou a HPV:</b> niektoré dôkazy naznačujú, že nadmerné pitie môže oslabovať imunitné odstraňovanie HPV, čo je samostatný a rastúci faktor orofaryngeálnej rakoviny — mechanizmus odlišný od vyššie uvedenej synergie s tabakom, zatiaľ však nekvantifikovaný na populačnej úrovni.</li>
+    </ul>
+
+    <div class="callout" style="margin-top:28px;">
+      <span class="lbl">Zhrnutie — a jeho limity</span>
+      <p>Medzi oficiálnym priamym počtom (~79 000/rok) a modelovaným dodatkom v podobe synergie s tabakom, obmedzeným na nádory hlavy a krku (~15 000/rok), je pravdepodobný skutočný dopad alkoholu na výskyt rakoviny v EÚ výrazne vyšší, než naznačuje hlavné uvádzané číslo — tieto dve hodnoty sa však <b>nedajú jednoducho sčítať</b>: nie je totiž známe, do akej miery už oficiálny údaj ~79 000 implicitne zohľadňuje časť spoločného rizika, keďže štúdie sa líšia v tom, či zohľadňujú fajčenie. Hodnotu ~79 000 považujte za pevné minimum, ~15 000 za dobre podloženú, no samostatne modelovanú dodatočnú expozíciu špecifickú pre nádory hlavy a krku, a skutočný súčet za úprimne neistý — pravdepodobne v rozmedzí ~85 000 – 95 000+, teda nie presné číslo, aké v súčasnosti publikuje akákoľvek agentúra.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Ostrejší pohľad</span>
+    <h2>Riziko na užívateľa v EÚ: sústredené verzus rozptýlené nebezpečenstvo</h2>
+    <p class="lede">Keď sa počet úmrtí v EÚ vydelí počtom užívateľov v EÚ za rovnaký rok, ukáže sa niečo, čo celkové počty úmrtí skrývajú: človek, ktorý sa stane vysokorizikovým užívateľom opioidov, čelí takmer presne rovnakej ročnej miere úmrtnosti ako priemerný fajčiar v EÚ.</p>
+    <div class="barchart">
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Opioidy (vysokorizikoví užívatelia)</span><span class="val">~6,0 úmrtí na 1 000 užívateľov/rok</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Tabak</span><span class="val">~6,0 úmrtí na 1 000 užívateľov/rok</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:99%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Alkohol</span><span class="val">~1,0 úmrtia na 1 000 užívateľov/rok</span></div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:17%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span class="name">Kanabis</span><span class="val">Takmer nulové riziko priameho smrteľného predávkovania</span></div>
+        <div class="bar-track"><div class="bar-fill grey" style="width:2%"></div></div>
+      </div>
+    </div>
+    <div class="callout">
+      <span class="lbl">Čítajte pozorne</span>
+      <p>Tabak: ~700 000 úmrtí v EÚ ÷ ~117 miliónov fajčiarov v EÚ. Opioidy: ~5 175 úmrtí v EÚ súvisiacich s opioidmi ÷ 860 000 vysokorizikových užívateľov v EÚ. Alkohol: ~291 000 úmrtí v EÚ ÷ ~295 miliónov konzumentov v EÚ. Ide o rádovo orientačné odhady, ktoré delia údaje za rovnaký región a rovnaké obdobie — nie sú epidemiologicky upravené podľa dávky, veku ani dĺžky užívania. Kokaín a ATS sú vynechané: celoúniové údaje o počte všetkých dospelých užívateľov pre tieto dve látky sa nepublikujú jednotne, takže neexistuje spoľahlivý menovateľ.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Doplnkové dôkazy</span>
+    <h2>Rebríček škodlivosti podľa panelu expertov (Nutt a kol., <i>The Lancet</i>, 2010, Spojené kráľovstvo)</h2>
+    <p class="lede">Najčastejšie citované viackriteriálne expertné hodnotenie jednej európskej krajiny ohodnotilo 20 drog na škále 0 – 100 podľa škodlivosti pre používateľa <i>a</i> škodlivosti pre iných (kriminalita, rodina, ekonomické náklady). Má už 16 rokov, no neexistuje porovnateľne dôkladná aktualizácia za celú EÚ — zdravotnícke orgány EÚ ho napriek tomu stále citujú.</p>
+    <div class="barchart">
+      <div class="bar-row"><div class="bar-top"><span class="name">Alkohol</span><span class="val">72 / 100</span></div><div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div></div>
+      <div class="bar-row"><div class="bar-top"><span class="name">Heroín</span><span class="val">55 / 100</span></div><div class="bar-track"><div class="bar-fill red" style="width:76%"></div></div></div>
+      <div class="bar-row"><div class="bar-top"><span class="name">Crack kokaín</span><span class="val">54 / 100</span></div><div class="bar-track"><div class="bar-fill red" style="width:75%"></div></div></div>
+      <div class="bar-row"><div class="bar-top"><span class="name">Crystal metamfetamín</span><span class="val">33 / 100</span></div><div class="bar-track"><div class="bar-fill amber" style="width:46%"></div></div></div>
+      <div class="bar-row"><div class="bar-top"><span class="name">Kokaín (prášok)</span><span class="val">27 / 100</span></div><div class="bar-track"><div class="bar-fill amber" style="width:38%"></div></div></div>
+      <div class="bar-row"><div class="bar-top"><span class="name">Tabak</span><span class="val">26 / 100</span></div><div class="bar-track"><div class="bar-fill amber" style="width:36%"></div></div></div>
+      <div class="bar-row"><div class="bar-top"><span class="name">Amfetamín</span><span class="val">23 / 100</span></div><div class="bar-track"><div class="bar-fill blue" style="width:32%"></div></div></div>
+      <div class="bar-row"><div class="bar-top"><span class="name">Kanabis</span><span class="val">20 / 100</span></div><div class="bar-track"><div class="bar-fill blue" style="width:28%"></div></div></div>
+    </div>
+    <p style="margin-top:14px;font-size:13px;">Kompletný zoznam 20 hodnotených drog obsahoval aj (nižšia škodlivosť): benzodiazepíny 15, ketamín 15, metadón 14, mefedrón 13, khat 9, extáza 9, LSD 7, huby (psilocybín) 5. Kofeín nebol v tejto štúdii hodnotený.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Hlavné porovnanie</span>
+    <h2>Kompletný rebríček EÚ, vedľa seba</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Látka</th><th>Používatelia v EÚ</th><th>Úmrtia v EÚ/rok</th><th>Klasifikácia IARC</th><th>Právny status (EÚ)</th></tr></thead>
+        <tbody>
+          <tr><td><b>Tabak</b></td><td>~117 miliónov</td><td>~700 000</td><td><span class="badge g1">Skupina 1</span></td><td>Legálne, regulované</td></tr>
+          <tr><td><b>Alkohol</b></td><td>~295 miliónov</td><td>~291 000 (~79 000 oficiálne rakovina + ~15 000 modelovaný dodatok zo synergie s tabakom)</td><td><span class="badge g1">Skupina 1</span></td><td>Legálne, regulované</td></tr>
+          <tr><td><b>Kofeín</b></td><td>Väčšina z 450 mil. obyv. (odhad)</td><td>Zanedbateľné</td><td><span class="badge g3">Skupina 3</span></td><td>Legálne, neregulované</td></tr>
+          <tr><td><b>Opioidy</b> (vysokorizikoví užívatelia)</td><td>860 000</td><td>~5 175</td><td><span class="badge none">Bez klasifikácie</span></td><td>Nelegálne / len na predpis</td></tr>
+          <tr><td><b>Kanabis</b></td><td>24 miliónov (15 – 64)</td><td>Nepreukázané</td><td><span class="badge unclass">Prebieha (2026)</span></td><td>Líši sa podľa členského štátu</td></tr>
+          <tr><td><b>Amfetamíny / ATS</b></td><td>1,6 milióna (15 – 34)*</td><td>Súčasť súhrnu nelegálnych drog</td><td><span class="badge none">Bez klasifikácie</span></td><td>Nelegálne</td></tr>
+          <tr><td><b>Kokaín</b></td><td>2,7 milióna (15 – 34)*</td><td>~1 050+ (rastúci trend)**</td><td><span class="badge none">Bez klasifikácie</span></td><td>Nelegálne</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:10px;font-size:12px;">*Len podskupina mládeže (15 – 34), rozsahom neporovnateľná s vyššie uvedenými údajmi za celú populáciu. **Podskupina 20 hlásiacich krajín, nie celá EÚ-27.</p>
+    <div class="callout">
+      <span class="lbl">Obmedzenia údajov — prečítajte si pred citovaním</span>
+      <p>Údaje pochádzajú z najnovších vydaní jednotlivých zdrojov (údaje o alkohole sa viažu na roky 2016 – 2019; údaje EUDA/ECIS väčšinou na roky 2020 – 2023) a nie sú dokonale časovo zosynchronizované. Hlásenie úmrtí spôsobených drogami sa líši podľa krajiny a praxe koronerov a pravdepodobne podhodnocuje úmrtia pri kombinovanom užívaní viacerých látok. Úmrtnosť špecificky súvisiacu s kokaínom/ATS nemožno v EÚ presne oddeliť od súhrnných údajov o „nelegálnych drogách". Skóre škodlivosti podľa Nutta je expertný odhad z roku 2010 zo Spojeného kráľovstva, nie počet úmrtí. Karcinogenita kanabisu je úprimne nevyriešená otázka, čaká sa na hodnotenie IARC v roku 2026. Odhad synergie alkoholu a tabaku (kroky 2 – 3 vyššie) je transparentný model postavený na publikovaných údajoch o relatívnom riziku, nejde o oficiálnu vládnu štatistiku — považujte ho za orientačný.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Politická reakcia</span>
+    <h2>Čo podporujú dôkazy, látka po látke</h2>
+    <p class="lede">Zoradené podľa potenciálneho počtu zachránených životov na vynaložené euro, nie podľa politickej príťažlivosti.</p>
+
+    <div class="policy-card">
+      <div class="head"><h3>1. Tabak — najvyššia priorita</h3><span class="priority p1">700-tis. úmrtí v EÚ/rok</span></div>
+      <ul>
+        <li><b>Spotrebné dane:</b> iniciatíva WHO „3×35" z roku 2025 modeluje zvýšenie reálnej ceny tabaku (spolu s alkoholom a sladenými nápojmi) o 50 % do roku 2035 ako investíciu do verejného zdravia s najvyššou návratnosťou, akú má akákoľvek vláda k dispozícii.</li>
+        <li><b>Kompletný balík MPOWER:</b> len štyri krajiny na svete (Brazília, Maurícius, Holandsko, Turecko) zaviedli celý balík WHO. Jednotné obaly, grafické varovania, komplexné zákazy reklamy a priestory bez fajčenia sú jednotlivo preukázané; ich súčasné zavedenie účinok znásobuje.</li>
+        <li><b>Regulácia elektronických cigariet a príchutí:</b> správa WHO Európa (2025) upozorňuje na prudký nárast vapovania medzi mládežou v regióne s najvyššou mierou fajčenia na svete.</li>
+        <li><b>Podpora pri odvykaní:</b> dotovať náhradnú nikotínovú terapiu a vareniklín v rámci národných zdravotných systémov.</li>
+      </ul>
+    </div>
+
+    <div class="policy-card">
+      <div class="head"><h3>2. Alkohol — najvyššia priorita</h3><span class="priority p1">291-tis. úmrtí v EÚ/rok, z toho ~79 – 95-tis. na rakovinu</span></div>
+      <ul>
+        <li><b>Minimálna jednotková cena:</b> skúsenosti Škótska a Írska ukazujú, že špecificky znižuje spotrebu u najťažších konzumentov, ktorí sú zodpovední za väčšinu úmrtí pripísateľných alkoholu.</li>
+        <li><b>Povinné varovné označenia o riziku rakoviny:</b> Írsko prijalo svetovo prvé takéto označenia s účinnosťou od roku 2026, no následne ich odložilo na rok 2028 pod tlakom priemyslu a obchodných partnerov — živý varovný príklad pre každú vládu, ktorá by chcela urobiť to isté. Zvážte ukotvenie termínu prostredníctvom koordinácie na úrovni EÚ namiesto konania jedného členského štátu.</li>
+        <li><b>Obmedzenia marketingu:</b> rámec WHO SAFER vyzýva na presadzovanie zákazov reklamy a sponzorstva alkoholu, najmä tam, kde zasahuje maloletých.</li>
+        <li><b>Spoločná komunikácia o odvykaní od alkoholu a tabaku:</b> vzhľadom na vyššie uvedené dôkazy o synergii môžu kampane a klinický skríning zamerané na ťažkých konzumentov alkoholu, ktorí zároveň fajčia, zabrániť neprimerane väčšiemu počtu úmrtí na nádory hlavy a krku než ktorákoľvek správa samostatne.</li>
+      </ul>
+    </div>
+
+    <div class="policy-card">
+      <div class="head"><h3>3. Opioidy, kokaín a ATS — cielené znižovanie škôd</h3><span class="priority p2">~7 500 úmrtí v EÚ/rok, rastúci trend</span></div>
+      <ul>
+        <li><b>Naloxón a testovanie drog:</b> rozšíriť dostupnosť naloxónu na domáce použitie a testovanie drog priamo v teréne, čo priamo rieši rastúcu hrozbu nitazénov zaznamenanú v Estónsku a Lotyšsku.</li>
+        <li><b>Substitučná liečba opioidmi (OAT):</b> v súčasnosti dosahuje ~511 000 z 860 000 vysokorizikových užívateľov opioidov v EÚ — rozšírenie pokrytia zvyšných ~350 000 je jedným z najlepšie podložených nástrojov na zníženie úmrtnosti.</li>
+        <li><b>Zariadenia s dohľadom nad užívaním drog:</b> tam, kde už boli v členských štátoch EÚ vyskúšané, dôkazy podporujú ich rozšírenie.</li>
+        <li><b>Dekriminalizácia držby:</b> portugalský model z roku 2001 je spájaný so znížením počtu úmrtí spôsobených drogami a prenosu HIV počas dvoch desaťročí — uvádzame ho ako možnosť podloženú dôkazmi, nie ako ustálený konsenzus.</li>
+      </ul>
+    </div>
+
+    <div class="policy-card">
+      <div class="head"><h3>4. Kanabis — otvorená politická voľba, dôkazy sa ešte formujú</h3><span class="priority p3">Úmrtnosť/riziko rakoviny nepreukázané</span></div>
+      <ul>
+        <li><b>Súčasný stav (zákaz):</b> vyhýba sa riziku normalizácie, no ponecháva trh neregulovaný pre látku s nižším expertným skóre škodlivosti (20/100) než alkohol (72) alebo tabak (26).</li>
+        <li><b>Dekriminalizácia držby:</b> Portugalsko, Česko — odstraňuje trestnú sankciu pre užívateľov, pričom dodávka zostáva nelegálna.</li>
+        <li><b>Regulovaný legálny trh:</b> Nemecko (2024), Malta, holandský model coffee shopov — umožňuje kontrolu sily a kvality a daňové príjmy, za cenu pravdepodobného nárastu rozšírenosti.</li>
+        <li><b>Počkať na IARC:</b> hodnotenie monografie v novembri 2026 bude prvým formálnym verdiktom o riziku rakoviny od svetovej referenčnej autority.</li>
+      </ul>
+    </div>
+
+    <div class="policy-card">
+      <div class="head"><h3>5. Kofeín — nie je potrebný výraznejší zásah</h3><span class="priority p3">Zanedbateľný signál úmrtnosti/rakoviny</span></div>
+      <ul>
+        <li>Existujúce usmernenie EFSA (400 mg/deň pre zdravých dospelých) zostáva relevantným bezpečnostným limitom.</li>
+        <li>Zvážiť vekové obmedzenia alebo označovanie energetických nápojov s vysokým obsahom kofeínu určených maloletým, ako to už urobilo viacero členských štátov.</li>
+      </ul>
+    </div>
+
+    <div class="callout blue" style="margin-top:8px;">
+      <span class="lbl">Prierezové odporúčanie</span>
+      <p>Presadzovanie práva a mediálna pozornosť sú vo väčšine štátov EÚ výrazne zamerané na nelegálne drogy, ktoré spôsobujú menej než 0,2 % úmrtí pripísateľných látkam. Alkohol a tabak spôsobujú zvyšných 99,8 % — a skutočná záťaž alkoholu na výskyt rakoviny je po započítaní synergie s tabakom vyššia než hlavné uvádzané číslo. Prerozdelenie zdrojov smerom k škodlivosti podloženej dôkazmi je jedinou štrukturálnou zmenou s najväčším dopadom, akú máme k dispozícii.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Zdroje</h3>
+    <ul class="src-list">
+      <li><a href="https://www.who.int/europe/news/item/24-12-2025-1-in-3-injury-deaths-caused-by-alcohol--who-europe-reiterates-the-harms">WHO/Európa — prehľad o užívaní alkoholu, regionálne úmrtia</a></li>
+      <li><a href="https://health.ec.europa.eu/tobacco/overview_en">Európska komisia — prehľad o tabaku, ~700 000 úmrtí v EÚ/rok</a></li>
+      <li><a href="https://www.who.int/publications/i/item/9789240116276">WHO — globálna správa o trendoch užívania tabaku, rozšírenosť v EÚ/Európe</a></li>
+      <li><a href="https://www.euda.europa.eu/publications/european-drug-report/2025/drug-induced-deaths_en">EUDA/EMCDDA — Európska správa o drogách 2025, úmrtia spôsobené drogami</a></li>
+      <li><a href="https://www.euda.europa.eu/publications/european-drug-report/2025/cannabis_en">EUDA — kanabis, súčasná situácia v Európe (2025)</a></li>
+      <li><a href="https://www.euda.europa.eu/publications/european-drug-report/2025/cocaine_en">EUDA — kokaín, súčasná situácia v Európe (2025)</a></li>
+      <li><a href="https://www.rehabguide.co.uk/opioid-crisis-in-europe-facts-figures-2023/">EMCDDA (2023) — ~860 000 vysokorizikových užívateľov opioidov v EÚ</a></li>
+      <li><a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Causes_of_death_statistics">Eurostat — štatistiky príčin úmrtí, 4,84 mil. úmrtí v EÚ (2023)</a></li>
+      <li><a href="https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20260313-1">Euro
