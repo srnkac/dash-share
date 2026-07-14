@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Value Screen — 14 Jul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f0f10; --surface:#1a1a1d; --border:#2a2a2d;
+  --text:#ffffff; --muted:#a0a0a0;
+  --accent:#D97757; --accent-soft:rgba(217,119,87,.15);
+  --green:#4ade80; --green-soft:rgba(74,222,128,.12);
+  --red:#f87171; --red-soft:rgba(248,113,113,.12);
+  --blue:#60a5fa; --blue-soft:rgba(96,165,250,.12);
+  --yellow:#facc15; --yellow-soft:rgba(250,204,21,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+header{padding:72px 0 40px;border-bottom:1px solid var(--border)}
+.kicker{color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:13px;margin-bottom:12px}
+h1{font-size:40px;font-weight:800;line-height:1.15;margin-bottom:14px}
+.sub{color:var(--muted);font-size:17px;max-width:720px}
+section{padding:64px 0;border-bottom:1px solid var(--border)}
+h2{font-size:26px;font-weight:700;margin-bottom:8px}
+.h2sub{color:var(--muted);margin-bottom:32px;font-size:15px}
+.eu-flag{display:inline-block;background:var(--blue-soft);color:var(--blue);font-size:13px;font-weight:600;padding:4px 12px;border-radius:999px;margin-left:10px;vertical-align:middle}
+.us-flag{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:600;padding:4px 12px;border-radius:999px;margin-left:10px;vertical-align:middle}
+/* stat cards */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.stat .num{font-size:28px;font-weight:800;color:var(--accent)}
+.stat .lbl{color:var(--muted);font-size:13px;margin-top:4px}
+/* pick cards */
+.pick{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px}
+.pick-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.rank{background:var(--accent);color:#0f0f10;font-weight:800;font-size:14px;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;position:relative;top:4px}
+.pick h3{font-size:21px;font-weight:700}
+.ticker{color:var(--muted);font-size:14px;font-weight:500}
+.badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+.badge.green{background:var(--green-soft);color:var(--green)}
+.badge.yellow{background:var(--yellow-soft);color:var(--yellow)}
+.badge.blue{background:var(--blue-soft);color:var(--blue)}
+.biz{color:var(--muted);font-size:14px;margin-bottom:18px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+.metric{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.metric .v{font-weight:700;font-size:17px}
+.metric .k{color:var(--muted);font-size:12px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.box{border-radius:8px;padding:16px 18px;font-size:14px}
+.box b{display:block;margin-bottom:6px;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.box.thesis{background:var(--green-soft)} .box.thesis b{color:var(--green)}
+.box.bear{background:var(--red-soft)} .box.bear b{color:var(--red)}
+.taxnote{margin-top:14px;font-size:13px;color:var(--muted);border-left:3px solid var(--blue);padding-left:12px}
+/* margin of safety bars */
+.mos{margin-top:16px}
+.mos .lblrow{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+.bar{background:var(--bg);border:1px solid var(--border);border-radius:999px;height:10px;overflow:hidden}
+.fill{height:100%;background:var(--accent);border-radius:999px}
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+th{text-align:left;color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--border)}
+td{padding:12px;border-bottom:1px solid var(--border)}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.tablewrap{overflow-x:auto}
+/* callout */
+.callout{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:8px;padding:20px 24px;margin-top:24px;font-size:15px}
+.callout b{color:var(--accent)}
+footer{padding:40px 0 64px;color:var(--muted);font-size:13px}
+@media(max-width:720px){
+  .stats,.metrics{grid-template-columns:repeat(2,1fr)}
+  .row{grid-template-columns:1fr}
+  h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Weekly Value Screen</div>
+  <h1>Deep Value &amp; Wide Moat — 14 July 2026</h1>
+  <p class="sub">Buffett/Munger-style screen: durable moats, temporary sentiment overhangs, large margins of safety. Europe first, then US/Global. Four names cleared the bar this week; conviction-ranked.</p>
+  <div class="stats">
+    <div class="stat"><div class="num">4</div><div class="lbl">Picks this week (3 EU, 1 US)</div></div>
+    <div class="stat"><div class="num">~40–55%</div><div class="lbl">Est. margin of safety range</div></div>
+    <div class="stat"><div class="num">6–11×</div><div class="lbl">Earnings/FCF multiples across picks</div></div>
+    <div class="stat"><div class="num">↑ ~2%</div><div class="lbl">STOXX 600 recent move — value still lagging</div></div>
+  </div>
+</header>
+
+<section>
+  <h2>European Picks <span class="eu-flag">EU — priority universe</span></h2>
+  <p class="h2sub">All three are quality franchises knocked down by sentiment, not by broken economics. Data as of 4–14 July 2026 (Yahoo Finance, stockanalysis.com, Morningstar).</p>
+
+  <!-- EDENRED -->
+  <div class="pick">
+    <div class="pick-head">
+      <span class="rank">1</span>
+      <h3>Edenred SE</h3>
+      <span class="ticker">EDEN.PA · Euronext Paris</span>
+      <span class="badge green">Highest conviction</span>
+      <span class="badge yellow">Regulatory overhang</span>
+    </div>
+    <p class="biz">Global leader in employee benefits (meal vouchers) and corporate payment networks — a classic two-sided network with high switching costs and float income.</p>
+    <div class="metrics">
+      <div class="metric"><div class="v">€23.9</div><div class="k">Price (4 Jul 2026)</div></div>
+      <div class="metric"><div class="v">10.7×</div><div class="k">Trailing P/E</div></div>
+      <div class="metric"><div class="v">6.2×</div><div class="k">EV/FCF</div></div>
+      <div class="metric"><div class="v">€1.07bn</div><div class="k">TTM free cash flow</div></div>
+    </div>
+    <div class="mos">
+      <div class="lblrow"><span>Estimated margin of safety</span><span>~40–50%</span></div>
+      <div class="bar"><div class="fill" style="width:45%"></div></div>
+    </div>
+    <div class="row">
+      <div class="box thesis"><b>Why mispriced</b>Italian antitrust probe (abuse-of-dominance, meal vouchers) and fee caps knocked the stock ~12% in March; Italy is only ~10% of operating revenue, yet the whole network business trades at ~6× EV/FCF. Market is pricing regulatory contagion across Europe that hasn't happened.</div>
+      <div class="box bear"><b>Strongest bear case</b>Fee caps could genuinely spread (France/Brazil have made noises before) — this is a business whose take rate is politically visible. If merchant fees get capped EU-wide, the moat still exists but earnings power steps down permanently. Fine + forced conduct remedies in Italy possible.</div>
+    </div>
+    <p class="taxnote">Personal account likely efficient: Slovak individuals — capital gains on listed shares held &gt;1 year generally tax-exempt (verify current rules). French 25%+ dividend withholding applies unless treaty rate reclaimed; dividend is modest, so gains-driven thesis suits personal holding.</p>
+  </div>
+
+  <!-- PANDORA -->
+  <div class="pick">
+    <div class="pick-head">
+      <span class="rank">2</span>
+      <h3>Pandora A/S</h3>
+      <span class="ticker">PNDORA.CO · Copenhagen</span>
+      <span class="badge green">Cannibal (heavy buybacks)</span>
+    </div>
+    <p class="biz">World's largest jewellery brand by volume — affordable luxury, vertically integrated manufacturing in Thailand, ~high-20s% operating margins historically.</p>
+    <div class="metrics">
+      <div class="metric"><div class="v">~DKK 760</div><div class="k">Price (6 Jul 2026)</div></div>
+      <div class="metric"><div class="v">~7.5–11×</div><div class="k">P/E (source-dependent)</div></div>
+      <div class="metric"><div class="v">−45%</div><div class="k">2025 share performance</div></div>
+      <div class="metric"><div class="v">&gt;75%</div><div class="k">FX/input hedged for 2026</div></div>
+    </div>
+    <div class="mos">
+      <div class="lblrow"><span>Estimated margin of safety (Morningstar FV DKK 1,150)</span><span>~35–40%</span></div>
+      <div class="bar"><div class="fill" style="width:38%"></div></div>
+    </div>
+    <div class="row">
+      <div class="box thesis"><b>Why mispriced</b>Down ~45% in 2025 on US consumer fears and silver/gold input costs — but volumes and brand health held up better than the derating implies, hedging covers most of 2026, and aggressive buybacks at single-digit multiples compound per-share value. Consensus is neutral (12 of 18 hold) — nobody wants to own it, which is the point.</div>
+      <div class="box bear"><b>Strongest bear case</b>Fashion risk is real: Pandora's moat is a brand in affordable jewellery, not a toll bridge. If charms/lab-grown lines lose momentum, this is a mid-single-digit-multiple melting brand, and buybacks accelerate value destruction. Sustained precious-metal inflation post-2026 hedges compresses margins.</div>
+    </div>
+    <p class="taxnote">Danish 27% dividend withholding — reclaim to treaty rate is bureaucratic. Buyback-heavy return profile mitigates this; &gt;1-year personal holding for the Slovak CGT exemption fits well (verify current rules).</p>
+  </div>
+
+  <!-- GN STORE NORD -->
+  <div class="pick">
+    <div class="pick-head">
+      <span class="rank">4</span>
+      <h3>GN Store Nord A/S</h3>
+      <span class="ticker">GN.CO · Copenhagen</span>
+      <span class="badge yellow">Turnaround — higher risk</span>
+      <span class="badge blue">Deepest discount</span>
+    </div>
+    <p class="biz">Hearing aids (ReSound/Beltone) plus Jabra enterprise audio. Hearing is a rational 5-player oligopoly with audiologist channel lock-in; consumer audio divested in 2025.</p>
+    <div class="metrics">
+      <div class="metric"><div class="v">DKK 97.4</div><div class="k">Price (Jul 2026)</div></div>
+      <div class="metric"><div class="v">DKK 255</div><div class="k">Morningstar fair value</div></div>
+      <div class="metric"><div class="v">~55%</div><div class="k">Discount to FV</div></div>
+      <div class="metric"><div class="v">~$2.2bn</div><div class="k">Market cap</div></div>
+    </div>
+    <div class="mos">
+      <div class="lblrow"><span>Estimated margin of safety (if turnaround holds)</span><span>~50–55%</span></div>
+      <div class="bar"><div class="fill" style="width:55%"></div></div>
+    </div>
+    <div class="row">
+      <div class="box thesis"><b>Why mispriced</b>Down 20% over a year; market treats it as a broken conglomerate. Post consumer-audio divestment it's a cleaner hearing + enterprise story; debt is being paid down; hearing division economics (oligopoly, ageing demographics, recurring upgrades) are structurally sound and obscured by segment noise.</div>
+      <div class="box bear"><b>Strongest bear case</b>Leverage plus execution risk: if Enterprise (Jabra headsets) stays in a post-COVID office-spend slump while debt service continues, equity stays pinned. Hearing moat is narrower than peers (Sonova/Demant have scale edge), and management's capital-allocation record (Altia acquisition era) is questionable. Sized as a smaller, riskier position — the discount is wide because some of it is deserved.</div>
+    </div>
+    <p class="taxnote">Same Danish withholding note as Pandora; dividend is small, so personal holding &gt;1 year likely efficient (verify current rules).</p>
+  </div>
+</section>
+
+<section>
+  <h2>US / Global <span class="us-flag">Special situation</span></h2>
+
+  <!-- COMCAST -->
+  <div class="pick">
+    <div class="pick-head">
+      <span class="rank">3</span>
+      <h3>Comcast Corporation</h3>
+      <span class="ticker">CMCSA · Nasdaq</span>
+      <span class="badge blue">Post-spin orphan</span>
+    </div>
+    <p class="biz">Post-Versant-spin (completed 2 Jan 2026): broadband, wireless, business services, Peacock/NBC, theme parks. The cable-networks melting ice cube has been carved out.</p>
+    <div class="metrics">
+      <div class="metric"><div class="v">~6.8×</div><div class="k">Forward P/E (Jun 2026)</div></div>
+      <div class="metric"><div class="v">~5.6%</div><div class="k">Dividend yield</div></div>
+      <div class="metric"><div class="v">$1.32</div><div class="k">Annual dividend/share</div></div>
+      <div class="metric"><div class="v">Jan 2026</div><div class="k">Versant spin completed</div></div>
+    </div>
+    <div class="mos">
+      <div class="lblrow"><span>Estimated margin of safety</span><span>~40%+</span></div>
+      <div class="bar"><div class="fill" style="width:42%"></div></div>
+    </div>
+    <div class="row">
+      <div class="box thesis"><b>Why mispriced</b>Classic post-spin apathy: among the cheapest large caps in the S&amp;P 500 at ~6–7× earnings with a 5%+ yield, priced as if broadband is in terminal decline. Broadband subscriber losses to fixed wireless are real but ARPU holds, wireless attach is growing, and the parks/streaming assets get near-zero credit at this multiple. Massive buyback capacity at these prices.</div>
+      <div class="box bear"><b>Strongest bear case</b>Broadband may genuinely be ex-growth: fixed-wireless and fiber overbuild could turn a toll-road into a price-competitive utility, making 6× fair, not cheap. Media/Peacock still burns capital, and management (Roberts family, dual-class) has an empire-building history. A value trap if subscriber trends inflect down rather than stabilise.</div>
+    </div>
+    <p class="taxnote">US 15% dividend withholding under the US–Slovak treaty (W-8BEN); at a 5.6% yield this is a real annual drag vs. the gains-driven EU picks — modestly less tax-efficient for personal accounts, though &gt;1-year CGT exemption still applies to the gain (verify current rules).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Side-by-Side</h2>
+  <p class="h2sub">Ranked by conviction — moat quality weighted above raw discount.</p>
+  <div class="tablewrap">
+  <table>
+    <tr><th>#</th><th>Name</th><th>Multiple</th><th>Est. MoS</th><th>Moat</th><th>Key risk</th></tr>
+    <tr><td>1</td><td>Edenred</td><td>~6× EV/FCF</td><td>~40–50%</td><td>Two-sided network</td><td>EU-wide fee regulation</td></tr>
+    <tr><td>2</td><td>Pandora</td><td>~7.5–11× P/E</td><td>~35–40%</td><td>Brand + vertical integration</td><td>Fashion/brand fade</td></tr>
+    <tr><td>3</td><td>Comcast</td><td>~6.8× fwd P/E</td><td>~40%+</td><td>Infrastructure toll-road</td><td>Broadband competition</td></tr>
+    <tr><td>4</td><td>GN Store Nord</td><td>~55% disc. to FV</td><td>~50–55%</td><td>Oligopoly (narrower)</td><td>Leverage + execution</td></tr>
+  </table>
+  </div>
+  <div class="callout">
+    <b>Market context:</b> European indices near highs with easing inflation, yet the value/quality-compounder cohort above trades at 6–11× earnings — the dispersion, not the index level, is the opportunity. Rate cuts would disproportionately help the two levered names (GN, Comcast). No forced picks this week: all four clear a genuine mispricing bar, but position sizing should reflect that GN is a turnaround, not a fortress.
+  </div>
+</section>
+
+<footer>
+  Weekly value screen · generated 14 Jul 2026 · prices &amp; multiples sourced from Yahoo Finance, stockanalysis.com, Morningstar, GuruFocus (4–14 Jul 2026). Slovak tax notes are general orientation, not advice — rules may have changed; verify before acting. Not investment advice.
+</footer>
+
+</div>
+</body>
+</html>
