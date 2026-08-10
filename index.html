@@ -65,7 +65,9 @@
       font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase;
       letter-spacing: 0.08em; color: var(--text-2); font-weight: 600;
       padding-bottom: 0.8rem; margin-bottom: 1.2rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
     }
+    .group-title .count { color: var(--text-3); font-weight: 400; text-transform: none; letter-spacing: 0; }
 
     ul.dash-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
 
@@ -74,8 +76,8 @@
       padding: 1.25rem 1.4rem; text-decoration: none; color: inherit; transition: border-color 0.2s ease, transform 0.2s ease;
     }
     .dash-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .dash-card-meta { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-3); margin-bottom: 0.6rem; display: flex; justify-content: space-between; }
-    .dash-card-meta .badge { color: var(--accent-2); }
+    .dash-card-meta { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-3); margin-bottom: 0.6rem; display: flex; justify-content: space-between; gap: 0.5rem; }
+    .dash-card-meta .badge { color: var(--accent-2); flex-shrink: 0; }
     .dash-card h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 0.5rem; }
     .dash-card p { color: var(--text-2); font-size: 0.85rem; }
 
@@ -104,13 +106,123 @@
     </section>
 
     <section class="group">
-      <div class="group-title">Weekly value screens</div>
+      <div class="group-title"><span>Finance</span><span class="count">4 dashboards</span></div>
       <ul class="dash-grid">
         <li>
-          <a class="dash-card" href="weekly-value-screen-small-cap-tech.html">
+          <a class="dash-card" href="finance/weekly-value-screen-small-cap-tech.html">
             <div class="dash-card-meta"><span>2026-08-10</span><span class="badge">weekly</span></div>
             <h3>Small-Cap Tech — Value Screen</h3>
             <p>187 names screened, composite index trend, top movers by value score.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="finance/weekly-value-screen-2026-08-10.html">
+            <div class="dash-card-meta"><span>2026-08-10</span><span class="badge">weekly</span></div>
+            <h3>Deep Value / Wide Moat Screen</h3>
+            <p>5 candidates — 4 European, 1 US. Buffett/Munger filter: durable moat, rational management, real margin of safety.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="finance/weekly-value-screen-2026-08-03.html">
+            <div class="dash-card-meta"><span>2026-08-03</span><span class="badge">weekly</span></div>
+            <h3>4 Candidates, Deep-Value Screen</h3>
+            <p>Buffett/Munger-style scan ranked by conviction — none are automatic buys, all carry live bear cases.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="finance/weekly-value-screen-2026-07-27.html">
+            <div class="dash-card-meta"><span>2026-07-27</span><span class="badge">weekly</span></div>
+            <h3>Deep-Value Scan: 4 Ideas That Cleared the Bar</h3>
+            <p>Europe first, then US/Global. Two names carry real conviction; two are borderline and flagged as such.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="group">
+      <div class="group-title"><span>Health</span><span class="count">2 dashboards</span></div>
+      <ul class="dash-grid">
+        <li>
+          <a class="dash-card" href="health/drugs-worldwide-briefing.html">
+            <div class="dash-card-meta"><span>2026-07-02</span><span class="badge">EN</span></div>
+            <h3>Most-Used Drugs in the EU — Health Impact Briefing</h3>
+            <p>Alcohol, tobacco, caffeine, cannabis, opioids, cocaine and amphetamines ranked by real EU harm, not legal status.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="health/drugs-worldwide-briefing-sk.html">
+            <div class="dash-card-meta"><span>2026-07-02</span><span class="badge">SK</span></div>
+            <h3>Najpoužívanejšie drogy v EÚ — zdravotný brífing</h3>
+            <p>Alkohol, tabak, kofeín, kanabis, opioidy, kokaín a amfetamíny zoradené podľa skutočnej škodlivosti v EÚ.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="group">
+      <div class="group-title"><span>Real Estate</span><span class="count">9 dashboards</span></div>
+      <ul class="dash-grid">
+        <li>
+          <a class="dash-card" href="real-estate/dom-praha-report-2026-08-04.html">
+            <div class="dash-card-meta"><span>2026-08-04</span><span class="badge">house · buy</span></div>
+            <h3>Dom pri Prahe — kúpa</h3>
+            <p>Samostatné rodinné domy 4+ izby s vlastnou záhradou v okolí Prahy (do 45 min dochádzky).</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="real-estate/dom-praha-report-2026-07-28.html">
+            <div class="dash-card-meta"><span>2026-07-28</span><span class="badge">house · buy</span></div>
+            <h3>Dom pri Prahe — kúpa</h3>
+            <p>Samostatné rodinné domy 4+ izby s vlastnou záhradou v okolí Prahy (do 45 min dochádzky).</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="real-estate/dom-praha-report-2026-07-21.html">
+            <div class="dash-card-meta"><span>2026-07-21</span><span class="badge">house · buy</span></div>
+            <h3>Dom pri Prahe — kúpa</h3>
+            <p>42 ponúk nájdených, 16 v TOP kategórii, 10 hodnotených ako dobré.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="real-estate/domy-na-prenajom-praha-okolie-2026-07-29.html">
+            <div class="dash-card-meta"><span>2026-07-29</span><span class="badge">house · rent</span></div>
+            <h3>Domy na prenájom — Praha a okolie</h3>
+            <p>1 TOP ponuka, 1 dobrá, 10 ostatných — samostatné domy k prenájmu do 45 min od Prahy.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="real-estate/domy-na-prenajom-praha-2026-07-23.html">
+            <div class="dash-card-meta"><span>2026-07-23</span><span class="badge">house · rent</span></div>
+            <h3>Domy na prenájom — Praha a okolie</h3>
+            <p>Automatický prehľad ponúk zo Sreality.cz, Realcity.cz, Bezrealitky.cz a Hyperinzerce.cz.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="real-estate/domy-na-prenajom-praha-2026-07-15.html">
+            <div class="dash-card-meta"><span>2026-07-15</span><span class="badge">house · rent</span></div>
+            <h3>Domy na prenájom — okolie Prahy</h3>
+            <p>36 vyhovujúcich ponúk — 4 TOP, 17 dobrých, 15 ostatných.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="real-estate/praha-byty-prenajom-2026-08-07.html">
+            <div class="dash-card-meta"><span>2026-08-07</span><span class="badge">flat · rent</span></div>
+            <h3>Prenájom bytov — Praha, Beroun, Radotín</h3>
+            <p>Byty 4+ izby, min. 90 m², garáž/parkovanie — sledovanie ceny v čase.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="real-estate/praha-byty-prenajom-2026-07-31.html">
+            <div class="dash-card-meta"><span>2026-07-31</span><span class="badge">flat · rent</span></div>
+            <h3>Byty k prenájmu — Praha, Beroun, Radotín</h3>
+            <p>Byty 4+ izby, min. 90 m² úžitnej plochy, zo 4 realitných portálov.</p>
+          </a>
+        </li>
+        <li>
+          <a class="dash-card" href="real-estate/praha-byty-prenajom-2026-07-24.html">
+            <div class="dash-card-meta"><span>2026-07-24</span><span class="badge">flat · rent</span></div>
+            <h3>Byty k prenájmu — Praha, Beroun, Radotín</h3>
+            <p>Byty 4+ izby, min. 90 m² úžitnej plochy, zo 4 realitných portálov.</p>
           </a>
         </li>
       </ul>

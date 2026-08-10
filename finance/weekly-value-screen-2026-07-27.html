@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Value Screen — July 27, 2026</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  :root{
+    --bg:#0a0e13; --surface:#10151d; --border:#1c232e;
+    --text:#e9edf2; --text2:#7c8a9c;
+    --accent:#e8a355; --accent-muted:rgba(232,163,85,0.15);
+    --green:#4ade80; --green-muted:rgba(74,222,128,0.12);
+    --red:#f87171; --red-muted:rgba(248,113,113,0.12);
+    --blue:#60a5fa; --blue-muted:rgba(96,165,250,0.12);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:56px 24px 96px;}
+  header{margin-bottom:48px;}
+  .eyebrow{
+    display:inline-block; font-size:12px; font-weight:600; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--accent); background:var(--accent-muted);
+    padding:5px 12px; border-radius:100px; margin-bottom:16px;
+  }
+  h1{font-size:34px; font-weight:800; margin:0 0 10px; letter-spacing:-.02em;}
+  .sub{color:var(--text2); font-size:15px; max-width:640px;}
+
+  .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:36px 0 64px;}
+  .stat-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:18px 16px;
+  }
+  .stat-num{font-size:24px; font-weight:800; color:var(--accent);}
+  .stat-label{font-size:12px; color:var(--text2); margin-top:4px;}
+
+  section{margin-bottom:80px;}
+  .section-head{display:flex; align-items:baseline; gap:12px; margin-bottom:24px;}
+  .section-head h2{font-size:20px; font-weight:700; margin:0;}
+  .section-head .tag{
+    font-size:11px; font-weight:600; color:var(--text2); text-transform:uppercase;
+    letter-spacing:.06em; border:1px solid var(--border); padding:3px 9px; border-radius:100px;
+  }
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:26px 28px; margin-bottom:22px;
+  }
+  .card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;}
+  .card-title{font-size:19px; font-weight:700;}
+  .card-ticker{color:var(--text2); font-size:13px; font-weight:500;}
+  .rank-badge{
+    font-size:11px; font-weight:700; padding:4px 10px; border-radius:100px;
+    white-space:nowrap;
+  }
+  .rank-1{background:var(--green-muted); color:var(--green);}
+  .rank-2{background:var(--blue-muted); color:var(--blue);}
+  .rank-3{background:var(--accent-muted); color:var(--accent);}
+  .rank-4{background:var(--red-muted); color:var(--red);}
+
+  .biz{color:var(--text2); font-size:14px; margin:10px 0 18px;}
+
+  .val-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:18px;
+  }
+  .val-box{background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:8px; padding:10px 12px;}
+  .val-box .v{font-size:16px; font-weight:700;}
+  .val-box .l{font-size:11px; color:var(--text2); margin-top:2px;}
+
+  .body-text{font-size:14.5px; margin:0 0 14px;}
+  .body-text b{color:var(--text);}
+
+  .callout{
+    border-left:3px solid var(--red); background:var(--red-muted);
+    border-radius:0 8px 8px 0; padding:12px 16px; font-size:13.5px; margin-top:14px;
+  }
+  .callout .cl-label{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--red); margin-bottom:4px;}
+
+  .tax-pill{
+    display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--text2);
+    background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:100px;
+    padding:5px 12px; margin-top:14px;
+  }
+  .tax-pill b{color:var(--text);}
+
+  .context-box{
+    border-left:3px solid var(--accent); background:var(--accent-muted);
+    border-radius:0 12px 12px 0; padding:20px 24px; font-size:14.5px; color:var(--text);
+  }
+  .context-box .cb-label{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); margin-bottom:8px;}
+
+  footer{margin-top:40px; color:var(--text2); font-size:12px; text-align:center;}
+
+  @media (max-width:640px){
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+    .val-grid{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:26px;}
+  }
+
+  .ds-topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.85rem 1.5rem;margin:0 -1.5rem 0;background:rgba(10,14,19,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1c232e;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.82rem;}
+  .ds-topbar-brand{color:#e9edf2;text-decoration:none;font-weight:700;letter-spacing:-0.01em;}
+  .ds-topbar-back{color:#7c8a9c;text-decoration:none;}
+  .ds-topbar-back:hover{color:#e8a355;}
+  .ds-footer-links{max-width:1000px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;border-top:1px solid #1c232e;display:flex;gap:1.25rem;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.78rem;}
+  .ds-footer-links a{color:#7c8a9c;text-decoration:none;}
+  .ds-footer-links a:hover{color:#e8a355;}
+</style>
+</head>
+<body>
+<div class="ds-topbar">
+  <a class="ds-topbar-brand" href="../index.html">&#9656; MEMENTO/DASHSHARE</a>
+  <a class="ds-topbar-back" href="../index.html">&#8592; All dashboards</a>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow">Weekly Value Screen · July 27, 2026</span>
+    <h1>Deep-value scan: 4 ideas that cleared the bar</h1>
+    <p class="sub">Buffett/Munger lens — durable moat, honest management, large margin of safety. Europe first, then US/Global. Two names carry real conviction; two are borderline and flagged as such.</p>
+  </header>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Candidates screened</div></div>
+    <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">High-conviction ideas</div></div>
+    <div class="stat-card"><div class="stat-num">~25–60%</div><div class="stat-label">Margin-of-safety range</div></div>
+    <div class="stat-card"><div class="stat-num">2 EU / 2 US</div><div class="stat-label">Geographic split</div></div>
+  </div>
+
+  <section>
+    <div class="section-head"><h2>European Stocks</h2><span class="tag">Priority market</span></div>
+
+    <div class="card">
+      <div class="card-top">
+        <div><span class="card-title">Diageo</span> <span class="card-ticker">LSE: DGE / NYSE ADR: DEO</span></div>
+        <span class="rank-badge rank-1">#1 · Highest conviction</span>
+      </div>
+      <div class="biz">Global spirits major — Johnnie Walker, Smirnoff, Tanqueray, Guinness. Branded, pricing-power moat built over decades.</div>
+      <div class="val-grid">
+        <div class="val-box"><div class="v">£16.40</div><div class="l">Price (Jul 2026)</div></div>
+        <div class="val-box"><div class="v">£21.40</div><div class="l">Morningstar fair value</div></div>
+        <div class="val-box"><div class="v">~23–36%</div><div class="l">Est. margin of safety</div></div>
+        <div class="val-box"><div class="v">Cut Feb '26</div><div class="l">Dividend / guidance reset</div></div>
+      </div>
+      <p class="body-text"><b>Why mispriced:</b> stock is being priced as if GLP-1 drugs and US/China softness represent a permanent structural decline in alcohol demand. New ex-Tesco CEO (Dave Lewis) cut the dividend and reset guidance in Feb 2026 — bad news is already out, and management has credibility to fix operations rather than paper over problems. Brand moat (Johnnie Walker, Guinness) is intact; this looks like a cyclical/sentiment trough, not permanent impairment.</p>
+      <div class="callout">
+        <div class="cl-label">Strongest bear case</div>
+        GLP-1-driven demand destruction for alcohol may be structural, not cyclical — if true, "cheap on trailing earnings" becomes a value trap as the multiple never re-rates. Leverage (net debt/EBITDA) is elevated post dividend cut, limiting flexibility if the turnaround slips further.
+      </div>
+      <div class="tax-pill">🇸🇰 Personal holding: <b>likely tax-efficient</b> — UK has no dividend withholding tax; Slovak individual CGT exemption after 1yr holding should apply if rules unchanged (verify before acting).</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div><span class="card-title">Exor N.V.</span> <span class="card-ticker">Euronext Amsterdam: EXO</span></div>
+        <span class="rank-badge rank-2">#2 · Special situation</span>
+      </div>
+      <div class="biz">Agnelli family holding company — Ferrari, CNH Industrial, Stellantis stake, Philips stake, Lingotto asset management, plus reinsurance (PartnerRe legacy).</div>
+      <div class="val-grid">
+        <div class="val-box"><div class="v">€65–66</div><div class="l">Price (Apr–Jul 2026)</div></div>
+        <div class="val-box"><div class="v">~50–62%</div><div class="l">Discount to sum-of-parts NAV</div></div>
+        <div class="val-box"><div class="v">25–30%</div><div class="l">Historical average discount</div></div>
+        <div class="val-box"><div class="v">$1B</div><div class="l">Buyback in progress</div></div>
+      </div>
+      <p class="body-text"><b>Why mispriced:</b> discount to NAV has blown out to nearly double its historical average, largely on Stellantis weakness dragging sentiment on the whole holdco. Ferrari alone (luxury, wide moat, pricing power) plus a $1bn buyback signal management sees the same gap. Complexity and conglomerate structure keep this off most screens — classic overlooked/underfollowed setup.</p>
+      <div class="callout">
+        <div class="cl-label">Strongest bear case</div>
+        Holdco discounts can persist indefinitely — this is not a mechanical arbitrage, it's a bet the market re-rates the wrapper. Ferrari's own valuation (part of the NAV) is arguably rich, so the "underlying value" itself may be less solid than the NAV math implies. Family control (Agnelli/Elkann) means minority shareholders can't force unwind of the discount.
+      </div>
+      <div class="tax-pill">🇸🇰 Personal holding: <b>likely tax-efficient</b> — Dutch dividend withholding tax (15%) typically reclaimable partly under the SK-NL treaty; capital gains should qualify for the >1yr exemption (verify specifics).</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>US / Global Stocks</h2><span class="tag">Secondary market</span></div>
+
+    <div class="card">
+      <div class="card-top">
+        <div><span class="card-title">AerCap Holdings</span> <span class="card-ticker">NYSE: AER</span></div>
+        <span class="rank-badge rank-3">#3 · Moderate conviction</span>
+      </div>
+      <div class="biz">World's largest aircraft leasing company — scale, airline relationships, and low cost of capital form the moat in a capital-intensive, cyclical business.</div>
+      <div class="val-grid">
+        <div class="val-box"><div class="v">$148.49</div><div class="l">Price (May 2026)</div></div>
+        <div class="val-box"><div class="v">$116.67</div><div class="l">Book value/share</div></div>
+        <div class="val-box"><div class="v">~10.2x</div><div class="l">P/E on FY26 guide ($14.50)</div></div>
+        <div class="val-box"><div class="v">~$92–162</div><div class="l">Analyst fair-value spread</div></div>
+      </div>
+      <p class="body-text"><b>Why mispriced:</b> record Q1 2026, raised guidance, and a new $1bn buyback — yet the stock still trades near 10x depressed-looking earnings with wide analyst disagreement on fair value ($92 to $162). Aircraft scarcity post-pandemic supply-chain issues supports lease rates longer than the market seems to assume.</p>
+      <div class="callout">
+        <div class="cl-label">Strongest bear case</div>
+        This is a leveraged, cyclical, residual-value business, not a "wonderful business at a fair price" in the classic sense — book value discount is modest (price is <i>above</i> book, ~1.27x), so the margin of safety here is thinner than the other names on this list. A demand shock or rate spike hits leased-asset values and refinancing costs simultaneously.
+      </div>
+      <div class="tax-pill">🇸🇰 Personal holding: US-listed, Dutch-incorporated — dividend withholding could be Dutch (15%) rather than US; mechanics unclear, confirm with broker/advisor before sizing.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div><span class="card-title">Kraft Heinz</span> <span class="card-ticker">NASDAQ: KHC</span></div>
+        <span class="rank-badge rank-4">#4 · Borderline — flagged</span>
+      </div>
+      <div class="biz">Packaged food major (Heinz, Kraft, Oscar Mayer, Philadelphia) — brand portfolio, but moat has visibly eroded under private-label and GLP-1 pressure.</div>
+      <div class="val-grid">
+        <div class="val-box"><div class="v">$24.80</div><div class="l">Price (2026)</div></div>
+        <div class="val-box"><div class="v">~12x</div><div class="l">P/E on FY26 EPS guide ($1.98–2.10)</div></div>
+        <div class="val-box"><div class="v">−60%</div><div class="l">Since 2015 merger peak</div></div>
+        <div class="val-box"><div class="v">Paused</div><div class="l">Planned 2-way split (Feb '26)</div></div>
+      </div>
+      <p class="body-text"><b>Why mispriced:</b> trading near multi-year lows after the botched 2015 merger, a paused split plan, and a "reset year" guide-down. New CEO says problems are "fixable" and is reinvesting $600m in core brands instead of proceeding with the split. If true, this is classic out-of-favor value; if not, it's a value trap.</p>
+      <div class="callout">
+        <div class="cl-label">Strongest bear case</div>
+        This is the one on the list that doesn't clearly meet the Buffett/Munger bar — the moat itself (not just the stock price) has degraded: volumes are still declining, private-label share gains look structural, and management strategy has now reversed once already (split announced, then paused). Cheap does not equal safe here; treat as a watch item, not a high-conviction buy.
+      </div>
+      <div class="tax-pill">🇸🇰 Personal holding: US-listed — standard 15% US dividend withholding under SK-US treaty (W-8BEN via broker); >1yr CGT exemption should apply if rules unchanged.</div>
+    </div>
+  </section>
+
+  <div class="context-box">
+    <div class="cb-label">Market context</div>
+    STOXX 600 is roughly flat and range-bound this week while US mega-cap tech stays richly valued — capital is still chasing AI/momentum names, leaving branded consumer, holdco, and capital-intensive cyclicals like the four above unloved and under-owned. That gap is exactly where this kind of screen should keep looking.
+  </div>
+
+  <footer>
+    Data verified via web search July 27, 2026. Prices and multiples move daily — reconfirm before acting. Not tax or investment advice; confirm Slovak tax treatment with an advisor before executing.
+  </footer>
+<div class="ds-footer-links">
+  <a href="https://mmnto.sk">mmnto.sk</a>
+  <a href="https://blog.mmnto.sk">blog.mmnto.sk</a>
+  <a href="../index.html">&#8592; All dashboards</a>
+</div>
+
+
+</div>
+</body>
+</html>

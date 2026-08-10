@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praha — byty k prenájmu — report 24.7.2026</title>
+<style>
+  :root{
+    --bg:#0a0e13;
+    --surface:#10151d;
+    --surface-border:#1c232e;
+    --text:#e9edf2;
+    --text2:#7c8a9c;
+    --accent:#e8a355;
+    --accent-muted:rgba(232,163,85,0.15);
+    --green:#4ade80;
+    --green-muted:rgba(74,222,128,0.13);
+    --yellow:#fbbf24;
+    --yellow-muted:rgba(251,191,36,0.13);
+    --blue:#60a5fa;
+    --blue-muted:rgba(96,165,250,0.13);
+    --red:#f87171;
+    --red-muted:rgba(248,113,113,0.13);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+  header.hero{
+    padding:72px 0 48px;
+    border-bottom:1px solid var(--surface-border);
+  }
+  .kicker{
+    color:var(--accent);
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-size:13px;
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:40px;
+    font-weight:800;
+    margin:0 0 16px;
+    letter-spacing:-0.02em;
+  }
+  .lead{
+    color:var(--text2);
+    font-size:17px;
+    max-width:760px;
+    margin:0 0 8px;
+  }
+  section{padding:56px 0;border-bottom:1px solid var(--surface-border);}
+  section:last-child{border-bottom:none;}
+  h2{
+    font-size:26px;
+    font-weight:800;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  h2 .badge-count{
+    font-size:14px;
+    font-weight:600;
+    color:var(--text2);
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    padding:3px 10px;
+    border-radius:999px;
+    margin-left:10px;
+    vertical-align:middle;
+  }
+  .section-sub{color:var(--text2);font-size:15px;margin:0 0 28px;max-width:800px;}
+
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-top:8px;
+  }
+  .stat-card{
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    border-radius:12px;
+    padding:22px;
+  }
+  .stat-num{font-size:32px;font-weight:800;color:var(--accent);}
+  .stat-label{font-size:13px;color:var(--text2);margin-top:4px;}
+
+  .icon-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:24px;
+  }
+  .icon-card{
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    border-radius:12px;
+    padding:18px 20px;
+    font-size:14px;
+  }
+  .icon-card .emoji{font-size:20px;margin-bottom:8px;display:block;}
+  .icon-card b{display:block;margin-bottom:3px;}
+  .icon-card span.d{color:var(--text2);}
+
+  .callout{
+    background:var(--accent-muted);
+    border-left:3px solid var(--accent);
+    border-radius:8px;
+    padding:16px 20px;
+    margin:24px 0;
+    font-size:14px;
+    color:#f0d5c8;
+  }
+  .callout.blue{background:var(--blue-muted);border-left-color:var(--blue);color:#cfe3fb;}
+  .callout.yellow{background:var(--yellow-muted);border-left-color:var(--yellow);color:#fbe6b0;}
+
+  .badge{
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:999px;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.02em;
+    white-space:nowrap;
+    margin-right:4px;
+  }
+  .badge-top{background:var(--green-muted);color:var(--green);}
+  .badge-dobre{background:var(--blue-muted);color:var(--blue);}
+  .badge-ostatne{background:var(--surface-border);color:var(--text2);}
+  .badge-dup{background:var(--yellow-muted);color:var(--yellow);}
+  .badge-flag{background:var(--red-muted);color:var(--red);}
+  .flagtext{color:var(--text2);font-size:12px;}
+
+  .table-scroll{overflow-x:auto;border:1px solid var(--surface-border);border-radius:12px;}
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:1080px;
+    font-size:13.5px;
+  }
+  thead th{
+    text-align:left;
+    background:#141416;
+    color:var(--text2);
+    font-weight:600;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    padding:12px 14px;
+    border-bottom:1px solid var(--surface-border);
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:12px 14px;
+    border-bottom:1px solid var(--surface-border);
+    vertical-align:top;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(255,255,255,0.02);}
+  td.loc{font-weight:600;min-width:170px;}
+  td.loc .sub{display:block;color:var(--text2);font-weight:400;font-size:12px;margin-top:2px;}
+  td.price-czk{font-weight:700;white-space:nowrap;}
+  td.price-eur{color:var(--accent);font-weight:600;white-space:nowrap;}
+  td a.link{color:var(--blue);text-decoration:none;font-weight:600;}
+  td a.link:hover{text-decoration:underline;}
+  td.flags{min-width:170px;}
+
+  footer{padding:40px 0 60px;color:var(--text2);font-size:13px;}
+  footer a{color:var(--accent);}
+
+  @media(max-width:800px){
+    h1{font-size:28px;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .icon-grid{grid-template-columns:1fr;}
+    section{padding:36px 0;}
+  }
+
+  .ds-topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.85rem 1.5rem;margin:0 -1.5rem 0;background:rgba(10,14,19,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1c232e;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.82rem;}
+  .ds-topbar-brand{color:#e9edf2;text-decoration:none;font-weight:700;letter-spacing:-0.01em;}
+  .ds-topbar-back{color:#7c8a9c;text-decoration:none;}
+  .ds-topbar-back:hover{color:#e8a355;}
+  .ds-footer-links{max-width:1000px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;border-top:1px solid #1c232e;display:flex;gap:1.25rem;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.78rem;}
+  .ds-footer-links a{color:#7c8a9c;text-decoration:none;}
+  .ds-footer-links a:hover{color:#e8a355;}
+</style>
+</head>
+<body>
+<div class="ds-topbar">
+  <a class="ds-topbar-brand" href="../index.html">&#9656; MEMENTO/DASHSHARE</a>
+  <a class="ds-topbar-back" href="../index.html">&#8592; All dashboards</a>
+</div>
+
+
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">Report vygenerovaný automaticky &middot; 24. júl 2026</div>
+  <h1>Byty k prenájmu — Praha, Beroun, Radotín</h1>
+  <p class="lead">Prehľad bytov 4+ izby k prenájmu spĺňajúcich zadané kritériá (min. 90 m² úžitnej plochy, garáž/parkovanie min. 1 auto, min. 4 izby okrem kuchyne), zozbieraný zo 4 realitných portálov: Sreality.cz, Realcity.cz, Bezrealitky.cz a Hyperinzerce.cz.</p>
+  <p class="lead">Kurz použitý na prepočet: <b>1 EUR = 24,20 CZK</b> (ČNB kurz k 23.-24.7.2026).</p>
+</header>
+
+<section id="criteria">
+  <h2>Kritériá vyhľadávania</h2>
+  <p class="section-sub">Filtrované na typ byt, dispozíciu 4+ izby (izby okrem kuchyne) a úžitnú plochu 90 m²+; parkovanie/garáž overované individuálne pri každom inzeráte tam, kde to zdroj umožnil.</p>
+  <div class="icon-grid">
+    <div class="icon-card"><span class="emoji">🏢</span><b>Typ nehnuteľnosti</b><span class="d">Iba byt (nie dom/rodinný dom)</span></div>
+    <div class="icon-card"><span class="emoji">🚪</span><b>Minimálne 4 izby</b><span class="d">4+kk, 4+1, 5+kk, 5+1, 6+kk, 6+1 a viac (izby okrem kuchyne)</span></div>
+    <div class="icon-card"><span class="emoji">🚗</span><b>Parkovanie povinné</b><span class="d">Garáž alebo minimálne 1 parkovacie miesto — potvrdené pri každej zaradenej ponuke</span></div>
+    <div class="icon-card"><span class="emoji">📐</span><b>Min. 90 m² úžitnej plochy</b><span class="d">Podlahová/úžitná plocha bytu</span></div>
+    <div class="icon-card"><span class="emoji">🚇</span><b>Lokalita</b><span class="d">Praha s dostupnosťou metra/tramvaje, ALEBO Beroun/Praha-Radotín a okolie</span></div>
+    <div class="icon-card"><span class="emoji">💶</span><b>Nájom bez stropu</b><span class="d">Cena zaznamenaná pri každom inzeráte pre budúce porovnanie behov</span></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num">65</div><div class="stat-label">Inzerátov spolu</div></div>
+    <div class="stat-card"><div class="stat-num">17</div><div class="stat-label">TOP</div></div>
+    <div class="stat-card"><div class="stat-num">11</div><div class="stat-label">DOBRÉ</div></div>
+    <div class="stat-card"><div class="stat-num">37</div><div class="stat-label">OSTATNÉ</div></div>
+  </div>
+
+  <div class="callout">
+    <b>Kategorizácia:</b> TOP = pešia dosažnosť metra/tramvaje AND nájom (vrátane poplatkov, ak sú uvedené) ≤ 2500 EUR &nbsp;|&nbsp; DOBRÉ = nájom &lt; 3000 EUR AND dobrá dostupnosť MHD (metro/tram, alebo vlak Esko pri Radotíne) &nbsp;|&nbsp; OSTATNÉ = ostatné (vyššia cena, alebo lokalita bez priameho metra/tramvaje — napr. Beroun, Vysoký Újezd, Nový Jáchymov, kde je nutné auto). Váhy pri TOP: poloha &gt; veľkosť &gt; cena.
+  </div>
+  <div class="callout yellow">
+    <b>Zdroje a rozsah tohto behu:</b> Realcity.cz (web_fetch, district aj celopražské výpisy 4+kk/4+1 pre Prahu 1–10 + Beroun; cca 45 stránok/inzerátov skontrolovaných). Bezrealitky.com (web_fetch, kategórie 4+kk/4+1/5+kk pre Prahu + Beroun + Radotín, ~14-25 inzerátov overených individuálne). Hyperinzerce.cz (web_fetch; celoštátna kategória 4+1/4+kk sa cez cache nedala kompletne prelistovať — pokryté cielenými vyhľadávaniami, cca 150+ inzerátov skontrolovaných, čiastočné pokrytie). Sreality.cz (Claude in Chrome, filtre 4+kk/4+1/5+kk/5+1/6+, prvé 4 strany Prahy + Beroun/Radotín, 42 kvalifikujúcich ponúk).
+  </div>
+  <div class="callout blue">
+    <b>Duplicity a staré inzeráty:</b> 3 ponuky boli identifikované ako duplicitné medzi Sreality a Realcity (rovnaký feed) a zlúčené do jedného riadku — označené žltým badge „DUPLICITA" a zdrojom „Realcity + Sreality". Ďalšie 2 pravdepodobné duplicity naprieč inými portálmi (Bezrealitky/Sreality) sú ponechané ako samostatné riadky s poznámkou, keďže ide o odlišné zdrojové feedy. 5 inzerátov je označených ako staršie ako 30 dní (červený badge) — buď podľa dátumu pôvodného zverejnenia, alebo pre neistý/starý dátum nástupu uvedený v texte inzerátu.
+  </div>
+</section>
+
+<section id="top">
+  <h2>TOP <span class="badge-count">17 inzerátov</span></h2>
+  <p class="section-sub">Pešia dosažnosť metra alebo tramvaje AND nájom ≤ 2500 EUR/mesiac. Zoradené podľa ceny.</p>
+  <div class="table-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Lokalita / obec</th>
+        <th>Cena CZK</th>
+        <th>Cena EUR</th>
+        <th>m²</th>
+        <th>Pozemok</th>
+        <th>Izby</th>
+        <th>Čas / dostupnosť MHD</th>
+        <th>Zverejnené</th>
+        <th>Zdroj</th>
+        <th>Flag</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="loc">Praha 4<span class="sub">Chodov, Medkova</span></td>
+      <td class="price-czk">30 000 Kč + energie</td>
+      <td class="price-eur">1,240 €</td>
+      <td>130 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~25 min (metro C)</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-chodov-medkova/48947276" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 9<span class="sub">Hloubětín, V Novém Hloubětíně</span></td>
+      <td class="price-czk">32 900 Kč</td>
+      <td class="price-eur">1,360 €</td>
+      <td>162 m²</td>
+      <td>N/A</td>
+      <td>5+kk</td>
+      <td>~20-25 min (metro B)</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/5+kk/praha-hloubetin-v-novem-hloubetine/3111833676" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Krč<span class="sub">U Strže</span></td>
+      <td class="price-czk">32 500 + 600 + 3 400 Kč</td>
+      <td class="price-eur">1,508 €</td>
+      <td>106 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20 min (metro C)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/861873-nabidka-pronajem-bytu-u-strze-hlavni-mesto-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Černý Most<span class="sub">Anderleho</span></td>
+      <td class="price-czk">31 500 Kč + 6 900 Kč</td>
+      <td class="price-eur">1,587 €</td>
+      <td>104 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~25-30 min (metro B, konečná)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/1016868-nabidka-pronajem-bytu-anderleho-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 5<span class="sub">Ostrovského (Smíchov)</span></td>
+      <td class="price-czk">32 000 Kč + 7 000 Kč služby/energie</td>
+      <td class="price-eur">1,612 €</td>
+      <td>107 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min tram/metro</td>
+      <td>aktualiz. 1.7.2026</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-kk-praha-5-ostrovskeho-4364344" target="_blank" rel="noopener">Realcity</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Chodov (Roztyly)<span class="sub">Kloboukova</span></td>
+      <td class="price-czk">35 000 + 1 500 + 3 500 Kč</td>
+      <td class="price-eur">1,653 €</td>
+      <td>98 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20 min (metro C)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/878493-nabidka-pronajem-bytu-kloboukova-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Chodov<span class="sub">Medkova (2)</span></td>
+      <td class="price-czk">32 000 + 250 + 8 000 Kč</td>
+      <td class="price-eur">1,663 €</td>
+      <td>127 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20-25 min (metro C)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/1046013-nabidka-pronajem-bytu-medkova-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 4<span class="sub">Medkova (Chodov)</span></td>
+      <td class="price-czk">41 500 Kč + energie + provize</td>
+      <td class="price-eur">1,715 €</td>
+      <td>129 m²</td>
+      <td>zahrada ~400 m²</td>
+      <td>4+1</td>
+      <td>~20 min (metro Chodov/Opatov)</td>
+      <td>aktualiz. 16.7.2026</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-1-praha-4-medkova-4402932" target="_blank" rel="noopener">Realcity</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Libeň<span class="sub">Čertův vršek</span></td>
+      <td class="price-czk">42 490 Kč</td>
+      <td class="price-eur">1,756 €</td>
+      <td>102 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min (metro B/C)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/1017233-nabidka-pronajem-bytu-certuv-vrsek-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Modřany<span class="sub">Hřebíkova</span></td>
+      <td class="price-czk">36 000 Kč + 7 000 Kč</td>
+      <td class="price-eur">1,777 €</td>
+      <td>92 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~25-30 min (bus na metro)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/641461-nabidka-pronajem-bytu-hrebikova-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Chodov<span class="sub">Medkova</span></td>
+      <td class="price-czk">41 500 Kč + 6 700 Kč</td>
+      <td class="price-eur">1,992 €</td>
+      <td>129 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~20-25 min (metro C)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/1010112-nabidka-pronajem-bytu-medkova-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 5<span class="sub">Smíchov, Drtinova</span></td>
+      <td class="price-czk">50 000 Kč</td>
+      <td class="price-eur">2,066 €</td>
+      <td>99 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~10-15 min (metro B)</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-smichov-drtinova/2087374924" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—<br><span class="flagtext">Pravdepodobne rovnaká ponuka aj na Bezrealitky (Smíchov, Drtinova)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Braník<span class="sub">Ohnivcova</span></td>
+      <td class="price-czk">45 000 Kč + 7 000 Kč</td>
+      <td class="price-eur">2,149 €</td>
+      <td>150 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~20-25 min (tram/bus)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/1005309-nabidka-pronajem-bytu-ohnivcova-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Vysočany<span class="sub">Pod Harfou</span></td>
+      <td class="price-czk">44 900 Kč + 7 900 Kč</td>
+      <td class="price-eur">2,182 €</td>
+      <td>150 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~15-20 min (metro C)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/1017608-nabidka-pronajem-bytu-pod-harfou-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Chodov<span class="sub">Starochodovská</span></td>
+      <td class="price-czk">44 000 Kč + 9 000 Kč</td>
+      <td class="price-eur">2,190 €</td>
+      <td>90 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~20-25 min (metro C)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/1043940-nabidka-pronajem-bytu-starochodovska-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 9<span class="sub">Vysočany</span></td>
+      <td class="price-czk">49 000 Kč + 6 000 Kč služby</td>
+      <td class="price-eur">2,273 €</td>
+      <td>99 m²</td>
+      <td>zahrada ~200 m²</td>
+      <td>4+kk</td>
+      <td>~20 min (metro Vysočanská)</td>
+      <td>aktualiz. 9.7.2026</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-kk-praha-9-4393865" target="_blank" rel="noopener">Realcity</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Smíchov<span class="sub">Drtinova</span></td>
+      <td class="price-czk">50 000 + 3 000 + 5 000 Kč</td>
+      <td class="price-eur">2,397 €</td>
+      <td>99 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~10-15 min (metro B Anděl)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/1041823-nabidka-pronajem-bytu-drtinova-prague" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—<br><span class="flagtext">Pravdepodobne rovnaká ponuka aj na Sreality (Smíchov, Drtinova)</span></td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="dobre">
+  <h2>DOBRÉ <span class="badge-count">11 inzerátov</span></h2>
+  <p class="section-sub">Nájom pod 3000 EUR/mesiac s dobrou dostupnosťou MHD. Zoradené podľa ceny.</p>
+  <div class="table-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Lokalita / obec</th>
+        <th>Cena CZK</th>
+        <th>Cena EUR</th>
+        <th>m²</th>
+        <th>Pozemok</th>
+        <th>Izby</th>
+        <th>Čas / dostupnosť MHD</th>
+        <th>Zverejnené</th>
+        <th>Zdroj</th>
+        <th>Flag</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="loc">Praha - Radotín<span class="sub">Otinská</span></td>
+      <td class="price-czk">37 000 Kč + 2 000 Kč</td>
+      <td class="price-eur">1,612 €</td>
+      <td>125 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~30-35 min (vlak Esko do Smíchova)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/740781-nabidka-pronajem-bytu-otinska-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—<br><span class="flagtext">Pravdepodobne rovnaká ponuka aj na Sreality (Radotín, Otínská)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Radotín<span class="sub">Tachovská</span></td>
+      <td class="price-czk">39 000 Kč</td>
+      <td class="price-eur">1,612 €</td>
+      <td>135 m²</td>
+      <td>N/A</td>
+      <td>5+kk</td>
+      <td>~30-35 min (vlak Esko S7)</td>
+      <td>pred 2 dňami</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/5+kk/praha-radotin-tachovska/51105868" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 8<span class="sub">Za Karlínským přístavem (Karlín)</span></td>
+      <td class="price-czk">55 000 Kč + 6 900 Kč služby (park. 2 000 Kč navíc)</td>
+      <td class="price-eur">2,558 €</td>
+      <td>95 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~10 min (metro Křižíkova)</td>
+      <td>pôv. 10.3.2025</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-kk-praha-8-za-karlinskym-pristavem-699-4323977" target="_blank" rel="noopener">Realcity</a></td>
+      <td class="flags"><span class="badge badge-flag">STARŠÍ &gt;30 dní</span><br><span class="flagtext">Starší inzerát (pôv. březen 2025)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 4<span class="sub">Modřany, Mezi Vodami</span></td>
+      <td class="price-czk">62 000 Kč</td>
+      <td class="price-eur">2,562 €</td>
+      <td>117 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~30 min (metro C)</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-modrany-mezi-vodami/1111150668" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 13<span class="sub">Stodůlky (Britská čtvrť)</span></td>
+      <td class="price-czk">49 990 Kč + 13 000 Kč</td>
+      <td class="price-eur">2,603 €</td>
+      <td>120 m² + terasy</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20-25 min (metro B, 1 min chôdze)</td>
+      <td>neisté (starší dátum v texte)</td>
+      <td><a class="link" href="https://byty.hyperinzerce.cz/byty-pronajem/inzerat/2053999371274764716-pronajem-bytu-4-kk-120m2-se-2-terasami-218m2-minuta-chuze-od-metra-stodulky-nabidka-praha-13" target="_blank" rel="noopener">Hyperinzerce</a></td>
+      <td class="flags"><span class="badge badge-flag">STARŠÍ &gt;30 dní</span><br><span class="flagtext">Neistý dátum zverejnenia - možno starší inzerát</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 4<span class="sub">Krčská (Krč)</span></td>
+      <td class="price-czk">63 900 Kč + provize RK</td>
+      <td class="price-eur">2,640 €</td>
+      <td>191 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20 min (metro Budějovická)</td>
+      <td>novinka 23.7.2026</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-kk-praha-4-krcska-4407889" target="_blank" rel="noopener">Realcity</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 6<span class="sub">Na viničce (Břevnov)</span></td>
+      <td class="price-czk">49 900 Kč + 15 000 Kč služby/energie</td>
+      <td class="price-eur">2,682 €</td>
+      <td>135 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20 min (bus na metro Hradčanská)</td>
+      <td>pôv. 7.11.2025</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-kk-praha-6-na-vinicce-4365594" target="_blank" rel="noopener">Realcity</a></td>
+      <td class="flags"><span class="badge badge-flag">STARŠÍ &gt;30 dní</span><br><span class="flagtext">Starší inzerát (pôv. nov. 2025)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 2<span class="sub">Havlíčkovy sady (Vinohrady)</span></td>
+      <td class="price-czk">60 000 Kč + 5 000 Kč služby</td>
+      <td class="price-eur">2,686 €</td>
+      <td>170 m²</td>
+      <td>sdílená zahrada</td>
+      <td>4+kk</td>
+      <td>~10-15 min (metro Náměstí Míru)</td>
+      <td>dnes/aktualiz. 1.7.2026</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-kk-praha-2-havlickovy-sady-59-4373065" target="_blank" rel="noopener">Realcity + Sreality</a></td>
+      <td class="flags"><span class="badge badge-dup">DUPLICITA</span><br><span class="flagtext">Duplicitná ponuka (Sreality aj Realcity)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 8<span class="sub">Karlín (mezonet)</span></td>
+      <td class="price-czk">55 000 Kč + 11 600 Kč (vč. stání)</td>
+      <td class="price-eur">2,752 €</td>
+      <td>120 m²</td>
+      <td>N/A</td>
+      <td>5+kk</td>
+      <td>~10-15 min (metro/tram Křižíkova)</td>
+      <td>neisté (starší dátum v texte)</td>
+      <td><a class="link" href="https://byty.hyperinzerce.cz/byty-pronajem/inzerat/15032614071274764709-pronajem-bytu-5-kk-120-m2-s-balkonem-a-parkovacim-stanim-karlin-nabidka-karlin" target="_blank" rel="noopener">Hyperinzerce</a></td>
+      <td class="flags"><span class="badge badge-flag">STARŠÍ &gt;30 dní</span><br><span class="flagtext">Neistý dátum zverejnenia - možno starší inzerát</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 8<span class="sub">Kobylisy, Javorová</span></td>
+      <td class="price-czk">69 900 Kč</td>
+      <td class="price-eur">2,888 €</td>
+      <td>139 m²</td>
+      <td>N/A</td>
+      <td>5+kk</td>
+      <td>~20-25 min (metro C)</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/5+kk/praha-kobylisy-javorova/34009164" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Strašnice<span class="sub">Revova</span></td>
+      <td class="price-czk">65 000 Kč + 5 000 Kč</td>
+      <td class="price-eur">2,893 €</td>
+      <td>157 m²</td>
+      <td>N/A</td>
+      <td>5+kk</td>
+      <td>~15-20 min (metro A)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/493459-nabidka-pronajem-bytu-revova-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="ostatne">
+  <h2>OSTATNÉ <span class="badge-count">37 inzerátov</span></h2>
+  <p class="section-sub">Všetky ostatné ponuky spĺňajúce základné kritériá (izby/plocha/parkovanie), ale mimo TOP a DOBRÉ — vyššia cena alebo horšia dostupnosť MHD. Zoradené podľa ceny.</p>
+  <div class="table-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Lokalita / obec</th>
+        <th>Cena CZK</th>
+        <th>Cena EUR</th>
+        <th>m²</th>
+        <th>Pozemok</th>
+        <th>Izby</th>
+        <th>Čas / dostupnosť MHD</th>
+        <th>Zverejnené</th>
+        <th>Zdroj</th>
+        <th>Flag</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="loc">Nový Jáchymov (okr. Beroun)<span class="sub"></span></td>
+      <td class="price-czk">24 000 Kč (bez poplatků)</td>
+      <td class="price-eur">992 €</td>
+      <td>140 m²</td>
+      <td>zahrada neuvedená</td>
+      <td>4+1</td>
+      <td>~60-70 min (auto, MHD slabá)</td>
+      <td>pred 12 dňami</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-1-novy-jachymov-uzka-4402915" target="_blank" rel="noopener">Realcity + Sreality</a></td>
+      <td class="flags"><span class="badge badge-dup">DUPLICITA</span><br><span class="flagtext">Duplicitná ponuka (Sreality aj Realcity)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 8<span class="sub">Kobylisy, Služská</span></td>
+      <td class="price-czk">37 000 Kč</td>
+      <td class="price-eur">1,529 €</td>
+      <td>128 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~20-25 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+1/praha-kobylisy-sluzska/1933398860" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Beroun-Město<span class="sub">Nepilova</span></td>
+      <td class="price-czk">39 950 Kč</td>
+      <td class="price-eur">1,651 €</td>
+      <td>120 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~40-45 min (vlak Esko S7)</td>
+      <td>pred 9 dňami</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/beroun-beroun-mesto-nepilova/3582058572" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Vysoký Újezd (okr. Beroun)<span class="sub"></span></td>
+      <td class="price-czk">40 000 Kč + 8 000 Kč (vč. elektřiny)</td>
+      <td class="price-eur">1,983 €</td>
+      <td>106 m²</td>
+      <td>zahrada 321 m²</td>
+      <td>4+kk</td>
+      <td>~55-60 min (auto/vlak přes Beroun)</td>
+      <td>aktualiz. 19.7.2026</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-kk-vysoky-ujezd-na-vysluni-352-4404965" target="_blank" rel="noopener">Realcity + Sreality</a></td>
+      <td class="flags"><span class="badge badge-dup">DUPLICITA</span><br><span class="flagtext">Duplicitná ponuka (Sreality aj Realcity)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 5<span class="sub">Košíře, U Vojanky</span></td>
+      <td class="price-czk">49 000 Kč</td>
+      <td class="price-eur">2,025 €</td>
+      <td>117 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-kosire-u-vojanky/1155784780" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 1<span class="sub">Nové Město, Senovážné náměstí</span></td>
+      <td class="price-czk">50 000 Kč</td>
+      <td class="price-eur">2,066 €</td>
+      <td>135 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~5-10 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-nove-mesto-senovazne-namesti/2262618956" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 4<span class="sub">Nusle, Na Bučance</span></td>
+      <td class="price-czk">52 000 Kč</td>
+      <td class="price-eur">2,149 €</td>
+      <td>101 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-nusle-na-bucance/3629490252" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 5<span class="sub">Smíchov, Štefánikova</span></td>
+      <td class="price-czk">60 000 Kč</td>
+      <td class="price-eur">2,479 €</td>
+      <td>168 m²</td>
+      <td>N/A</td>
+      <td>5+1</td>
+      <td>~10-15 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/5+1/praha-smichov-stefanikova/3637440588" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 8<span class="sub">Libeň, Čertův vršek</span></td>
+      <td class="price-czk">60 000 Kč</td>
+      <td class="price-eur">2,479 €</td>
+      <td>120 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15-20 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-liben-certuv-vrsek/727900236" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 5<span class="sub">Smíchov, Štefánikova</span></td>
+      <td class="price-czk">60 000 Kč</td>
+      <td class="price-eur">2,479 €</td>
+      <td>147 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~10-15 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+1/praha-smichov-stefanikova/644845644" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 3<span class="sub">Strašnice, Zvěřinova</span></td>
+      <td class="price-czk">51 000 Kč + 10 000 Kč + elektřina</td>
+      <td class="price-eur">2,521 €</td>
+      <td>117 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-strasnice-zverinova/3926044748" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 10<span class="sub">Záběhlice, Práčská</span></td>
+      <td class="price-czk">61 000 Kč</td>
+      <td class="price-eur">2,521 €</td>
+      <td>98 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20-25 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-zabehlice-pracska/3855802444" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 4<span class="sub">Krč, Hudečkova</span></td>
+      <td class="price-czk">50 000 Kč + 14 000 Kč + elektřina</td>
+      <td class="price-eur">2,645 €</td>
+      <td>162 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~20 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-krc-hudeckova/417443916" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—<br><span class="flagtext">2 parkovacie miesta (1 za príplatok)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 1<span class="sub">Staré Město, Vězeňská</span></td>
+      <td class="price-czk">65 000 Kč</td>
+      <td class="price-eur">2,686 €</td>
+      <td>155 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~5-10 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-stare-mesto-vezenska/2471596108" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Nové Město<span class="sub">Lipová</span></td>
+      <td class="price-czk">70 000 Kč (zľava zo 75 000)</td>
+      <td class="price-eur">2,893 €</td>
+      <td>184 m²</td>
+      <td>N/A</td>
+      <td>5+kk</td>
+      <td>~5-10 min (centrum)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/616194-nabidka-pronajem-bytu-lipova-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 2<span class="sub">Italská 211 (Vinohrady, mezonet)</span></td>
+      <td class="price-czk">65 000 Kč + 9 700 Kč poplatky</td>
+      <td class="price-eur">3,087 €</td>
+      <td>205 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~10 min (metro/tram Náměstí Míru)</td>
+      <td>pôv. 19.6.2025</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-1-praha-italska-211-4342255" target="_blank" rel="noopener">Realcity</a></td>
+      <td class="flags"><span class="badge badge-flag">STARŠÍ &gt;30 dní</span><br><span class="flagtext">Starší inzerát (pôv. jún 2025)</span></td>
+    </tr>
+<tr>
+      <td class="loc">Praha 3<span class="sub">Vinohrady, nám. Jiřího z Poděbrad</span></td>
+      <td class="price-czk">75 000 Kč</td>
+      <td class="price-eur">3,099 €</td>
+      <td>150 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-vinohrady-namesti-jiriho-z-podebrad/2000982092" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 4<span class="sub">Nusle, Bělehradská</span></td>
+      <td class="price-czk">75 000 Kč</td>
+      <td class="price-eur">3,099 €</td>
+      <td>123 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-nusle-belehradska/1763958860" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 5<span class="sub">Podbělohorská (Smíchov, mezonet)</span></td>
+      <td class="price-czk">79 000 Kč + 1/2 provize RK</td>
+      <td class="price-eur">3,264 €</td>
+      <td>250 m²</td>
+      <td>zahrada 400 m² + bazén</td>
+      <td>4+kk</td>
+      <td>~15-20 min tram</td>
+      <td>novinka 21.7.2026</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-bytu-4-kk-praha-5-podbelohorska-4409000" target="_blank" rel="noopener">Realcity</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 5<span class="sub">Smíchov, Na Hřebenkách</span></td>
+      <td class="price-czk">85 000 Kč</td>
+      <td class="price-eur">3,512 €</td>
+      <td>180 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-smichov-na-hrebenkach/1023074380" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 6<span class="sub">Střešovice, Pod bateriemi</span></td>
+      <td class="price-czk">85 000 Kč</td>
+      <td class="price-eur">3,512 €</td>
+      <td>138 m²</td>
+      <td>N/A</td>
+      <td>4+1</td>
+      <td>~20 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+1/praha-stresovice-pod-bateriemi/3445592140" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 8<span class="sub">Karlín, Za Karlínským přístavem</span></td>
+      <td class="price-czk">85 000 Kč</td>
+      <td class="price-eur">3,512 €</td>
+      <td>131 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~10-15 min (metro B)</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-karlin-za-karlinskym-pristavem/3549155404" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 8<span class="sub">Libeň, Smrčkova</span></td>
+      <td class="price-czk">98 000 Kč</td>
+      <td class="price-eur">4,050 €</td>
+      <td>156 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15-20 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-liben-smrckova/3706380364" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 6<span class="sub">Střešovice, Slunná</span></td>
+      <td class="price-czk">98 000 Kč</td>
+      <td class="price-eur">4,050 €</td>
+      <td>246 m²</td>
+      <td>N/A</td>
+      <td>6 a viac</td>
+      <td>~20 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/6-a-vice/praha-stresovice-slunna/303539020" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 3<span class="sub">Vinohrady, nám. Jiřího z Poděbrad</span></td>
+      <td class="price-czk">99 800 Kč</td>
+      <td class="price-eur">4,124 €</td>
+      <td>107 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-vinohrady-namesti-jiriho-z-podebrad/2972098636" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 2<span class="sub">Vinohrady, Ibsenova</span></td>
+      <td class="price-czk">100 000 Kč</td>
+      <td class="price-eur">4,132 €</td>
+      <td>254 m²</td>
+      <td>N/A</td>
+      <td>5+1</td>
+      <td>~10-15 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/5+1/praha-vinohrady-ibsenova/4266349388" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 3<span class="sub">Vinohrady, Laubova</span></td>
+      <td class="price-czk">101 383 Kč</td>
+      <td class="price-eur">4,189 €</td>
+      <td>137 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15-20 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-vinohrady-laubova/1843020620" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 3<span class="sub">Vinohrady, nám. Jiřího z Poděbrad</span></td>
+      <td class="price-czk">103 463 Kč</td>
+      <td class="price-eur">4,275 €</td>
+      <td>118-120 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-vinohrady-namesti-jiriho-z-podebrad/4091167564" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 3<span class="sub">Vinohrady, nám. Jiřího z Poděbrad</span></td>
+      <td class="price-czk">103 930 Kč</td>
+      <td class="price-eur">4,295 €</td>
+      <td>118 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-vinohrady-namesti-jiriho-z-podebrad/1794150476" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 7<span class="sub">Holešovice, Komunardů</span></td>
+      <td class="price-czk">105 000 Kč</td>
+      <td class="price-eur">4,339 €</td>
+      <td>129 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-holesovice-komunardu/2085716044" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 6<span class="sub">Bubeneč, Charlese de Gaulla</span></td>
+      <td class="price-czk">100 000 Kč + 15 000 Kč</td>
+      <td class="price-eur">4,752 €</td>
+      <td>225 m²</td>
+      <td>N/A</td>
+      <td>5+1</td>
+      <td>~15 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/5+1/praha-bubenec-charlese-de-gaulla/1928704076" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha - Vinohrady<span class="sub">U Zdravotního ústavu</span></td>
+      <td class="price-czk">115 000 Kč + 12 000 Kč</td>
+      <td class="price-eur">5,248 €</td>
+      <td>226 m²</td>
+      <td>N/A</td>
+      <td>5+kk</td>
+      <td>~10 min (centrálna poloha)</td>
+      <td>neuvedený</td>
+      <td><a class="link" href="https://www.bezrealitky.com/properties-flats-houses/918392-nabidka-pronajem-bytu-u-zdravotniho-ustavu-praha" target="_blank" rel="noopener">Bezrealitky</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 2<span class="sub">Nové Město, Dřevná</span></td>
+      <td class="price-czk">130 000 Kč</td>
+      <td class="price-eur">5,372 €</td>
+      <td>250 m²</td>
+      <td>N/A</td>
+      <td>5+kk</td>
+      <td>~10 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/5+kk/praha-nove-mesto-drevna/2949022540" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 1<span class="sub">Josefov, Pařížská</span></td>
+      <td class="price-czk">135 000 Kč</td>
+      <td class="price-eur">5,579 €</td>
+      <td>228 m²</td>
+      <td>N/A</td>
+      <td>5+1</td>
+      <td>~5 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/5+1/praha-josefov-parizska/1753673804" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 7<span class="sub">Holešovice, Komunardů</span></td>
+      <td class="price-czk">135 000 Kč</td>
+      <td class="price-eur">5,579 €</td>
+      <td>144 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-holesovice-komunardu/2256007244" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 5<span class="sub">Smíchov, Holečkova</span></td>
+      <td class="price-czk">145 000 Kč</td>
+      <td class="price-eur">5,992 €</td>
+      <td>178 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15 min</td>
+      <td>pred 1 dňom</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-smichov-holeckova/3743346764" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+<tr>
+      <td class="loc">Praha 3<span class="sub">Vinohrady, Laubova</span></td>
+      <td class="price-czk">190 000 Kč</td>
+      <td class="price-eur">7,851 €</td>
+      <td>260 m²</td>
+      <td>N/A</td>
+      <td>4+kk</td>
+      <td>~15-20 min</td>
+      <td>dnes</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/byt/4+kk/praha-vinohrady-laubova/1241690188" target="_blank" rel="noopener">Sreality</a></td>
+      <td class="flags">—</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<footer>
+  <p>Vygenerované automaticky ako súčasť naplánovanej úlohy „praha-byt-prenajom". Tento report je nová, samostatná verzia — predchádzajúce reporty (07.07., 08.07., 10.07., 17.07.) neboli aktualizované a zostávajú zachované pre porovnanie cien v čase.</p>
+  <p>Poznámka: časy dostupnosti MHD sú odhady na základe lokality/mestskej časti, nie presný routing. Stav parkovania a presné poplatky si vždy overte priamo s prenajímateľom pred obhliadkou. Hyperinzerce.cz pokrytie bolo v tomto behu čiastočné (technické obmedzenie cache pri stránkovaní) — odporúča sa doplniť pri ďalšom behu.</p>
+</footer>
+<div class="ds-footer-links">
+  <a href="https://mmnto.sk">mmnto.sk</a>
+  <a href="https://blog.mmnto.sk">blog.mmnto.sk</a>
+  <a href="../index.html">&#8592; All dashboards</a>
+</div>
+
+</div>
+
+</body>
+</html>

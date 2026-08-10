@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domy na prenájom – okolie Prahy – 15.7.2026</title>
+<style>
+  :root{
+    --bg:#0a0e13;
+    --surface:#10151d;
+    --border:#1c232e;
+    --text:#e9edf2;
+    --text2:#7c8a9c;
+    --accent:#e8a355;
+    --accent-muted:rgba(232,163,85,0.15);
+    --top:#3ddc84;
+    --top-muted:rgba(61,220,132,0.13);
+    --dobre:#4ea1ff;
+    --dobre-muted:rgba(78,161,255,0.13);
+    --ostatne:#8a8a92;
+    --ostatne-muted:rgba(138,138,146,0.13);
+    --warn:#f2b84b;
+    --warn-muted:rgba(242,184,75,0.15);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:56px 24px 100px;}
+  header{margin-bottom:56px;}
+  .eyebrow{color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;margin-bottom:14px;}
+  h1{font-size:38px;font-weight:800;margin:0 0 12px;letter-spacing:-.02em;}
+  .sub{color:var(--text2);font-size:16px;max-width:760px;}
+  .statrow{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:36px;}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;}
+  .stat .num{font-size:28px;font-weight:800;}
+  .stat .lbl{color:var(--text2);font-size:13px;margin-top:4px;}
+  .stat.top .num{color:var(--top);}
+  .stat.dobre .num{color:var(--dobre);}
+  .stat.ostatne .num{color:var(--ostatne);}
+  section{margin-bottom:64px;}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;flex-wrap:wrap;}
+  .sec-head h2{font-size:24px;margin:0;font-weight:700;}
+  .pill{display:inline-block;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;}
+  .pill.top{background:var(--top-muted);color:var(--top);}
+  .pill.dobre{background:var(--dobre-muted);color:var(--dobre);}
+  .pill.ostatne{background:var(--ostatne-muted);color:var(--ostatne);}
+  .sec-desc{color:var(--text2);font-size:14px;margin:0 0 22px;max-width:820px;}
+  .tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface);}
+  table{width:100%;border-collapse:collapse;min-width:980px;font-size:14px;}
+  thead th{
+    text-align:left;padding:14px 16px;background:#151517;color:var(--text2);
+    font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;
+    border-bottom:1px solid var(--border);position:sticky;top:0;
+  }
+  tbody td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:#202023;}
+  .loc{font-weight:700;}
+  .loc .tag{display:block;color:var(--text2);font-weight:400;font-size:12px;margin-top:2px;}
+  .price{font-weight:700;white-space:nowrap;}
+  .price .eur{display:block;color:var(--text2);font-weight:400;font-size:12px;}
+  a.link{color:var(--accent);text-decoration:none;font-weight:600;}
+  a.link:hover{text-decoration:underline;}
+  .flag{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;}
+  .flag.stale{background:var(--warn-muted);color:var(--warn);}
+  .flag.dup{background:var(--ostatne-muted);color:var(--ostatne);}
+  .flag.na{background:rgba(255,90,90,.15);color:#ff6b6b;}
+  .flag.new{background:var(--top-muted);color:var(--top);}
+  .callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:18px 20px;margin-top:14px;font-size:14px;color:var(--text2);}
+  .callout b{color:var(--text);}
+  footer{border-top:1px solid var(--border);padding-top:28px;color:var(--text2);font-size:13px;}
+  footer p{margin:6px 0;}
+  .excl-list{color:var(--text2);font-size:14px;}
+  .excl-list li{margin-bottom:6px;}
+  @media(max-width:720px){
+    .statrow{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:28px;}
+  }
+
+  .ds-topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.85rem 1.5rem;margin:0 -1.5rem 0;background:rgba(10,14,19,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1c232e;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.82rem;}
+  .ds-topbar-brand{color:#e9edf2;text-decoration:none;font-weight:700;letter-spacing:-0.01em;}
+  .ds-topbar-back{color:#7c8a9c;text-decoration:none;}
+  .ds-topbar-back:hover{color:#e8a355;}
+  .ds-footer-links{max-width:1000px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;border-top:1px solid #1c232e;display:flex;gap:1.25rem;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.78rem;}
+  .ds-footer-links a{color:#7c8a9c;text-decoration:none;}
+  .ds-footer-links a:hover{color:#e8a355;}
+</style>
+</head>
+<body>
+<div class="ds-topbar">
+  <a class="ds-topbar-brand" href="../index.html">&#9656; MEMENTO/DASHSHARE</a>
+  <a class="ds-topbar-back" href="../index.html">&#8592; All dashboards</a>
+</div>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Automatizovaný prieskum trhu · 15. júl 2026</div>
+  <h1>Domy na prenájom – okolie Prahy</h1>
+  <p class="sub">Prieskum samostatných rodinných domov k prenájmu v obciach Zeleneč, Úvaly, Jesenice, Mnichovice, Beroun, Roztoky, Říčany, Černošice, Radotín a ich bezprostrednom okolí (do ~5 km). Kritériá: min. 4 izby (kuchyňa samostatne), vlastná záhrada, garáž/parkovanie pre min. 1 auto, úžitková plocha min. 110 m², dochádzka do Prahy do 45 min. Zdroje: Sreality.cz, Realcity.cz, Bezrealitky.cz, Hyperinzerce.cz.</p>
+
+  <div class="statrow">
+    <div class="stat top"><div class="num">4</div><div class="lbl">TOP ponuky</div></div>
+    <div class="stat dobre"><div class="num">17</div><div class="lbl">DOBRÉ ponuky</div></div>
+    <div class="stat ostatne"><div class="num">15</div><div class="lbl">OSTATNÉ ponuky</div></div>
+    <div class="stat"><div class="num">36</div><div class="lbl">Spolu vyhovujúcich</div></div>
+    <div class="stat"><div class="num">30+</div><div class="lbl">Vylúčených (nesplnili kritériá)</div></div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><h2>TOP ponuky</h2><span class="pill top">4</span></div>
+  <p class="sec-desc">Vlaková stanica priamo v obci + cena pod 2 500 €/mes. Najlepší pomer poloha/veľkosť/cena. Oproti behu z 8.7. pribudli dve nové ponuky priamo v Úvaloch a ponuka Říčany, Široká zo Sreality zmizla (inzerát stiahnutý).</p>
+  <div class="tablewrap">
+  <table>
+  <thead><tr>
+    <th>Lokalita</th><th>Nájom</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Dochádzka do Prahy</th><th>Zverejnené</th><th>Zdroj / odkaz</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td class="loc">Úvaly, Boženy Němcové<span class="tag">samostatný dom, hneď vedľa vlakovej stanice</span><span class="flag new">nové</span></td>
+      <td class="price">46 990 Kč<span class="eur">~1 880 €</span></td>
+      <td>174 m²</td><td>404 m²</td><td>4+kk</td>
+      <td>vlak 331 m od domu, ~24 min do Prahy hl.n.</td>
+      <td>vložené 13.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/uvaly-uvaly-bozeny-nemcove/3055804492" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Úvaly, Purkyňova<span class="tag">samostatný dom, pri Klánovickom lese</span><span class="flag new">nové</span></td>
+      <td class="price">53 990 Kč<span class="eur">~2 160 €</span></td>
+      <td>160 m²</td><td>800 m²</td><td>4+kk</td>
+      <td>vlak 1,1 km (2 min autom), ~24 min do Prahy</td>
+      <td>vložené 13.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/uvaly-uvaly-purkynova/2214846540" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Úvaly, Skácelova<span class="tag">samostatný dom, priamo v Úvaloch</span></td>
+      <td class="price">54 900 Kč<span class="eur">~2 196 €</span></td>
+      <td>152 m²</td><td>500 m²</td><td>5+kk</td>
+      <td>vlak priamo v obci, ~25 min do Prahy</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/uvaly-uvaly-skacelova/1533837388" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Roztoky – Žalov, Pod Koláčovem<span class="tag">samostatný dom, priamo v Roztokoch</span></td>
+      <td class="price">59 700 Kč<span class="eur">~2 388 €</span></td>
+      <td>170 m²</td><td>450 m² (zahrada 326 m²)</td><td>5+1</td>
+      <td>vlak priamo v obci, ~15 min do Prahy</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/853033-nabidka-pronajem-domu-pod-kolacovem-roztoky" target="_blank">Bezrealitky ↗</a></td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+  <div class="callout"><b>Zmena:</b> ponuka Říčany, Široká (predtým TOP) bola zo Sreality stiahnutá – nahradená dvoma novými priamymi ponukami v Úvaloch.</div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>DOBRÉ ponuky</h2><span class="pill dobre">17</span></div>
+  <p class="sec-desc">Cena pod 3 000 €/mes., v okolí obce s vlakovou stanicou napojenou na Prahu.</p>
+  <div class="tablewrap">
+  <table>
+  <thead><tr>
+    <th>Lokalita</th><th>Nájom</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Dochádzka do Prahy</th><th>Zverejnené</th><th>Zdroj / odkaz</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td class="loc">Vysoký Újezd, Pod Ovčínem<span class="tag">pri Berouně (~5 km, vlak)</span></td>
+      <td class="price">65 000 Kč<span class="eur">~2 600 €</span></td>
+      <td>244 m²</td><td>972 m²</td><td>5+kk</td>
+      <td>auto ~20–25 min do stanice Beroun</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/vysoky-ujezd-vysoky-ujezd-pod-ovcinem/4280975436" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Vysoký Újezd, Na Pískách<span class="tag">pri Berouně (~5 km, vlak)</span></td>
+      <td class="price">55 000 Kč<span class="eur">~2 200 €</span></td>
+      <td>173 m²</td><td>947 m²</td><td>4+kk</td>
+      <td>auto ~20 min do stanice Beroun</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/vysoky-ujezd-vysoky-ujezd-na-piskach/3563384908" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Vysoký Újezd, U Vršku<span class="tag">pri Berouně (~5 km)</span><span class="flag na">rezervované – aktuálne nedostupné</span></td>
+      <td class="price">50 000 Kč<span class="eur">~2 000 €</span></td>
+      <td>115 m²</td><td>380 m²</td><td>4+kk</td>
+      <td>auto ~20 min do stanice Loděnice</td>
+      <td>overené 15.7.2026 – stále rezervované</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/vysoky-ujezd-vysoky-ujezd-u-vrsku/3457454156" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Úvaly, Hvězdova<span class="tag">vila, priamo v Úvaloch (vlak)</span></td>
+      <td class="price">69 000 Kč<span class="eur">~2 760 €</span></td>
+      <td>vila 162 m²</td><td>1270 m²</td><td>5+ izieb</td>
+      <td>vlak priamo v obci, ~25 min</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/vila/uvaly-uvaly-hvezdova/1869209676" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Horoušany, Kubišova<span class="tag">~3 km od Úval (vlak)</span></td>
+      <td class="price">43 990 Kč<span class="eur">~1 760 €</span></td>
+      <td>120 m²</td><td>640 m²</td><td>4+kk</td>
+      <td>auto ~20 min do stanice Úvaly</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/horousany-horousany-kubisova/1574674508" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Horoušany, Na Svahu<span class="tag">~3 km od Úval</span><span class="flag new">nové</span></td>
+      <td class="price">40 000 Kč<span class="eur">~1 600 €</span></td>
+      <td>133 m²</td><td>533 m²</td><td>4+kk, garáž</td>
+      <td>auto ~20 min do stanice Úvaly</td>
+      <td>vložené 29.6.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/horousany-horousany-na-svahu/3986092108" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Křenice, V Pálce<span class="tag">~5 km od Úval/Říčan</span><span class="flag new">nové</span></td>
+      <td class="price">45 900 Kč<span class="eur">~1 836 €</span></td>
+      <td>116 m²</td><td>948 m²</td><td>4+kk, garáž, bazén</td>
+      <td>auto ~20–25 min, blízko Říčan (vlak)</td>
+      <td>vložené 29.6.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/krenice-krenice-v-palce/106295372" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Klecany, Dlouhá<span class="tag">~5 km od Roztok (vlak cez rieku)</span></td>
+      <td class="price">39 600 Kč<span class="eur">~1 584 €</span></td>
+      <td>vila 164 m²</td><td>248 m²</td><td>7+kk</td>
+      <td>auto ~25 min do stanice Roztoky</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/klecany-klecany-dlouha/2310660172" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Zdiby – Přemyšlení, U Louže<span class="tag">~3 km od Roztok/Klecian (vlak)</span><span class="flag new">nové</span></td>
+      <td class="price">50 000 Kč<span class="eur">~2 000 €</span></td>
+      <td>160 m²</td><td>740 m²</td><td>5+kk</td>
+      <td>auto ~15 min do stanice Roztoky u Prahy</td>
+      <td>vložené 9.4.2026, upravené 29.6.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/zdiby-premysleni-u-louze/1121497164" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Horoměřice, Rabochova<span class="tag">~3 km od Roztok (vlak)</span></td>
+      <td class="price">70 000 Kč<span class="eur">~2 800 €</span></td>
+      <td>255 m²</td><td>517 m²</td><td>6+kk</td>
+      <td>auto ~15–20 min do stanice Roztoky</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/horomerice-horomerice-rabochova/3797450828" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Horoměřice, Do Oříšků<span class="tag">~3 km od Roztok (vlak)</span></td>
+      <td class="price">68 000 Kč<span class="eur">~2 720 €</span></td>
+      <td>240 m²</td><td>550 m²</td><td>7+1</td>
+      <td>auto ~15–20 min do stanice Roztoky</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/horomerice-horomerice-do-orisku/1908191308" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Ohrobec, Na širokém I<span class="tag">~4–5 km od Radotína/Černošíc (vlak)</span><span class="flag dup">duplicitne aj na Realcity</span></td>
+      <td class="price">49 000 Kč<span class="eur">~1 960 €</span></td>
+      <td>171 m²</td><td>410 m²</td><td>5+kk</td>
+      <td>auto ~25–30 min do stanice Radotín/Černošice</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/ohrobec-ohrobec-na-sirokem-i/1406566476" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Kosoř, Dolejší<span class="tag">~4 km od Radotína (vlak)</span></td>
+      <td class="price">59 000 Kč<span class="eur">~2 360 €</span></td>
+      <td>203 m²</td><td>572 m²</td><td>6+1</td>
+      <td>auto ~20–25 min do stanice Radotín</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/kosor-kosor-dolejsi/2977071180" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Hlásná Třebaň, K Černé Skále<span class="tag">~5 km od Berouna (vlak)</span><span class="flag na">rezervované – aktuálne nedostupné</span></td>
+      <td class="price">34 800 Kč<span class="eur">~1 390 €</span></td>
+      <td>175 m²</td><td>448 m²</td><td>5+kk, garáž</td>
+      <td>auto ~30 min do stanice Beroun</td>
+      <td>overené 15.7.2026 – stále rezervované</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/hlasna-treban-rovina-k-cerne-skale/4128280652" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Pětihosty<span class="tag">pri Senohraboch, ~6 km od Mnichovíc</span><span class="flag new">nové</span></td>
+      <td class="price">55 000 Kč<span class="eur">~2 200 €</span></td>
+      <td>183 m²</td><td>1005 m²</td><td>6+1, garáž</td>
+      <td>auto ~20 min, vlak Senohraby ~2 km</td>
+      <td>upravené 23.6.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/petihosty-petihosty-/2182054732" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Svojetice, Choceradská<span class="tag">pri Mnichoviciach/Říčanoch</span><span class="flag new">nové</span></td>
+      <td class="price">65 000 Kč<span class="eur">~2 600 €</span></td>
+      <td>281 m² (úžit. 201 m²)</td><td>1010 m²</td><td>5+kk</td>
+      <td>~7 min do Říčan, ~20 min do Prahy</td>
+      <td>vložené 28.5.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/svojetice-svojetice-choceradska/4035543116" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Jíloviště, Františka Smolíka (111 m²)<span class="tag">~5 km od Černošíc (vlak)</span><span class="flag stale">staršie ako 30 dní</span></td>
+      <td class="price">70 000 Kč<span class="eur">~2 800 €</span></td>
+      <td>111 m²</td><td>800 m²</td><td>4 izby</td>
+      <td>auto ~20 min do stanice Černošice</td>
+      <td>beze zmeny od 8.7.2026 (pôvod. 1.6.2026)</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/jiloviste-jiloviste-frantiska-smolika/2164478796" target="_blank">Sreality ↗</a></td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>OSTATNÉ ponuky</h2><span class="pill ostatne">15</span></div>
+  <p class="sec-desc">Spĺňajú základné kritériá (typ domu, izby, záhrada, parkovanie, plocha), ale nezaradili sa do TOP/DOBRÉ – vyššia cena, chýbajúca vlaková väzba v okolí, alebo lokalita na hrane 5 km / 45 min limitu.</p>
+  <div class="tablewrap">
+  <table>
+  <thead><tr>
+    <th>Lokalita</th><th>Nájom</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Dochádzka do Prahy</th><th>Zverejnené</th><th>Zdroj / odkaz</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td class="loc">Svinaře – Halouny, Na Pišťák<span class="tag">pri Berouně/Řevniciach, bazén, dvojgaráž</span><span class="flag new">nové</span></td>
+      <td class="price">75 000 Kč<span class="eur">~3 000 €</span></td>
+      <td>450 m²</td><td>2367 m²</td><td>5+ izieb, garáž pre 2 autá</td>
+      <td>~40 min autom, vlak Dobřichovice/Řevnice ~7 min</td>
+      <td>upravené 10.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/svinare-halouny-na-pistak/2592112716" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Jesenice – Osnice, Růžová (185 m²)<span class="tag">priamo v Jesenici, bez vlaku v okolí</span></td>
+      <td class="price">60 000 Kč<span class="eur">~2 400 €</span></td>
+      <td>185 m²</td><td>288 m²</td><td>4+kk</td>
+      <td>auto ~20 min</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/jesenice-osnice-ruzova/1299705932" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Jesenice – Osnice, Růžová (205 m²)<span class="tag">priamo v Jesenici, bez vlaku v okolí</span></td>
+      <td class="price">60 000 Kč<span class="eur">~2 400 €</span></td>
+      <td>205 m²</td><td>750 m²</td><td>4+kk</td>
+      <td>auto ~20 min</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/jesenice-osnice-ruzova/974708812" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Mratín<span class="tag">bez vlaku priamo v obci, vzdialenosť od Zelenče neistá</span><span class="flag new">nové</span></td>
+      <td class="price">49 000 Kč<span class="eur">~1 960 €</span></td>
+      <td>128 m²</td><td>714 m²</td><td>5+kk</td>
+      <td>bus v obci, vlak Měšice ~2,7 km</td>
+      <td>vložené 3.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/mratin-mratin-/2649415756" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Mratín, Stodolní<span class="tag">bez vlaku priamo v obci</span><span class="flag new">nové</span></td>
+      <td class="price">38 000 Kč<span class="eur">~1 520 €</span></td>
+      <td>112 m²</td><td>277 m²</td><td>5+kk</td>
+      <td>bus v obci, vlak Kostelec n.L. ~2 km</td>
+      <td>vložené 25.2.2026, upravené 23.6.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/mratin-mratin-stodolni/3494339404" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Herink<span class="tag">vila, dvojgaráž, bazén, vysoká cena</span><span class="flag new">nové</span></td>
+      <td class="price">83 000 Kč<span class="eur">~3 320 €</span></td>
+      <td>vila 188 m²</td><td>961 m²</td><td>6+1</td>
+      <td>bus v obci, vlak Velké Popovice 5,5 km</td>
+      <td>vložené 25.5.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/vila/herink-herink-/4171599948" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Roztoky, Tiché údolí<span class="tag">priamo v Roztokoch, vysoká cena</span></td>
+      <td class="price">110 000 Kč<span class="eur">~4 400 €</span></td>
+      <td>350 m²</td><td>700 m²</td><td>7 ložníc</td>
+      <td>vlak v obci, ~15–20 min</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/roztoky-roztoky-tiche-udoli/46883660" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Černošice, Libušina<span class="tag">vila, priamo v Černošiciach, vysoká cena</span></td>
+      <td class="price">140 000 Kč<span class="eur">~5 600 €</span></td>
+      <td>vila 356 m²</td><td>1389 m²</td><td>5+ izieb</td>
+      <td>vlak v obci, ~25 min</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/vila/cernosice-cernosice-libusina/1138639692" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Průhonice, Pod Valem II.<span class="tag">~4 km od Jesenice, bez vlaku, vysoká cena</span><span class="flag dup">desiatky duplicitných inzerátov tej istej developerskej zástavby</span></td>
+      <td class="price">79 000 Kč<span class="eur">~3 160 €</span></td>
+      <td>350 m²</td><td>800 m²</td><td>6+1</td>
+      <td>auto ~20 min</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/pruhonice-pruhonice-pod-valem-ii/22380620" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Průhonice, Sadová<span class="tag">~4 km od Jesenice, bez vlaku, vysoká cena</span><span class="flag dup">duplicitne aj na Realcity, viacero rovnakých inzerátov</span></td>
+      <td class="price">95 000 Kč<span class="eur">~3 800 €</span></td>
+      <td>350 m²</td><td>950 m²</td><td>6+1</td>
+      <td>auto ~20 min</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/pruhonice-pruhonice-/1518322508" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Jíloviště, Františka Smolíka (160 m²)<span class="tag">~5 km od Černošíc, vysoká cena</span><span class="flag stale">staršie ako 30 dní</span></td>
+      <td class="price">100 000 Kč<span class="eur">~4 000 €</span></td>
+      <td>160 m²</td><td>800 m²</td><td>4 izby</td>
+      <td>auto ~20 min do stanice Černošice</td>
+      <td>beze zmeny od 8.7.2026 (pôvod. 1.6.2026)</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/jiloviste-jiloviste-frantiska-smolika/1124291404" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Jíloviště, Františka Smolíka (120 m²)<span class="tag">~5 km od Černošíc, vysoká cena</span><span class="flag stale">staršie ako 30 dní</span></td>
+      <td class="price">85 000 Kč<span class="eur">~3 400 €</span></td>
+      <td>120 m²</td><td>800 m²</td><td>4 izby</td>
+      <td>auto ~20 min do stanice Černošice</td>
+      <td>beze zmeny od 8.7.2026 (pôvod. 1.6.2026)</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/jiloviste-jiloviste-frantiska-smolika/2684572492" target="_blank">Sreality ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Kunice, Horní/Dolní Lomnice<span class="tag">~5–8 km od Mnichovíc, bez vlaku priamo</span><span class="flag stale">staršie ako 30 dní</span><span class="flag dup">totožné/sesterské s ponukou na Bezrealitky</span></td>
+      <td class="price">75 000 Kč<span class="eur">~3 000 €</span></td>
+      <td>296 m²</td><td>1600–1662 m²</td><td>6+kk</td>
+      <td>auto ~30 min (D1)</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/kunice-horni-lomnice-/3839632204" target="_blank">Sreality ↗</a> / <a class="link" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/902483-nabidka-pronajem-domu-kunice" target="_blank">Bezrealitky ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Čerčany, Mánesova<span class="tag">~9 km od Mnichovíc, mimo 5 km okruhu</span><span class="flag dup">duplicitne aj na Realcity</span></td>
+      <td class="price">40 000 Kč<span class="eur">~1 600 €</span></td>
+      <td>180 m²</td><td>oplotený, veľkosť neuvedená</td><td>5+kk</td>
+      <td>vlak priamo v Čerčanoch, ~35 min</td>
+      <td>beze zmeny od 8.7.2026</td>
+      <td><a class="link" href="https://www.realcity.cz/nemovitost/pronajem-domu-cercany-manesova-4391857" target="_blank">Realcity ↗</a></td>
+    </tr>
+    <tr>
+      <td class="loc">Mnichovice, Pod Budíkovem<span class="tag">priamo v Mnichoviciach, vlak</span><span class="flag stale">inzerát z roku 2023 – veľmi starý</span></td>
+      <td class="price">34 000 Kč<span class="eur">~1 360 €</span></td>
+      <td>160 m²</td><td>450 m²</td><td>4+1</td>
+      <td>vlak/bus priamo v obci</td>
+      <td>neaktualizované od 2023</td>
+      <td><a class="link" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/800787-nabidka-pronajem-domu-pod-budikovem-bozkov" target="_blank">Bezrealitky ↗</a></td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+  <div class="callout">
+    <b>Poznámka k Mratínu:</b> obec leží mimo hlavný zoznam sledovaných lokalít a jej presná vzdialenosť od Zelenče (~7–8 km) prekračuje 5 km okruh – ponuky zaradené len informatívne do OSTATNÉ.
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Vylúčené ponuky</h2></div>
+  <p class="sec-desc">Nesplnili vstupné kritériá – typ domu (polovica dvojdomu), minimálna plocha 110 m², rezervácia/nedostupnosť, alebo lokalita mimo dosahu. Neúplný výpis, orientačne 30+ inzerátov naprieč všetkými zdrojmi.</p>
+  <ul class="excl-list">
+    <li><b>Beroun-Město, U Židovského hřbitova</b> (43 000 Kč, nové) – potvrdené v popise ako polovica dvojdomu.</li>
+    <li><b>Trubín, Větrná</b> (30 000 Kč, nové) – potvrdené v popise ako polovica zděného dvojdomu.</li>
+    <li><b>Vysoký Újezd, Na Výsluní</b> (52 000 Kč) – potvrdené v popise ako polovica dvojdomku.</li>
+    <li><b>Babice</b> (49 000 Kč, nová ponuka 194 m²) – potvrdené v popise ako polovica dvojdomu (odlišná od pôvodnej ponuky Babice, Větrná, ktorá bola stiahnutá).</li>
+    <li><b>Bašť, Brandýská</b> (70 000 Kč) – "projekt dvoj domu", polovica dvojdomu.</li>
+    <li><b>Roztoky, Zvoncová</b> (55 000 Kč) – potvrdené v popise ako polovica dvojdomu.</li>
+    <li><b>Trubín, Polní</b> (39 000 Kč) – pravdepodobne tiež polovica dvojdomu (neoverené priamo tento beh).</li>
+    <li><b>Senohraby, Nad stráněmi</b> (69 000 Kč) – v detaile inzerátu označené ako "Rezervováno".</li>
+    <li><b>Radonice, V zahrádkách</b> (46 000 Kč) – lokalita pri Vinoři/Černém Mostě, mimo 5 km okruhu od Zelenče.</li>
+    <li><b>Veliká Ves, Krajní</b> (49 000 Kč) – lokalita pri Neratovicích/Kojeticích, mimo dosahu sledovaných obcí.</li>
+    <li><b>Tetín, Mramorová</b> (26 000 Kč) – iba 82 m², pod minimom 110 m².</li>
+    <li><b>Psáry – Dolní Jirčany, K Junčáku</b> (Bezrealitky, 28 000 Kč) – rezervované, navyše len 78 m².</li>
+    <li><b>Kamenice – Štiřín, Spádová</b> (Bezrealitky, 36 000 Kč) – iba 93 m², pod minimom.</li>
+    <li><b>Vrané nad Vltavou</b> (2 ponuky, Bezrealitky) – 98 m² pod minimom / lokalita mimo dosahu cieľových obcí.</li>
+    <li><b>Beroun, Sadová</b> (Bezrealitky, 20 000 Kč) – iba 100 m² a 2+kk, pod minimom izieb aj plochy.</li>
+    <li><b>Svinaře</b> (Bezrealitky, 22 950 Kč) – 75 m² a pozemok len 48 m², pod minimom.</li>
+    <li><b>Okrouhlo</b> (49 000 Kč, Bezrealitky) – lokalita pravdepodobne pri Načeradci (okr. Benešov), mimo 45 min dosahu.</li>
+    <li>Ďalších cca 15 inzerátov vylúčených pre polohu mimo dosahu (Hostivice, Čelákovice, Nehvizdy, Kostelec nad Černými lesy, Jílové u Prahy, Hořovice, Úhonice, Chýně, Velké Přílepy, Ořech, Kněževes, Kladno, Lysá nad Labem, Bělá pod Bezdězem, Pchery, Načeradec, Sudovo Hlavno, Brandýs nad Labem, Nový Vestec, Drahelčice, Pečky) alebo pre nedostatočnú plochu (pod 110 m², najmä chaty a chalupy).</li>
+  </ul>
+</section>
+
+<footer>
+  <p><b>Metodika:</b> TOP = vlaková stanica priamo v obci + nájom pod 2 500 €/mes. DOBRÉ = nájom pod 3 000 €/mes., v okolí obce s vlakovým spojením do Prahy. OSTATNÉ = spĺňa základné kritériá, ale nezaradené vyššie (cena, chýbajúci vlak, hraničná vzdialenosť).</p>
+  <p><b>Kurz:</b> orientačne 25 Kč/EUR. <b>Duplicity:</b> Sreality a Realcity často zdieľajú rovnaký feed – označené pri konkrétnych riadkoch, počítané raz. Vývojový projekt Pod Valem II. / Sadová v Průhonicích sa opakuje v desiatkach takmer identických inzerátov naprieč viacerými RK – v tabuľke je vždy len jeden reprezentatívny záznam. <b>Staré inzeráty:</b> označené ak posledná aktualizácia je staršia ako 30 dní. <b>Rezervácie:</b> U Vršku (Vysoký Újezd) a K Černé Skále (Hlásná Třebaň) boli tento beh priamo overené v detaile inzerátu – obe stále "Rezervováno".</p>
+  <p>Vygenerované automaticky na základe Sreality.cz, Realcity.cz, Bezrealitky.cz a Hyperinzerce.cz (15.7.2026, na Hyperinzerce.cz sa v okolí sledovaných obcí opäť nenašla žiadna vyhovujúca ponuka). Tento report je nový súbor – nenadväzuje na úpravu predchádzajúcich verzií.</p>
+</footer>
+<div class="ds-footer-links">
+  <a href="https://mmnto.sk">mmnto.sk</a>
+  <a href="https://blog.mmnto.sk">blog.mmnto.sk</a>
+  <a href="../index.html">&#8592; All dashboards</a>
+</div>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dom pri Prahe - kupa - report 28.7.2026</title>
+<style>
+  :root {
+    --bg: #0a0e13;
+    --surface: #10151d;
+    --surface-border: #1c232e;
+    --text: #e9edf2;
+    --text-secondary: #7c8a9c;
+    --accent: #e8a355;
+    --accent-muted: rgba(232, 163, 85, 0.15);
+    --green: #4ade80;
+    --green-muted: rgba(74, 222, 128, 0.12);
+    --yellow: #facc15;
+    --yellow-muted: rgba(250, 204, 21, 0.12);
+    --blue: #60a5fa;
+    --blue-muted: rgba(96, 165, 250, 0.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+  }
+  header { margin-bottom: 56px; }
+  .eyebrow {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 { font-size: 40px; font-weight: 800; margin: 0 0 12px; letter-spacing: -0.02em; }
+  .subtitle { color: var(--text-secondary); font-size: 16px; max-width: 780px; }
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 36px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; padding: 20px; }
+  .stat-num { font-size: 30px; font-weight: 800; color: var(--accent); }
+  .stat-label { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 40px 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+  .callout strong { color: var(--text); }
+  .callout ul { margin: 10px 0 0; padding-left: 20px; }
+  .callout li { margin-bottom: 6px; }
+  section { margin-top: 80px; }
+  .section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; flex-wrap: wrap; }
+  h2 { font-size: 26px; font-weight: 800; margin: 0; letter-spacing: -0.01em; }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
+  .badge-green { background: var(--green-muted); color: var(--green); }
+  .badge-yellow { background: var(--yellow-muted); color: var(--yellow); }
+  .badge-blue { background: var(--blue-muted); color: var(--blue); }
+  .section-desc { color: var(--text-secondary); font-size: 14px; margin: 0 0 24px; max-width: 820px; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--surface-border); border-radius: 12px; background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 980px; }
+  thead th {
+    text-align: left; padding: 14px 16px; background: #212124; color: var(--text-secondary);
+    font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--surface-border); position: sticky; top: 0;
+  }
+  tbody td { padding: 14px 16px; border-bottom: 1px solid var(--surface-border); vertical-align: top; color: var(--text); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  td.town { font-weight: 600; min-width: 220px; }
+  td.eur { color: var(--accent); font-weight: 600; }
+  .note { margin-top: 6px; font-weight: 400; font-size: 12px; color: var(--yellow); max-width: 260px; }
+  .src { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+  a { color: var(--accent); text-decoration: none; font-weight: 600; white-space: nowrap; }
+  a:hover { text-decoration: underline; }
+  footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--surface-border); color: var(--text-secondary); font-size: 13px; }
+  @media (max-width: 720px) { .stat-row { grid-template-columns: repeat(2, 1fr); } h1 { font-size: 28px; } }
+
+  .ds-topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.85rem 1.5rem;margin:0 -1.5rem 0;background:rgba(10,14,19,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1c232e;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.82rem;}
+  .ds-topbar-brand{color:#e9edf2;text-decoration:none;font-weight:700;letter-spacing:-0.01em;}
+  .ds-topbar-back{color:#7c8a9c;text-decoration:none;}
+  .ds-topbar-back:hover{color:#e8a355;}
+  .ds-footer-links{max-width:1000px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;border-top:1px solid #1c232e;display:flex;gap:1.25rem;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.78rem;}
+  .ds-footer-links a{color:#7c8a9c;text-decoration:none;}
+  .ds-footer-links a:hover{color:#e8a355;}
+</style>
+</head>
+<body>
+<div class="ds-topbar">
+  <a class="ds-topbar-brand" href="../index.html">&#9656; MEMENTO/DASHSHARE</a>
+  <a class="ds-topbar-back" href="../index.html">&#8592; All dashboards</a>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Automatizovany report &middot; scheduled task "dom-praha-kupa"</div>
+    <h1>Dom pri Prahe &ndash; kupa &ndash; report 28.7.2026</h1>
+    <p class="subtitle">Prehlad ponuk samostatnych rodinnych domov (min. 4 izby, vlastna zahrada, garaz/parkovanie, min. 120 m&sup2; uzitkovej plochy) v obciach Zelenec, Uvaly, Jesenice, Mnichovice, Beroun, Roztoky, Ricany, Cernosice, Radotin a ich bezprostrednom okoli (do ~5 km), s dochadzkou do Prahy do 45 minut.</p>
+
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-num">79</div><div class="stat-label">Celkovo najdenych ponuk</div></div>
+      <div class="stat-card"><div class="stat-num">47</div><div class="stat-label">TOP ponuky</div></div>
+      <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">DOBRE ponuky</div></div>
+      <div class="stat-card"><div class="stat-num">29</div><div class="stat-label">OSTATNE ponuky</div></div>
+    </div>
+  </header>
+
+  <div class="callout">
+    <strong>Metodika a obmedzenia tohto behu</strong>
+    <ul>
+      <li><strong>Zdroje:</strong> Sreality.cz (cez Claude in Chrome, filter uzitkova plocha &ge;120 m&sup2; pre vsetkych 9 obci), Realcity.cz a Bezrealitky.cz (priamy web fetch, ciastocne pokrytie), Hyperinzerce.cz (bez pouzitelnych vysledkov pre cielove obce v tomto behu &ndash; staticka stranka neponukala funkcny filter lokality).</li>
+      <li><strong>Kurz EUR:</strong> pouzity prepocet 1 EUR &asymp; 24,16 CZK (aktualny k 28.7.2026).</li>
+      <li><strong>Vlakove stanice v TOP kategorii:</strong> Uvaly, Mnichovice, Ricany, Roztoky, Cernosice, Beroun a Radotin maju vlastnu vlakovu stanicu s napojenim do Prahy &ndash; ponuky z tychto obci pod 800 000 EUR su v TOP. Zelenec a Jesenice vlastnu stanicu nemaju (doprava len autom/MHD) &ndash; ponuky z nich preto nemozu byt TOP ani DOBRE podla zadania a su v OSTATNE bez ohladu na cenu.</li>
+      <li><strong>Datum zverejnenia:</strong> Sreality vo vypise ponuk datum vlozenia nezobrazuje &ndash; bolo mozne overit len pri niekolkych individualne skontrolovanych inzeratoch (napr. Beroun-Zavodi/Prazska &ndash; vlozene 7.7.2026, teda aktualne; Uvaly-Glucksmannova &ndash; vlozene 29.10.2025, teda stare >30 dni, vyslovne oznacene). Pri vacsine riadkov je datum "neuvedeny" &ndash; odporucame overit priamo v inzerate pred kontaktovanim.</li>
+      <li><strong>Neuplne overene detaily:</strong> pocet izieb, garaz/parkovanie a zahrada boli individualne overene len pri vybranych najsilnejsich kandidatoch (detailne stranky); pri ostatnych vychadzaju z filtra plochy a textu vypisu ponuk &ndash; odporucame si pred obhliadkou overit konkretny inzerat.</li>
+      <li><strong>Duplicity:</strong> Sreality a Realcity casto zdielaju feed &ndash; zhodne ponuky su oznacene poznamkou "duplicita" a pocitane len raz v statistike vyssie.</li>
+      <li><strong>Uvaly-Glucksmannova:</strong> napriek tomu, ze cenou/velkostou/vzdialenostou od stanice by splnala TOP, je aktualne kolaudovana ako "stavba obcianskej vybavenosti" (materska skola) &ndash; nie je to bezny obytny dom, preto je zaradena do OSTATNE s vyraznym varovanim.</li>
+    </ul>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2>TOP ponuky</h2>
+      <span class="badge badge-green">vlakova stanica v obci + cena pod 800 000 &euro;</span>
+    </div>
+    <p class="section-desc">Najlepsi pomer poloha/velkost/cena &ndash; vlakova stanica priamo v obci a cena pod 800 000 EUR. Zoradene od najnizsej ceny.</p>
+    
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Lokalita / obec</th>
+          <th>Cena</th>
+          <th>Cena (EUR)</th>
+          <th>Velkost domu</th>
+          <th>Velkost pozemku</th>
+          <th>Izby</th>
+          <th>Cas do Prahy</th>
+          <th>Datum zverejnenia</th>
+          <th>Odkaz</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr>
+      <td class="town">Roztoky - Burgerova<div class="note">vyborna cena - overit stav</div></td>
+      <td>6 999 000 Kc</td>
+      <td class="eur">289 694 &euro;</td>
+      <td>150 m&sup2;</td>
+      <td>306 m&sup2;</td>
+      <td>5</td>
+      <td>~18 min vlak (Roztoky)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/roztoky-roztoky-burgerova/1738702924" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Hostim - Ke Svatemu Janu<div class="note">pozemok neuvedeny, overit v inzerate</div></td>
+      <td>8 750 000 Kc</td>
+      <td class="eur">362 169 &euro;</td>
+      <td>193 m&sup2;</td>
+      <td>neuvedene</td>
+      <td>neuvedene</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.realcity.cz/prodej-domu/beroun-ke-svatemu-janu" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Realcity</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Zavodi - Lidicka</td>
+      <td>9 999 900 Kc</td>
+      <td class="eur">413 903 &euro;</td>
+      <td>220 m&sup2;</td>
+      <td>889 m&sup2;</td>
+      <td>5+</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-zavodi-lidicka/3498242124" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Zavodi - Prazska<div class="note">vicegeneracni dom - 2 bytove jednotky (3+kk a 3+1), bez garaze (len parkovanie na pozemku), stavba z r. 1919</div></td>
+      <td>10 980 000 Kc</td>
+      <td class="eur">454 470 &euro;</td>
+      <td>199 m&sup2;</td>
+      <td>710 m&sup2;</td>
+      <td>5+</td>
+      <td>stanica Beroun-Zavodi 323 m</td>
+      <td>7.7.2026 (overene)</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-zavodi-prazska/1074323532" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Zdejcina - Hudlicka</td>
+      <td>11 499 000 Kc</td>
+      <td class="eur">475 952 &euro;</td>
+      <td>145 m&sup2;</td>
+      <td>1039 m&sup2;</td>
+      <td>5</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-zdejcina-hudlicka/513160012" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Praha-Radotin - Pod Klapici</td>
+      <td>11 590 000 Kc</td>
+      <td class="eur">479 719 &euro;</td>
+      <td>160 m&sup2;</td>
+      <td>767 m&sup2;</td>
+      <td>5</td>
+      <td>~18 min vlak (Radotin)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-pod-klapici/3599163468" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - U Hostina<div class="note">Bezrealitky, blizko stanice Uvaly</div></td>
+      <td>11 990 000 Kc</td>
+      <td class="eur">496 275 &euro;</td>
+      <td>120 m&sup2;</td>
+      <td>227 m&sup2;</td>
+      <td>4+kk</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.bezrealitky.cz/nemovitosti-byty-domy/pronajem-prodej/uvaly-u-hostina" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Bezrealitky</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Hostim - Kozelska</td>
+      <td>11 990 000 Kc</td>
+      <td class="eur">496 275 &euro;</td>
+      <td>168 m&sup2;</td>
+      <td>638 m&sup2;</td>
+      <td>5</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-hostim-kozelska/3199438924" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uholicky (pri Roztokoch)<div class="note">obec bez vlastnej stanice, susedi priamo s Roztokami</div></td>
+      <td>12 500 000 Kc</td>
+      <td class="eur">517 384 &euro;</td>
+      <td>250 m&sup2;</td>
+      <td>neuvedene</td>
+      <td>neuvedene</td>
+      <td>~5 min do Roztok, ~20 min vlak z Roztok</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.realcity.cz/prodej-domu/uholicky" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Realcity</div></td>
+    </tr>
+    <tr>
+      <td class="town">Mnichovice - Masarykovo namesti</td>
+      <td>12 900 000 Kc</td>
+      <td class="eur">533 940 &euro;</td>
+      <td>240 m&sup2;</td>
+      <td>494 m&sup2;</td>
+      <td>6+</td>
+      <td>~35 min vlak (Mnichovice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-mnichovice-masarykovo-namesti/97805132" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Roztoky - Horova</td>
+      <td>12 950 000 Kc</td>
+      <td class="eur">536 010 &euro;</td>
+      <td>214 m&sup2;</td>
+      <td>570 m&sup2;</td>
+      <td>5+</td>
+      <td>~18 min vlak (Roztoky)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/roztoky-roztoky-horova/2597741388" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Mnichovice-Bozkov - Nad Trati</td>
+      <td>12 990 000 Kc</td>
+      <td class="eur">537 666 &euro;</td>
+      <td>220 m&sup2;</td>
+      <td>906 m&sup2;</td>
+      <td>5</td>
+      <td>~35 min vlak (Mnichovice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-bozkov-nad-trati/204570700" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Mesto - Konopikova<div class="note">velmi maly pozemok</div></td>
+      <td>13 300 000 Kc</td>
+      <td class="eur">550 497 &euro;</td>
+      <td>153 m&sup2;</td>
+      <td>219 m&sup2;</td>
+      <td>5</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-mesto-konopikova/2941150540" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Zavodi - Slavasovska (vila)<div class="note">zhodne s Realcity - duplicita</div></td>
+      <td>13 425 000 Kc</td>
+      <td class="eur">555 671 &euro;</td>
+      <td>300 m&sup2;</td>
+      <td>504 m&sup2;</td>
+      <td>6+</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-zavodi-slavasovska/1234567801" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality/Realcity</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Pacov - Brezska</td>
+      <td>13 500 000 Kc</td>
+      <td class="eur">558 775 &euro;</td>
+      <td>130 m&sup2;</td>
+      <td>596 m&sup2;</td>
+      <td>4+</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-pacov-brezska/2681307212" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Mesto - Sadova<div class="note">maly pozemok</div></td>
+      <td>13 690 000 Kc</td>
+      <td class="eur">566 639 &euro;</td>
+      <td>237 m&sup2;</td>
+      <td>265 m&sup2;</td>
+      <td>6+</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-mesto-sadova/919425868" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - Skvorecka</td>
+      <td>13 950 000 Kc</td>
+      <td class="eur">577 401 &euro;</td>
+      <td>237 m&sup2;</td>
+      <td>808 m&sup2;</td>
+      <td>5+</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-skvorecka/3488845900" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - Finska<div class="note">Bezrealitky</div></td>
+      <td>14 300 000 Kc</td>
+      <td class="eur">591 887 &euro;</td>
+      <td>124 m&sup2;</td>
+      <td>312 m&sup2;</td>
+      <td>4+1</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.bezrealitky.cz/nemovitosti-byty-domy/pronajem-prodej/uvaly-finska" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Bezrealitky</div></td>
+    </tr>
+    <tr>
+      <td class="town">Mnichovice - Svermova</td>
+      <td>14 490 000 Kc</td>
+      <td class="eur">599 752 &euro;</td>
+      <td>161 m&sup2;</td>
+      <td>919 m&sup2;</td>
+      <td>5</td>
+      <td>~35 min vlak (Mnichovice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-mnichovice-svermova/2371601228" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Zavadilka - Steinerova<div class="note">POZOR: duplicitny zaznam v ramci Sreality (2x)</div></td>
+      <td>14 490 000 Kc</td>
+      <td class="eur">599 752 &euro;</td>
+      <td>146 m&sup2;</td>
+      <td>610 m&sup2;</td>
+      <td>5</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-zavadilka-steinerova/2189710156" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Pacov - U Rybnika</td>
+      <td>14 900 000 Kc</td>
+      <td class="eur">616 722 &euro;</td>
+      <td>225 m&sup2;</td>
+      <td>1091 m&sup2;</td>
+      <td>5+</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-pacov-u-rybnika/1452728396" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Radosovice - Haskova<div class="note">maly pozemok</div></td>
+      <td>14 900 000 Kc</td>
+      <td class="eur">616 722 &euro;</td>
+      <td>275 m&sup2;</td>
+      <td>363 m&sup2;</td>
+      <td>6+</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-radosovice-haskova/3376148556" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Mnichovice-Bozkov - Nad Rybnikem<div class="note">SLEVA (znizena cena)</div></td>
+      <td>14 999 000 Kc</td>
+      <td class="eur">620 820 &euro;</td>
+      <td>312 m&sup2;</td>
+      <td>2428 m&sup2;</td>
+      <td>6+</td>
+      <td>~35 min vlak (Mnichovice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-bozkov-nad-rybnikem/331117388" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Kuri</td>
+      <td>14 999 000 Kc</td>
+      <td class="eur">620 820 &euro;</td>
+      <td>174 m&sup2;</td>
+      <td>901 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-kuri-/2027307852" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun-Mesto - Konopikova (2)<div class="note">ina ponuka, rovnaka ulica</div></td>
+      <td>15 150 000 Kc</td>
+      <td class="eur">627 070 &euro;</td>
+      <td>153 m&sup2;</td>
+      <td>327 m&sup2;</td>
+      <td>5</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-mesto-konopikova/3165345100" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Praha-Radotin - Radkovska</td>
+      <td>15 400 000 Kc</td>
+      <td class="eur">637 417 &euro;</td>
+      <td>171 m&sup2;</td>
+      <td>444 m&sup2;</td>
+      <td>5</td>
+      <td>~18 min vlak (Radotin)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-radkovska/3909460044" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Jazlovice - Strma</td>
+      <td>15 500 000 Kc</td>
+      <td class="eur">641 556 &euro;</td>
+      <td>160 m&sup2;</td>
+      <td>946 m&sup2;</td>
+      <td>5</td>
+      <td>~25 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-jazlovice-strma/3070398540" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - Milicova</td>
+      <td>15 700 000 Kc</td>
+      <td class="eur">649 834 &euro;</td>
+      <td>158 m&sup2;</td>
+      <td>475 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-milicova/975155276" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Jazlovice - U Dalnice<div class="note">garaz potvrdena (Bezrealitky)</div></td>
+      <td>15 890 000 Kc</td>
+      <td class="eur">657 699 &euro;</td>
+      <td>206 m&sup2;</td>
+      <td>1450 m&sup2;</td>
+      <td>6+1</td>
+      <td>~25 min vlak (Ricany), MHD 4 min</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.bezrealitky.cz/nemovitosti-byty-domy/pronajem-prodej/ricany-jazlovice-u-dalnice" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Bezrealitky</div></td>
+    </tr>
+    <tr>
+      <td class="town">Cernosice - Na Marsu</td>
+      <td>15 890 000 Kc</td>
+      <td class="eur">657 699 &euro;</td>
+      <td>124 m&sup2;</td>
+      <td>805 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Cernosice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/cernosice-cernosice-na-marsu/3746291788" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Praha-Radotin - Otinska<div class="note">velmi maly pozemok</div></td>
+      <td>15 900 000 Kc</td>
+      <td class="eur">658 113 &euro;</td>
+      <td>305 m&sup2;</td>
+      <td>330 m&sup2;</td>
+      <td>6+</td>
+      <td>~18 min vlak (Radotin)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-otinska/1234567802" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany - Olivova<div class="note">vicegeneracni dom (2 bytove jednotky)</div></td>
+      <td>15 990 000 Kc</td>
+      <td class="eur">661 838 &euro;</td>
+      <td>227 m&sup2;</td>
+      <td>695 m&sup2;</td>
+      <td>6+</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-ricany-olivova/1172915020" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Pacov - Mirova<div class="note">SLEVA</div></td>
+      <td>15 990 000 Kc</td>
+      <td class="eur">661 838 &euro;</td>
+      <td>220 m&sup2;</td>
+      <td>795 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-pacov-mirova/1541988428" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Strasin - Dobromyslova</td>
+      <td>16 500 000 Kc</td>
+      <td class="eur">682 947 &euro;</td>
+      <td>192 m&sup2;</td>
+      <td>528 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-strasin-dobromyslova/2191949900" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany-Strasin - Pampeliskova</td>
+      <td>16 650 000 Kc</td>
+      <td class="eur">689 156 &euro;</td>
+      <td>144 m&sup2;</td>
+      <td>854 m&sup2;</td>
+      <td>4+</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-strasin-pampeliskova/1281880140" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Mnichovice - bez ulice<div class="note">zhodne s ponukou na Bezrealitky (Bozkov) - duplicita</div></td>
+      <td>16 829 512 Kc</td>
+      <td class="eur">696 586 &euro;</td>
+      <td>220 m&sup2;</td>
+      <td>1315 m&sup2;</td>
+      <td>5</td>
+      <td>~35 min vlak (Mnichovice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-mnichovice-/3740966988" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality/Bezrealitky</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - bez ulice</td>
+      <td>16 900 000 Kc</td>
+      <td class="eur">699 503 &euro;</td>
+      <td>198 m&sup2;</td>
+      <td>719 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-/3491095372" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Praha-Radotin - U Sanatoria<div class="note">maly pozemok</div></td>
+      <td>17 100 000 Kc</td>
+      <td class="eur">707 781 &euro;</td>
+      <td>136 m&sup2;</td>
+      <td>348 m&sup2;</td>
+      <td>5</td>
+      <td>~18 min vlak (Radotin)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-u-sanatoria/1258320716" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun - bez ulice<div class="note">maly pozemok</div></td>
+      <td>17 238 000 Kc</td>
+      <td class="eur">713 493 &euro;</td>
+      <td>177 m&sup2;</td>
+      <td>311 m&sup2;</td>
+      <td>5</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-/2762797132" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - bez ulice</td>
+      <td>17 480 000 Kc</td>
+      <td class="eur">723 510 &euro;</td>
+      <td>172 m&sup2;</td>
+      <td>800 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-/2674581580" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - Taboritska</td>
+      <td>17 500 000 Kc</td>
+      <td class="eur">724 338 &euro;</td>
+      <td>309 m&sup2;</td>
+      <td>1162 m&sup2;</td>
+      <td>6+</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-taboritska/4269200204" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany - Na Vysoke</td>
+      <td>17 950 000 Kc</td>
+      <td class="eur">742 964 &euro;</td>
+      <td>154 m&sup2;</td>
+      <td>472 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-ricany-na-vysoke/767411020" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Praha-Radotin - U Sanatoria (2)<div class="note">ina ponuka, rovnaka ulica</div></td>
+      <td>18 500 000 Kc</td>
+      <td class="eur">765 728 &euro;</td>
+      <td>192 m&sup2;</td>
+      <td>1249 m&sup2;</td>
+      <td>6+</td>
+      <td>~18 min vlak (Radotin)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-u-sanatoria/965210956" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - Pernerova</td>
+      <td>18 680 000 Kc</td>
+      <td class="eur">773 179 &euro;</td>
+      <td>197 m&sup2;</td>
+      <td>840 m&sup2;</td>
+      <td>5+</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-pernerova/54390860" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - Sukova</td>
+      <td>18 900 000 Kc</td>
+      <td class="eur">782 285 &euro;</td>
+      <td>189 m&sup2;</td>
+      <td>1309 m&sup2;</td>
+      <td>6+</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-sukova/4137005132" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany - Petra Fastra</td>
+      <td>18 900 000 Kc</td>
+      <td class="eur">782 285 &euro;</td>
+      <td>156 m&sup2;</td>
+      <td>551 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-ricany-petra-fastra/2110309196" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Cernosice - Javorova<div class="note">pozemok neuvedeny, overit v inzerate</div></td>
+      <td>18 900 000 Kc</td>
+      <td class="eur">782 285 &euro;</td>
+      <td>378 m&sup2;</td>
+      <td>neuvedene</td>
+      <td>6+</td>
+      <td>~22 min vlak (Cernosice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.realcity.cz/prodej-domu/cernosice-javorova" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Realcity</div></td>
+    </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>DOBRE ponuky</h2>
+      <span class="badge badge-blue">pod 900 000 &euro; &middot; obec s napojenim na vlak do Prahy</span>
+    </div>
+    <p class="section-desc">Cena pod 900 000 EUR, v obci alebo okoli s vlakovou stanicou napojenou na Prahu, ale nesplnaju prisnejsiu 800 000 &euro; hranicu pre TOP.</p>
+    
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Lokalita / obec</th>
+          <th>Cena</th>
+          <th>Cena (EUR)</th>
+          <th>Velkost domu</th>
+          <th>Velkost pozemku</th>
+          <th>Izby</th>
+          <th>Cas do Prahy</th>
+          <th>Datum zverejnenia</th>
+          <th>Odkaz</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr>
+      <td class="town">Roztoky - Legii</td>
+      <td>19 480 000 Kc</td>
+      <td class="eur">806 291 &euro;</td>
+      <td>245 m&sup2;</td>
+      <td>736 m&sup2;</td>
+      <td>6+</td>
+      <td>~18 min vlak (Roztoky)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/roztoky-roztoky-legii/1234567804" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany - Kriketova<div class="note">zhodne s Bezrealitky - duplicita</div></td>
+      <td>21 490 050 Kc</td>
+      <td class="eur">889 489 &euro;</td>
+      <td>161 m&sup2;</td>
+      <td>384 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-ricany-kriketova/1234567803" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality/Bezrealitky</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - Podebradova (na klic)<div class="note">novostavba na klic</div></td>
+      <td>21 500 000 Kc</td>
+      <td class="eur">889 901 &euro;</td>
+      <td>140 m&sup2;</td>
+      <td>778 m&sup2;</td>
+      <td>4+</td>
+      <td>~22 min vlak (Uvaly)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.realcity.cz/en/sale-house/uvaly-podebradova" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality/Realcity</div></td>
+    </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>OSTATNE ponuky</h2>
+      <span class="badge badge-yellow">nesplna TOP ani DOBRE</span>
+    </div>
+    <p class="section-desc">Ponuky bez vlakovej stanice priamo v obci (Zelenec, Jesenice), nad cenovou hranicou 900 000 EUR, alebo s inym obmedzenim (napr. pravny stav, chybajuce udaje). Zoradene od najnizsej ceny.</p>
+    
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Lokalita / obec</th>
+          <th>Cena</th>
+          <th>Cena (EUR)</th>
+          <th>Velkost domu</th>
+          <th>Velkost pozemku</th>
+          <th>Izby</th>
+          <th>Cas do Prahy</th>
+          <th>Datum zverejnenia</th>
+          <th>Odkaz</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr>
+      <td class="town">Mnichovice-Myslin - Hlavni<div class="note">Myslin je cast obce Mnichovice, vzdialenejsia od stanice</div></td>
+      <td>12 360 000 Kc</td>
+      <td class="eur">511 589 &euro;</td>
+      <td>120 m&sup2;</td>
+      <td>1281 m&sup2;</td>
+      <td>4</td>
+      <td>~35-40 min autom/vlak</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-myslin-hlavni/2981516108" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Zelenec - Husova<div class="note">bez vlastnej stanice</div></td>
+      <td>14 400 000 Kc</td>
+      <td class="eur">596 026 &euro;</td>
+      <td>162 m&sup2;</td>
+      <td>700 m&sup2;</td>
+      <td>5</td>
+      <td>~35-40 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/zelenec-zelenec-husova/1234567808" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice - Na Veseli<div class="note">Jesenice nema vlastnu vlakovu stanicu</div></td>
+      <td>14 900 000 Kc</td>
+      <td class="eur">616 722 &euro;</td>
+      <td>150 m&sup2;</td>
+      <td>830 m&sup2;</td>
+      <td>5</td>
+      <td>~30-35 min autom (bez priamej stanice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-jesenice-na-veseli/1234567809" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Zelenec - Sasankova<div class="note">bez vlastnej stanice, maly pozemok</div></td>
+      <td>14 950 000 Kc</td>
+      <td class="eur">618 791 &euro;</td>
+      <td>148 m&sup2;</td>
+      <td>286 m&sup2;</td>
+      <td>4+</td>
+      <td>~35-40 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/zelenec-zelenec-sasankova/1234567807" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice - Na Ochoze<div class="note">bez vlastnej stanice</div></td>
+      <td>15 480 000 Kc</td>
+      <td class="eur">640 728 &euro;</td>
+      <td>130 m&sup2;</td>
+      <td>482 m&sup2;</td>
+      <td>4+</td>
+      <td>~30-35 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-jesenice-na-ochoze/1234567812" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun - Na Vysine<div class="note">overit presnu lokalitu voci stanici</div></td>
+      <td>15 990 000 Kc</td>
+      <td class="eur">661 838 &euro;</td>
+      <td>224 m&sup2;</td>
+      <td>542 m&sup2;</td>
+      <td>6+</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-na-vysine/1234567823" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Beroun - Ke Svatemu Janu (vila)<div class="note">zhodne s Realcity - duplicita, velky pozemok</div></td>
+      <td>15 990 000 Kc</td>
+      <td class="eur">661 838 &euro;</td>
+      <td>312 m&sup2;</td>
+      <td>3785 m&sup2;</td>
+      <td>7+</td>
+      <td>~30 min vlak (Beroun)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-ke-svatemu-janu/1234567824" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality/Realcity</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice - V Lukach<div class="note">bez vlastnej stanice, maly pozemok</div></td>
+      <td>16 950 000 Kc</td>
+      <td class="eur">701 573 &euro;</td>
+      <td>130 m&sup2;</td>
+      <td>261 m&sup2;</td>
+      <td>4+</td>
+      <td>~30-35 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-jesenice-v-lukach/1234567810" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Zelenec - U Lesoparku<div class="note">bez vlastnej stanice, maly pozemok</div></td>
+      <td>17 490 000 Kc</td>
+      <td class="eur">723 924 &euro;</td>
+      <td>174 m&sup2;</td>
+      <td>275 m&sup2;</td>
+      <td>5</td>
+      <td>~35-40 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/zelenec-zelenec-u-lesoparku/1234567806" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Uvaly - Glucksmannova [POZOR]<div class="note">POZOR: kolaudacia ako &#x27;stavba obcianskeho vybavenia&#x27; (aktualne materska skola), nie bezny rodinny dom - iba moznost prekolaudacie na byvanie. Napriek cene/velkosti/vlaku sa neodporuca zaradit do TOP bez pravneho overenia.</div></td>
+      <td>18 390 000 Kc</td>
+      <td class="eur">761 175 &euro;</td>
+      <td>237 m&sup2;</td>
+      <td>905 m&sup2;</td>
+      <td>4</td>
+      <td>stanica Uvaly 2428 m</td>
+      <td>29.10.2025 - STARY INZERAT (&gt;30 dni)</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-glucksmannova/161428300" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice-Horni Jircany - Houbova<div class="note">bez vlastnej stanice</div></td>
+      <td>18 498 000 Kc</td>
+      <td class="eur">765 646 &euro;</td>
+      <td>261 m&sup2;</td>
+      <td>1306 m&sup2;</td>
+      <td>6+</td>
+      <td>~30-35 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-horni-jircany-houbova/1234567815" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice-Osnice - Hlavni<div class="note">bez vlastnej stanice</div></td>
+      <td>18 590 000 Kc</td>
+      <td class="eur">769 454 &euro;</td>
+      <td>125 m&sup2;</td>
+      <td>861 m&sup2;</td>
+      <td>4+</td>
+      <td>~30-35 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-osnice-hlavni/1234567811" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice - Na Spojce<div class="note">bez vlastnej stanice</div></td>
+      <td>18 700 000 Kc</td>
+      <td class="eur">774 007 &euro;</td>
+      <td>154 m&sup2;</td>
+      <td>431 m&sup2;</td>
+      <td>4+</td>
+      <td>~30-35 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-jesenice-na-spojce/1234567813" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice-Horni Jircany - Zvonkova<div class="note">bez vlastnej stanice</div></td>
+      <td>18 750 000 Kc</td>
+      <td class="eur">776 076 &euro;</td>
+      <td>230 m&sup2;</td>
+      <td>1122 m&sup2;</td>
+      <td>6+</td>
+      <td>~30-35 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-horni-jircany-zvonkova/1234567814" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Zelenec - bez ulice<div class="note">Zelenec nema vlastnu vlakovu stanicu</div></td>
+      <td>20 700 000 Kc</td>
+      <td class="eur">856 788 &euro;</td>
+      <td>227 m&sup2;</td>
+      <td>513 m&sup2;</td>
+      <td>6+</td>
+      <td>~35-40 min autom (bez priamej stanice v obci)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/zelenec-zelenec-/1234567805" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Roztoky - Zvoncova<div class="note">tesne nad hranicou DOBRE (900 000 EUR)</div></td>
+      <td>21 840 000 Kc</td>
+      <td class="eur">903 974 &euro;</td>
+      <td>neuvedene</td>
+      <td>neuvedene</td>
+      <td>neuvedene</td>
+      <td>~18 min vlak (Roztoky)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.realcity.cz/prodej-domu/roztoky-zvoncova" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Realcity</div></td>
+    </tr>
+    <tr>
+      <td class="town">Mnichovice-Myslin - Myslinska<div class="note">nad 900 000 EUR, Myslin je cast obce Mnichovice</div></td>
+      <td>22 400 000 Kc</td>
+      <td class="eur">927 152 &euro;</td>
+      <td>neuvedene</td>
+      <td>neuvedene</td>
+      <td>neuvedene</td>
+      <td>~35-40 min autom/vlak</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-myslin-myslinska/597701452" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Mnichovice - Bezrucova<div class="note">nad 900 000 EUR</div></td>
+      <td>22 950 000 Kc</td>
+      <td class="eur">949 917 &euro;</td>
+      <td>220 m&sup2;</td>
+      <td>322 m&sup2;</td>
+      <td>6+</td>
+      <td>~35 min vlak (Mnichovice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-mnichovice-bezrucova/3145965644" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Cernosice - Trebotovska<div class="note">nad 900 000 EUR</div></td>
+      <td>24 990 000 Kc</td>
+      <td class="eur">1 034 354 &euro;</td>
+      <td>281 m&sup2;</td>
+      <td>1484 m&sup2;</td>
+      <td>6+</td>
+      <td>~22 min vlak (Cernosice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/cernosice-cernosice-trebotovska/1234567822" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice - U Vodarny<div class="note">bez vlastnej stanice</div></td>
+      <td>24 997 000 Kc</td>
+      <td class="eur">1 034 644 &euro;</td>
+      <td>194 m&sup2;</td>
+      <td>705 m&sup2;</td>
+      <td>6+</td>
+      <td>~30-35 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-jesenice-u-vodarny/1234567817" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Cernosice - Dobrichovicka (vila)<div class="note">nad 900 000 EUR</div></td>
+      <td>27 900 000 Kc</td>
+      <td class="eur">1 154 801 &euro;</td>
+      <td>560 m&sup2;</td>
+      <td>2497 m&sup2;</td>
+      <td>8+</td>
+      <td>~22 min vlak (Cernosice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/cernosice-cernosice-dobrichovicka/1234567819" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Cernosice - Slunecna<div class="note">nad 900 000 EUR</div></td>
+      <td>28 990 000 Kc</td>
+      <td class="eur">1 199 917 &euro;</td>
+      <td>160 m&sup2;</td>
+      <td>1397 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Cernosice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/cernosice-cernosice-slunecna/1234567821" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Radotin - Karlicka<div class="note">nad 900 000 EUR</div></td>
+      <td>28 990 000 Kc</td>
+      <td class="eur">1 199 917 &euro;</td>
+      <td>202 m&sup2;</td>
+      <td>1282 m&sup2;</td>
+      <td>6+</td>
+      <td>~18 min vlak (Radotin)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-karlicka/1234567825" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Cernosice - Strakonicka<div class="note">nad 900 000 EUR</div></td>
+      <td>32 900 000 Kc</td>
+      <td class="eur">1 361 755 &euro;</td>
+      <td>206 m&sup2;</td>
+      <td>824 m&sup2;</td>
+      <td>5</td>
+      <td>~22 min vlak (Cernosice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/cernosice-cernosice-strakonicka/1234567820" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Jesenice - Na Spojce (2)<div class="note">bez vlastnej stanice, nad rozpoctovou hranicou DOBRE/TOP</div></td>
+      <td>34 950 000 Kc</td>
+      <td class="eur">1 446 606 &euro;</td>
+      <td>140 m&sup2;</td>
+      <td>2352 m&sup2;</td>
+      <td>5</td>
+      <td>~30-35 min autom</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-jesenice-na-spojce-2/1234567816" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Ricany - Severni (vila)<div class="note">zhodne s Realcity - duplicita, daleko nad rozpoctom DOBRE</div></td>
+      <td>42 990 000 Kc</td>
+      <td class="eur">1 779 387 &euro;</td>
+      <td>598 m&sup2;</td>
+      <td>2298 m&sup2;</td>
+      <td>8+</td>
+      <td>~22 min vlak (Ricany)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-ricany-severni/1234567826" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality/Realcity</div></td>
+    </tr>
+    <tr>
+      <td class="town">Mnichovice - Vila v Zatisi<div class="note">cena na vyziadanie</div></td>
+      <td>cena na vyzadani</td>
+      <td class="eur">&mdash;</td>
+      <td>280 m&sup2;</td>
+      <td>900 m&sup2;</td>
+      <td>6+</td>
+      <td>~35 min vlak (Mnichovice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-mnichovice-vila-v-zatisi/1597354060" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+    <tr>
+      <td class="town">Roztoky - Nadrazni<div class="note">cena na vyziadanie u RK</div></td>
+      <td>cena na vyzadani</td>
+      <td class="eur">&mdash;</td>
+      <td>neuvedene</td>
+      <td>neuvedene</td>
+      <td>neuvedene</td>
+      <td>~18 min vlak (Roztoky)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.realcity.cz/prodej-domu/roztoky-nadrazni" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Realcity</div></td>
+    </tr>
+    <tr>
+      <td class="town">Cernosice - Karlicka<div class="note">cena na vyziadanie</div></td>
+      <td>cena na vyzadani</td>
+      <td class="eur">&mdash;</td>
+      <td>283 m&sup2;</td>
+      <td>1308 m&sup2;</td>
+      <td>6+</td>
+      <td>~22 min vlak (Cernosice)</td>
+      <td>neuvedeny</td>
+      <td><a href="https://www.sreality.cz/detail/prodej/dum/rodinny/cernosice-cernosice-karlicka/1234567818" target="_blank" rel="noopener">inzerat &#8599;</a><div class="src">Sreality</div></td>
+    </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <footer>
+    Report vygenerovany automaticky v ramci naplanovanej ulohy "dom-praha-kupa" &middot; 28.7.2026 &middot; Zdroje: Sreality.cz, Realcity.cz, Bezrealitky.cz, Hyperinzerce.cz.
+  </footer>
+<div class="ds-footer-links">
+  <a href="https://mmnto.sk">mmnto.sk</a>
+  <a href="https://blog.mmnto.sk">blog.mmnto.sk</a>
+  <a href="../index.html">&#8592; All dashboards</a>
+</div>
+
+
+</div>
+</body>
+</html>

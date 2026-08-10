@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Value Screen — Aug 10, 2026</title>
+<style>
+  :root{
+    --bg:#0a0e13; --surface:#10151d; --border:#1c232e;
+    --text:#e9edf2; --text2:#7c8a9c;
+    --accent:#e8a355; --accent-muted:rgba(232,163,85,0.15);
+    --green:#4ADE80; --green-muted:rgba(74,222,128,0.12);
+    --yellow:#FBBF24; --yellow-muted:rgba(251,191,36,0.12);
+    --red:#F87171; --red-muted:rgba(248,113,113,0.12);
+    --blue:#60A5FA; --blue-muted:rgba(96,165,250,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:56px 24px 100px;}
+  header{margin-bottom:56px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--accent); font-size:13px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px;
+  }
+  .eyebrow::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  h1{font-size:36px; font-weight:800; letter-spacing:-0.02em; margin-bottom:10px;}
+  .subtitle{color:var(--text2); font-size:16px; max-width:640px;}
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    margin-top:36px;
+  }
+  .stat-card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:18px 16px;
+  }
+  .stat-card .num{font-size:26px; font-weight:800; letter-spacing:-0.01em;}
+  .stat-card .lbl{color:var(--text2); font-size:12.5px; margin-top:4px;}
+
+  section{margin-top:80px;}
+  .section-head{display:flex; align-items:baseline; gap:12px; margin-bottom:8px;}
+  .section-head h2{font-size:22px; font-weight:750; letter-spacing:-0.01em;}
+  .section-head .count{color:var(--text2); font-size:13px;}
+  .section-desc{color:var(--text2); font-size:14px; margin-bottom:28px; max-width:680px;}
+
+  .badge{
+    display:inline-block; padding:4px 10px; border-radius:999px;
+    font-size:11.5px; font-weight:700; letter-spacing:0.02em;
+  }
+  .badge.eu{background:var(--blue-muted); color:var(--blue);}
+  .badge.us{background:var(--yellow-muted); color:var(--yellow);}
+  .badge.rank1{background:var(--green-muted); color:var(--green);}
+  .badge.rank2{background:var(--accent-muted); color:var(--accent);}
+  .badge.rank3{background:var(--yellow-muted); color:var(--yellow);}
+  .badge.rank4{background:var(--red-muted); color:var(--red);}
+
+  .card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:28px; margin-bottom:20px;
+  }
+  .card-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:16px; flex-wrap:wrap; margin-bottom:6px;
+  }
+  .card-title{font-size:19px; font-weight:750;}
+  .card-ticker{color:var(--text2); font-size:13px; font-weight:500; margin-top:2px;}
+  .badges{display:flex; gap:6px; flex-shrink:0;}
+  .oneliner{color:var(--text2); font-size:14.5px; margin:10px 0 20px;}
+
+  .valgrid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
+    margin-bottom:20px;
+  }
+  .valitem{
+    background:rgba(255,255,255,0.03); border:1px solid var(--border);
+    border-radius:9px; padding:12px 10px;
+  }
+  .valitem .v{font-size:16.5px; font-weight:750;}
+  .valitem .k{color:var(--text2); font-size:11px; margin-top:3px;}
+
+  .body-text{font-size:14.5px; color:#d4d4d4; margin-bottom:16px;}
+  .body-text b{color:var(--text); font-weight:650;}
+
+  .callout{
+    border-left:3px solid var(--red);
+    background:var(--red-muted);
+    border-radius:0 8px 8px 0;
+    padding:14px 16px; margin-top:16px; font-size:14px;
+  }
+  .callout .callout-lbl{
+    color:var(--red); font-weight:700; font-size:11.5px;
+    text-transform:uppercase; letter-spacing:0.04em; margin-bottom:5px;
+  }
+  .callout p{color:#e8c9c9;}
+
+  .tax-note{
+    display:flex; gap:10px; align-items:flex-start;
+    margin-top:14px; padding:12px 14px;
+    background:var(--green-muted); border-radius:8px; font-size:13px;
+  }
+  .tax-note .dot{color:var(--green); font-weight:700; flex-shrink:0;}
+  .tax-note span{color:#c8e8d4;}
+
+  .mos-bar-wrap{margin-top:4px; margin-bottom:18px;}
+  .mos-bar-label{display:flex; justify-content:space-between; font-size:12px; color:var(--text2); margin-bottom:6px;}
+  .mos-bar-track{height:8px; background:rgba(255,255,255,0.06); border-radius:999px; overflow:hidden;}
+  .mos-bar-fill{height:100%; background:linear-gradient(90deg, var(--accent), var(--green)); border-radius:999px;}
+
+  .footer-callout{
+    margin-top:60px; padding:22px 24px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; border-left:3px solid var(--accent);
+  }
+  .footer-callout .lbl{color:var(--accent); font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;}
+  .footer-callout p{font-size:14px; color:#d4d4d4;}
+
+  footer{margin-top:48px; text-align:center; color:var(--text2); font-size:12.5px;}
+
+  @media (max-width:720px){
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+    .valgrid{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:28px;}
+  }
+
+  .ds-topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.85rem 1.5rem;margin:0 -1.5rem 0;background:rgba(10,14,19,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1c232e;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.82rem;}
+  .ds-topbar-brand{color:#e9edf2;text-decoration:none;font-weight:700;letter-spacing:-0.01em;}
+  .ds-topbar-back{color:#7c8a9c;text-decoration:none;}
+  .ds-topbar-back:hover{color:#e8a355;}
+  .ds-footer-links{max-width:1000px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;border-top:1px solid #1c232e;display:flex;gap:1.25rem;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.78rem;}
+  .ds-footer-links a{color:#7c8a9c;text-decoration:none;}
+  .ds-footer-links a:hover{color:#e8a355;}
+</style>
+</head>
+<body>
+<div class="ds-topbar">
+  <a class="ds-topbar-brand" href="../index.html">&#9656; MEMENTO/DASHSHARE</a>
+  <a class="ds-topbar-back" href="../index.html">&#8592; All dashboards</a>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Weekly Value Screen · Sun, Aug 10 2026</div>
+    <h1>Deep Value / Wide Moat Screen</h1>
+    <p class="subtitle">5 candidates this week — 4 European, 1 US. Ranked by conviction. Buffett/Munger filter: durable moat, rational management, real margin of safety. No momentum names forced onto the list.</p>
+
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">5</div><div class="lbl">Candidates surfaced</div></div>
+      <div class="stat-card"><div class="num">2</div><div class="lbl">High conviction</div></div>
+      <div class="stat-card"><div class="num">1</div><div class="lbl">Special situation</div></div>
+      <div class="stat-card"><div class="num">4/5</div><div class="lbl">Europe-listed</div></div>
+    </div>
+  </header>
+
+  <!-- EUROPE -->
+  <section>
+    <div class="section-head">
+      <h2>🇪🇺 European Stocks</h2>
+      <span class="count">4 ideas</span>
+    </div>
+    <p class="section-desc">Primary hunting ground per mandate. Ranked by conviction, highest first.</p>
+
+    <!-- SANOFI -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">Sanofi</div>
+          <div class="card-ticker">SAN.PA · Euronext Paris · Global Pharma</div>
+        </div>
+        <div class="badges"><span class="badge rank1">#1 Conviction</span><span class="badge eu">EU</span></div>
+      </div>
+      <p class="oneliner">Diversified global pharma — immunology (Dupixent), vaccines, rare disease, general medicines.</p>
+
+      <div class="valgrid">
+        <div class="valitem"><div class="v">8.5x</div><div class="k">Fwd P/E</div></div>
+        <div class="valitem"><div class="v">8.9%</div><div class="k">FCF yield</div></div>
+        <div class="valitem"><div class="v">5.7%</div><div class="k">Dividend yield</div></div>
+        <div class="valitem"><div class="v">8.1x</div><div class="k">EV/EBITDA</div></div>
+      </div>
+
+      <div class="mos-bar-wrap">
+        <div class="mos-bar-label"><span>Estimated margin of safety</span><span>Wide</span></div>
+        <div class="mos-bar-track"><div class="mos-bar-fill" style="width:80%"></div></div>
+      </div>
+
+      <p class="body-text"><b>Why mispriced:</b> Market is pricing in Dupixent's 2031 patent cliff (~half of Q2 revenue) as if it hits tomorrow, compounded by recent pipeline trial failures (Kymab/atopic dermatitis, tolebrutinib setbacks) that spooked sell-side (UBS cut to Neutral). Trailing P/E 18.8x vs forward 8.5x signals the market is discounting near-term earnings heavily — a 5-year runway to patent expiry is being treated as an immediate cliff. Diversified vaccines and immunology pipeline provide a real, underpriced offset.</p>
+
+      <div class="callout">
+        <div class="callout-lbl">Strongest bear case</div>
+        <p>Dupixent concentration risk is real, not manufactured — replacing ~$13-14bn of high-margin revenue is genuinely hard, and Sanofi's own pipeline replacement bets (Kymab, tolebrutinib) have already stumbled twice. If R&D productivity stays weak into the early 2030s, today's "cheap" multiple could be a value trap, not a bargain.</p>
+      </div>
+
+      <div class="tax-note"><span class="dot">●</span><span>Sizeable French dividend withholding tax applies regardless of holding structure; the >1yr Slovak personal CGT exemption would apply to the capital gain only if held personally and outside business activity — <b>confirm current withholding treaty rate and exemption mechanics with a Slovak tax advisor</b>, rules can shift.</span></div>
+    </div>
+
+    <!-- PORVAIR -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">Porvair plc</div>
+          <div class="card-ticker">LSE:PRV · UK Small-Cap · Filtration & Separation</div>
+        </div>
+        <div class="badges"><span class="badge rank2">#2 Conviction</span><span class="badge eu">EU</span></div>
+      </div>
+      <p class="oneliner">Niche filtration/separation technology for aerospace, lab, and metal-melt-quality markets — sticky, high-switching-cost end markets.</p>
+
+      <div class="valgrid">
+        <div class="valitem"><div class="v">20.5x</div><div class="k">Trailing P/E</div></div>
+        <div class="valitem"><div class="v">19.2x</div><div class="k">Fwd P/E</div></div>
+        <div class="valitem"><div class="v">11.9x</div><div class="k">EV/EBITDA</div></div>
+        <div class="valitem"><div class="v">£0.31bn</div><div class="k">Market cap</div></div>
+      </div>
+
+      <div class="mos-bar-wrap">
+        <div class="mos-bar-label"><span>Estimated margin of safety</span><span>Moderate</span></div>
+        <div class="mos-bar-track"><div class="mos-bar-fill" style="width:45%"></div></div>
+      </div>
+
+      <p class="body-text"><b>Why mispriced:</b> Activist investor Richard Bernstein (ex-Crystal Amber) publicly called on Porvair's board in May 2026 to explore a sale, arguing the market values the business "substantially below its strategic value" — a real catalyst, not just cheap-on-a-screener. Niche filtration moat (specified into customer processes, high switching costs) is under-followed given the sub-£350m cap.</p>
+
+      <div class="callout">
+        <div class="callout-lbl">Strongest bear case</div>
+        <p>Bernstein's stake is small and personal, not a fund with real leverage over the board — this could simply be noise that fades with no sale ever materializing. At 19-21x earnings the stock isn't statistically cheap; the thesis rests entirely on the takeout/re-rating catalyst actually happening.</p>
+      </div>
+
+      <div class="tax-note"><span class="dot">●</span><span>UK-listed, GBP-denominated — straightforward for Slovak personal holding; >1yr CGT exemption should apply on the same basis as other EU/EEA-cleared brokerage holdings, but verify current specifics before relying on it.</span></div>
+    </div>
+
+    <!-- FRESENIUS MEDICAL CARE -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">Fresenius Medical Care</div>
+          <div class="card-ticker">XETR:FME · Germany · Dialysis Services</div>
+        </div>
+        <div class="badges"><span class="badge rank3">#3 Conviction</span><span class="badge eu">EU</span></div>
+      </div>
+      <p class="oneliner">World's largest dialysis provider — recurring, non-discretionary treatment revenue with entrenched clinic network.</p>
+
+      <div class="valgrid">
+        <div class="valitem"><div class="v">11.7x</div><div class="k">P/E</div></div>
+        <div class="valitem"><div class="v">6-8x</div><div class="k">EV/EBITDA (range)</div></div>
+        <div class="valitem"><div class="v">3.6%</div><div class="k">Dividend yield</div></div>
+        <div class="valitem"><div class="v">€39.3</div><div class="k">Price (EUR)</div></div>
+      </div>
+
+      <div class="mos-bar-wrap">
+        <div class="mos-bar-label"><span>Estimated margin of safety</span><span>Moderate</span></div>
+        <div class="mos-bar-track"><div class="mos-bar-fill" style="width:40%"></div></div>
+      </div>
+
+      <p class="body-text"><b>Why mispriced:</b> Trades at 11.7x earnings vs a ~20x healthcare-sector average and ~26x peer average, with Morningstar's fair value estimate implying roughly 39% below intrinsic value. Narrow-but-real moat (clinic density, payer relationships, non-discretionary treatment) mispriced as a "stalled growth story" during a 2026 transition year — the kind of temporary sentiment overhang the mandate looks for.</p>
+
+      <div class="callout">
+        <div class="callout-lbl">Strongest bear case</div>
+        <p>This is explicitly a <b>narrow</b> moat, not wide — US treatment volume growth has been weak, and margin recovery has "merely stalled, not resumed" per recent coverage. If the transition-year story becomes a multi-year one, the 11.7x multiple could be a fair reflection of structurally slower growth, not a bargain.</p>
+      </div>
+
+      <div class="tax-note"><span class="dot">●</span><span>German-listed, standard EU dividend withholding applies; treat the >1yr personal CGT exemption the same as other EU holdings pending advisor confirmation.</span></div>
+    </div>
+
+    <!-- MFE MEDIAFOREUROPE -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">MFE-MediaForEurope</div>
+          <div class="card-ticker">BIT:MFEB · Italy · Pan-European Broadcasting</div>
+        </div>
+        <div class="badges"><span class="badge rank4">#4 — Speculative</span><span class="badge eu">EU</span></div>
+      </div>
+      <p class="oneliner">Berlusconi-family-controlled broadcaster (Mediaset Italy + Mediaset España) that just took majority control (75.6%) of Germany's ProSiebenSat.1 — a pan-European consolidation special situation.</p>
+
+      <div class="valgrid">
+        <div class="valitem"><div class="v">€3.60</div><div class="k">Price</div></div>
+        <div class="valitem"><div class="v">€5.55</div><div class="k">Est. FCF fair value</div></div>
+        <div class="valitem"><div class="v">~40%</div><div class="k">Discount to DCF est.</div></div>
+        <div class="valitem"><div class="v">-€809m</div><div class="k">Net debt (Q1'26)</div></div>
+      </div>
+
+      <div class="mos-bar-wrap">
+        <div class="mos-bar-label"><span>Estimated margin of safety</span><span>Wide but high-risk</span></div>
+        <div class="mos-bar-track"><div class="mos-bar-fill" style="width:65%"></div></div>
+      </div>
+
+      <p class="body-text"><b>Why mispriced:</b> Market appears to be discounting integration risk and structural TV-ad decline more than the consolidation math (cost synergies across three national broadcasters, ProSieben scale) justifies. Sum-of-the-parts / DCF estimates put fair value ~40% above the current price. Genuinely underfollowed — cross-border broadcaster consolidation doesn't screen cleanly for most quant models.</p>
+
+      <div class="callout">
+        <div class="callout-lbl">Strongest bear case</div>
+        <p>Reported a €26.1m net loss in Q1 2026 despite the P7S1 consolidation lifting revenue — integration costs and net debt are real and rising. Family control (Berlusconi/Fininvest) means minority-holder governance risk, and linear TV advertising is a genuine secular-decline business, not just a sentiment overhang. This is a special situation that could easily stay cheap for years if synergies disappoint.</p>
+      </div>
+
+      <div class="tax-note"><span class="dot">●</span><span>Dutch-incorporated (N.V.), Italy/Germany-listed — cross-border structure may complicate withholding tax; confirm treatment before assuming standard EU CGT exemption applies cleanly.</span></div>
+    </div>
+  </section>
+
+  <!-- US / GLOBAL -->
+  <section>
+    <div class="section-head">
+      <h2>🌎 US / Global</h2>
+      <span class="count">1 idea</span>
+    </div>
+    <p class="section-desc">Secondary bucket per mandate — only included where Europe didn't clear the bar on its own.</p>
+
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">UnitedHealth Group</div>
+          <div class="card-ticker">NYSE:UNH · US · Managed Care / Health Services</div>
+        </div>
+        <div class="badges"><span class="badge rank4">#5 — Watch only</span><span class="badge us">US</span></div>
+      </div>
+      <p class="oneliner">Largest US health insurer plus Optum (PBM, data, care delivery) — scale moat across claims data and provider relationships.</p>
+
+      <div class="valgrid">
+        <div class="valitem"><div class="v">~26x</div><div class="k">Trailing P/E</div></div>
+        <div class="valitem"><div class="v">21.9x</div><div class="k">Forward P/E</div></div>
+        <div class="valitem"><div class="v">+45%</div><div class="k">Rally since Aug'25 low</div></div>
+        <div class="valitem"><div class="v">$407</div><div class="k">Price (USD)</div></div>
+      </div>
+
+      <div class="mos-bar-wrap">
+        <div class="mos-bar-label"><span>Estimated margin of safety</span><span>Thin — already re-rated</span></div>
+        <div class="mos-bar-track"><div class="mos-bar-fill" style="width:20%"></div></div>
+      </div>
+
+      <p class="body-text"><b>Why it's on the list at all:</b> Real scale moat, and the DOJ Medicare Advantage billing investigation plus the OptumRx/FTC insulin-rebate matter remain open, keeping a regulatory discount in the multiple versus its own history. A finalized 3% Medicare Advantage rate increase for 2027 removed one major fear.</p>
+
+      <div class="callout">
+        <div class="callout-lbl">Strongest bear case</div>
+        <p>The easy money is gone. Berkshire built a ~$1.6bn stake in August 2025 near the $271 low and <b>fully exited in Q1 2026</b> after the stock rallied 45% to ~$394-407. Buying now means paying up for the same regulatory overhang Berkshire's team decided to walk away from. This is a "wait for the next flush" name, not a current buy.</p>
+      </div>
+
+      <div class="tax-note"><span class="dot">●</span><span>US withholding tax (typically 15% under the US-Slovakia treaty on dividends) applies regardless of holding period; the Slovak >1yr personal CGT exemption logic still applies to the capital gain itself — confirm current treaty rate before relying on this.</span></div>
+    </div>
+  </section>
+
+  <div class="footer-callout">
+    <div class="lbl">Market context</div>
+    <p>European equities have been resilient into August 2026 (STOXX 600 grinding higher), while US markets stay jumpy on AI-infrastructure durability concerns and tariff noise — a backdrop that keeps producing sharp, name-specific overreactions (Sanofi's pipeline scare, UNH's regulatory discount) rather than broad-market cheapness. No systemic bargain regime right now; this remains a stock-picker's market for special situations and overreactions, not an index-level value opportunity.</p>
+  </div>
+
+  <footer>
+    Weekly Value Screen · Generated Aug 10, 2026 · Data verified via web search at time of writing — always re-check prices/multiples before acting.
+  </footer>
+<div class="ds-footer-links">
+  <a href="https://mmnto.sk">mmnto.sk</a>
+  <a href="https://blog.mmnto.sk">blog.mmnto.sk</a>
+  <a href="../index.html">&#8592; All dashboards</a>
+</div>
+
+
+</div>
+</body>
+</html>

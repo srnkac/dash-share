@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Value Screen — Aug 3, 2026</title>
+<style>
+  :root{
+    --bg:#0a0e13; --surface:#10151d; --border:#1c232e;
+    --text:#e9edf2; --text2:#7c8a9c; --accent:#e8a355; --accent-muted:rgba(232,163,85,0.15);
+    --green:#4ade80; --green-muted:rgba(74,222,128,0.12);
+    --yellow:#fbbf24; --yellow-muted:rgba(251,191,36,0.12);
+    --red:#f87171; --red-muted:rgba(248,113,113,0.12);
+    --blue:#60a5fa; --blue-muted:rgba(96,165,250,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:56px 24px 100px;}
+  header{margin-bottom:56px;}
+  .kicker{color:var(--accent);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+  h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-0.02em;margin-bottom:12px;}
+  .sub{color:var(--text2);font-size:15px;max-width:640px;}
+  section{margin-bottom:72px;}
+  h2{font-size:22px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+  h2 .flag{font-size:20px;}
+  .section-sub{color:var(--text2);font-size:14px;margin-bottom:28px;}
+
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;}
+  .stat-num{font-size:24px;font-weight:800;letter-spacing:-0.01em;}
+  .stat-label{color:var(--text2);font-size:12px;margin-top:4px;}
+  .stat-trend{font-size:12px;font-weight:600;margin-top:8px;}
+  .up{color:var(--green);} .down{color:var(--red);} .neu{color:var(--yellow);}
+
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:18px;}
+  .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+  .card-title{font-size:18px;font-weight:700;}
+  .ticker{color:var(--text2);font-size:13px;font-weight:500;margin-top:2px;}
+  .badge{display:inline-flex;align-items:center;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;}
+  .badge-green{background:var(--green-muted);color:var(--green);}
+  .badge-yellow{background:var(--yellow-muted);color:var(--yellow);}
+  .badge-blue{background:var(--blue-muted);color:var(--blue);}
+
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:16px 0;}
+  .metric{border-left:2px solid var(--accent);padding-left:10px;}
+  .metric-val{font-size:16px;font-weight:700;}
+  .metric-lab{color:var(--text2);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+
+  .desc{font-size:14px;color:#d4d4d4;margin-bottom:12px;}
+  .callout{background:var(--red-muted);border-left:3px solid var(--red);border-radius:8px;padding:12px 16px;margin-top:14px;font-size:13.5px;color:#f3d4d4;}
+  .callout strong{color:var(--red);}
+  .tax{background:var(--blue-muted);border-left:3px solid var(--blue);border-radius:8px;padding:12px 16px;margin-top:10px;font-size:13px;color:#cfe4fb;}
+
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:13.5px;}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);}
+  th{color:var(--text2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;background:#151517;}
+  tr:last-child td{border-bottom:none;}
+  .rank{font-weight:800;color:var(--accent);}
+
+  .context{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 22px;font-size:13.5px;color:var(--text2);}
+  .context strong{color:var(--text);}
+  footer{color:var(--text2);font-size:12px;text-align:center;margin-top:40px;}
+
+  @media (max-width:640px){
+    .stats-row{grid-template-columns:repeat(2,1fr);}
+    table{display:block;overflow-x:auto;white-space:nowrap;}
+  }
+
+  .ds-topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.85rem 1.5rem;margin:0 -1.5rem 0;background:rgba(10,14,19,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1c232e;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.82rem;}
+  .ds-topbar-brand{color:#e9edf2;text-decoration:none;font-weight:700;letter-spacing:-0.01em;}
+  .ds-topbar-back{color:#7c8a9c;text-decoration:none;}
+  .ds-topbar-back:hover{color:#e8a355;}
+  .ds-footer-links{max-width:1000px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;border-top:1px solid #1c232e;display:flex;gap:1.25rem;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.78rem;}
+  .ds-footer-links a{color:#7c8a9c;text-decoration:none;}
+  .ds-footer-links a:hover{color:#e8a355;}
+</style>
+</head>
+<body>
+<div class="ds-topbar">
+  <a class="ds-topbar-brand" href="../index.html">&#9656; MEMENTO/DASHSHARE</a>
+  <a class="ds-topbar-back" href="../index.html">&#8592; All dashboards</a>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Weekly Value Screen · Aug 3, 2026</div>
+    <h1>4 candidates, deep-value screen</h1>
+    <div class="sub">Buffett/Munger-style scan: durable moat, honest management, large margin of safety. Ranked by conviction — none of these are automatic buys, all carry live bear cases.</div>
+  </header>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Candidates screened</div></div>
+    <div class="stat-card"><div class="stat-num">3 EU / 1 US</div><div class="stat-label">Geographic split</div></div>
+    <div class="stat-card"><div class="stat-num">#1</div><div class="stat-label">Aker ASA (highest conviction)</div></div>
+    <div class="stat-card"><div class="stat-num">Watch</div><div class="stat-label">UNH — not a buy this week</div></div>
+  </div>
+
+  <section>
+    <h2><span class="flag">🇪🇺</span> European stocks</h2>
+    <div class="section-sub">Primary hunting ground per mandate — ranked 1, 2, 3 below</div>
+
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">1. Aker ASA</div><div class="ticker">AKER.OL · Oslo · Norwegian industrial holding co</div></div>
+        <span class="badge badge-green">Highest conviction</span>
+      </div>
+      <div class="desc">Røkke-controlled holding company: stakes in Aker BP (oil &amp; gas), Aker Solutions, Cognite (AI/industrial software, sold to Schneider Electric), Aker Horizons, real estate.</div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-val">NOK 1,194</div><div class="metric-lab">Price (Aug 2)</div></div>
+        <div class="metric"><div class="metric-val">NOK 1,429</div><div class="metric-lab">Disclosed NAV/sh (Q2)</div></div>
+        <div class="metric"><div class="metric-val">~16–20%</div><div class="metric-lab">Discount to NAV</div></div>
+        <div class="metric"><div class="metric-val">28%→20%</div><div class="metric-lab">Discount trend, Q1→Q2</div></div>
+      </div>
+      <div class="callout"><strong>Bear case:</strong> NAV is mostly Aker BP — a commodity-cyclical, moat-free oil &amp; gas business. Conglomerate discount can persist indefinitely (value trap risk); private-asset marks (Cognite pre-sale, Aker Horizons) may be optimistic.</div>
+      <div class="tax">Norway-listed — Slovak &gt;1yr personal capital-gains exemption should apply in principle, but Norwegian dividend withholding tax + treaty relief mechanics are unverified here — confirm with an advisor.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">2. Bayer AG</div><div class="ticker">BAYN.DE · Xetra · Pharma / Crop Science / Consumer Health</div></div>
+        <span class="badge badge-yellow">Litigation de-risking catalyst</span>
+      </div>
+      <div class="desc">Global pharma + agchem conglomerate; equity story has been dominated by Roundup/glyphosate litigation since the 2018 Monsanto deal.</div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-val">€35.5</div><div class="metric-lab">Price (Xetra, Aug 2026)</div></div>
+        <div class="metric"><div class="metric-val">€48.5</div><div class="metric-lab">Avg analyst target (+36%)</div></div>
+        <div class="metric"><div class="metric-val">€60</div><div class="metric-lab">GuruFocus GF Value (+69%, wide range)</div></div>
+        <div class="metric"><div class="metric-val">€9.1–9.6bn</div><div class="metric-lab">2026E EBITDA guide</div></div>
+      </div>
+      <div class="callout"><strong>Bear case:</strong> Litigation not fully closed — plaintiffs contesting the $7.25bn settlement venue as of June 2026. ~€5bn litigation cash outflow in 2026. Heavy Monsanto-deal net debt; glyphosate generic pricing pressure; Xarelto patent cliff must be offset by pipeline (Nubeqa, Kerendia).</div>
+      <div class="tax">Germany-listed EU equity — same Slovak &gt;1yr exemption logic as Aker; verify specific conditions before relying on it.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">3. Novo Nordisk</div><div class="ticker">NOVO-B.CO · Copenhagen · GLP-1 pharma leader</div></div>
+        <span class="badge badge-blue">Earnings in 2 days — event risk</span>
+      </div>
+      <div class="desc">Global leader in GLP-1 diabetes/obesity drugs (Ozempic, Wegovy); stock down ~70%+ from 2024 peak on share loss to Eli Lilly.</div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-val">DKK 306.5</div><div class="metric-lab">Price (Aug 2)</div></div>
+        <div class="metric"><div class="metric-val">DKK 224–410</div><div class="metric-lab">52-week range</div></div>
+        <div class="metric"><div class="metric-val">~13–14x</div><div class="metric-lab">Fwd P/E vs 5yr avg ~27x</div></div>
+        <div class="metric"><div class="metric-val">~40% share</div><div class="metric-lab">GLP-1 mkt share vs Lilly's 60%</div></div>
+      </div>
+      <div class="callout"><strong>Bear case:</strong> This may be moat erosion, not just sentiment — Lilly's oral orforglipron threatens first-mover edge; CagriSema shareholder-fraud suit ongoing; management itself guided a 2026 sales/profit decline. Reports Aug 5 — binary event before the stock can be sized comfortably.</div>
+      <div class="tax">Denmark-listed EU equity — same exemption logic applies in principle; confirm specifics.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="flag">🌎</span> US / Global</h2>
+    <div class="section-sub">Secondary bucket per mandate — one name, low conviction</div>
+
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">4. UnitedHealth Group</div><div class="ticker">UNH · NYSE · Managed care / Optum</div></div>
+        <span class="badge badge-yellow">Watch, not a buy this week</span>
+      </div>
+      <div class="desc">Largest US health insurer plus Optum (PBM/health services). 2025–26 was its worst stretch on record: guidance cuts, medical-cost-ratio blowup, DOJ criminal probe into Medicare Advantage billing.</div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-val">$414.39</div><div class="metric-lab">Price (Aug 2)</div></div>
+        <div class="metric"><div class="metric-val">$475</div><div class="metric-lab">Consensus target (27 analysts, +15%)</div></div>
+        <div class="metric"><div class="metric-val">$500–625</div><div class="metric-lab">Bull DCF/GF Value range (low confidence)</div></div>
+        <div class="metric"><div class="metric-val">26.3x</div><div class="metric-lab">Trailing P/E</div></div>
+      </div>
+      <div class="callout"><strong>Bear case:</strong> Stock already rallied on the Q2 beat/raised guidance — much of the "cheap on overhang" opportunity has closed. DOJ criminal investigation is unresolved and could bring fines, charges, or MA program restrictions — a real tail risk for a policy-dependent business. Consensus margin of safety (~15%) is modest, not a genuine deep-value gap right now.</div>
+      <div class="tax">US-listed — Slovak &gt;1yr exemption logic generally issuer-domicile-agnostic, but 15% US dividend withholding under the US–Slovak treaty applies separately to any dividends received. Verify specifics.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ranking summary</h2>
+    <table>
+      <thead><tr><th>Rank</th><th>Name</th><th>Region</th><th>Margin of safety</th><th>Key catalyst</th><th>Top risk</th></tr></thead>
+      <tbody>
+        <tr><td class="rank">1</td><td>Aker ASA</td><td>Norway</td><td>~17–20% to NAV</td><td>Cognite sale, narrowing discount</td><td>Oil-price-linked NAV, value trap</td></tr>
+        <tr><td class="rank">2</td><td>Bayer AG</td><td>Germany</td><td>~36–69% to targets</td><td>SCOTUS win, litigation de-risking</td><td>Settlement still contested</td></tr>
+        <tr><td class="rank">3</td><td>Novo Nordisk</td><td>Denmark</td><td>Cheap vs own history</td><td>Oral pipeline, valuation reset</td><td>Genuine moat erosion vs Lilly</td></tr>
+        <tr><td class="rank">4</td><td>UnitedHealth</td><td>USA</td><td>~15% consensus, modest</td><td>DOJ probe resolution</td><td>Already re-rated, tail-risk overhang</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="context">
+    <strong>Market context:</strong> US equities are recovering from the July pullback near highs (S&amp;P target ~8,150, per RBC) with Q2 earnings broadly beating (~85% beat rate) — not a distressed backdrop, so genuine mispricings this week are name-specific (litigation, regulatory, sentiment overhangs) rather than market-wide value. European valuations remain comparatively cheaper with fiscal-stimulus tailwinds.
+  </div>
+
+  <footer>Prices and figures as of Aug 2–3, 2026 — verify before acting. Not investment advice.</footer>
+<div class="ds-footer-links">
+  <a href="https://mmnto.sk">mmnto.sk</a>
+  <a href="https://blog.mmnto.sk">blog.mmnto.sk</a>
+  <a href="../index.html">&#8592; All dashboards</a>
+</div>
+
+</div>
+</body>
+</html>

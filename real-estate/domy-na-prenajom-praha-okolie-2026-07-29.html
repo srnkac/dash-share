@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domy na prenájom – Praha a okolie – 29.7.2026</title>
+<style>
+  :root{
+    --bg:#0a0e13;
+    --surface:#10151d;
+    --surface-border:#1c232e;
+    --text:#e9edf2;
+    --text-secondary:#7c8a9c;
+    --accent:#e8a355;
+    --accent-muted:rgba(232,163,85,0.15);
+    --green:#3ecf8e;
+    --green-muted:rgba(62,207,142,0.14);
+    --yellow:#e0b84a;
+    --yellow-muted:rgba(224,184,74,0.14);
+    --blue:#5b9fe0;
+    --blue-muted:rgba(91,159,224,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  header{padding:64px 0 40px;border-bottom:1px solid var(--surface-border);}
+  header .eyebrow{color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;margin-bottom:14px;}
+  header h1{font-size:38px;font-weight:800;margin:0 0 14px;letter-spacing:-0.02em;}
+  header p{color:var(--text-secondary);font-size:16px;max-width:760px;margin:0 0 6px;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;background:var(--surface);border:1px solid var(--surface-border);color:var(--text-secondary);}
+
+  section{padding:56px 0;border-bottom:1px solid var(--surface-border);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:28px;}
+  .section-head h2{font-size:24px;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:10px;}
+  .section-head p{color:var(--text-secondary);font-size:14.5px;margin:0;max-width:800px;}
+
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:8px;}
+  .stat-card{background:var(--surface);border:1px solid var(--surface-border);border-radius:12px;padding:22px;}
+  .stat-card .num{font-size:30px;font-weight:800;color:var(--text);}
+  .stat-card .lbl{color:var(--text-secondary);font-size:13px;margin-top:4px;}
+
+  .pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em;}
+  .pill-top{background:var(--green-muted);color:var(--green);}
+  .pill-dobre{background:var(--blue-muted);color:var(--blue);}
+  .pill-ostatne{background:var(--surface-border);color:var(--text-secondary);}
+  .pill-flag{background:var(--yellow-muted);color:var(--yellow);}
+  .pill-old{background:rgba(224,90,90,0.15);color:#e05a5a;}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--surface-border);border-radius:12px;}
+  table{width:100%;border-collapse:collapse;min-width:920px;background:var(--surface);}
+  thead th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-secondary);padding:14px 16px;border-bottom:1px solid var(--surface-border);white-space:nowrap;}
+  tbody td{padding:16px;border-bottom:1px solid var(--surface-border);font-size:14px;vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(255,255,255,0.02);}
+  td.loc{font-weight:600;}
+  td .sub{color:var(--text-secondary);font-size:12.5px;margin-top:3px;}
+  td.price{white-space:nowrap;}
+  td.price .eur{color:var(--accent);font-weight:700;}
+  td.price .czk{color:var(--text-secondary);font-size:12.5px;}
+  a.listing-link{color:var(--accent);text-decoration:none;font-weight:600;font-size:13px;}
+  a.listing-link:hover{text-decoration:underline;}
+  .flags{display:flex;flex-direction:column;gap:4px;margin-top:6px;}
+
+  .callout{border-left:3px solid var(--accent);background:var(--accent-muted);border-radius:0 10px 10px 0;padding:16px 20px;margin-top:20px;font-size:14px;color:var(--text-secondary);}
+  .callout b{color:var(--text);}
+  .callout.warn{border-left-color:var(--yellow);background:var(--yellow-muted);}
+  .callout.info{border-left-color:var(--blue);background:var(--blue-muted);}
+
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:13px;color:var(--text-secondary);}
+  .legend span{display:flex;align-items:center;gap:8px;}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .dot-top{background:var(--green);}
+  .dot-dobre{background:var(--blue);}
+  .dot-ostatne{background:#666;}
+
+  .sources{color:var(--text-secondary);font-size:13px;}
+  .sources code{background:var(--surface);border:1px solid var(--surface-border);padding:2px 6px;border-radius:6px;color:var(--text);}
+
+  footer{padding:40px 0 60px;color:var(--text-secondary);font-size:13px;}
+
+  @media (max-width:760px){
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+    header h1{font-size:28px;}
+  }
+
+  .ds-topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.85rem 1.5rem;margin:0 -1.5rem 0;background:rgba(10,14,19,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1c232e;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.82rem;}
+  .ds-topbar-brand{color:#e9edf2;text-decoration:none;font-weight:700;letter-spacing:-0.01em;}
+  .ds-topbar-back{color:#7c8a9c;text-decoration:none;}
+  .ds-topbar-back:hover{color:#e8a355;}
+  .ds-footer-links{max-width:1000px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;border-top:1px solid #1c232e;display:flex;gap:1.25rem;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.78rem;}
+  .ds-footer-links a{color:#7c8a9c;text-decoration:none;}
+  .ds-footer-links a:hover{color:#e8a355;}
+</style>
+</head>
+<body>
+<div class="ds-topbar">
+  <a class="ds-topbar-brand" href="../index.html">&#9656; MEMENTO/DASHSHARE</a>
+  <a class="ds-topbar-back" href="../index.html">&#8592; All dashboards</a>
+</div>
+
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Automatizovaný prehľad · Domy na prenájom pri Prahe</div>
+    <h1>Domy na prenájom – Praha a okolie</h1>
+    <p>Prehľad ponúk samostatných rodinných domov (min. 4 izby + kuchyňa, vlastná záhrada, garáž/parkovanie, min. 110 m²) v obciach Zeleneč, Úvaly, Jesenice, Mnichovice, Beroun, Roztoky, Říčany, Černošice, Radotín a ich bezprostrednom okolí (do ~5 km), s dochádzkou do Prahy do 45 minút.</p>
+    <p>Vygenerované: <b style="color:#fff">29. júl 2026</b></p>
+    <div class="meta-row">
+      <span class="badge">🔍 3 zo 4 zdrojov prehľadané</span>
+      <span class="badge">📋 12 relevantných ponúk</span>
+      <span class="badge">💱 kurz 24,15 Kč/EUR</span>
+    </div>
+  </header>
+
+  <section id="poznamka">
+    <div class="section-head">
+      <h2>⚠️ Poznámka k tomuto behu</h2>
+    </div>
+    <div class="callout warn">
+      <b>Sreality.cz sa v tomto automatizovanom behu nepodarilo prehľadať</b> — vyžaduje JS rendering cez Chrome, no Chrome rozšírenie nebolo v tejto plánovanej úlohe pripojené (bez aktívnej relácie prehliadača). Prehľadané boli <b>Realcity.cz</b>, <b>Bezrealitky.cz</b> a <b>Hyperinzerce.cz</b> — spolu 18 + 10 + 24 inzerátov, z ktorých po filtrovaní kritérií zostalo 12 relevantných ponúk (zvyšok nespĺňal minimálnu plochu, počet izieb, alebo bol príliš ďaleko od cieľových obcí).
+    </div>
+  </section>
+
+  <section id="prehlad">
+    <div class="section-head">
+      <h2>📊 Súhrn</h2>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">1</div><div class="lbl">TOP ponuka</div></div>
+      <div class="stat-card"><div class="num">1</div><div class="lbl">DOBRÉ ponuky</div></div>
+      <div class="stat-card"><div class="num">10</div><div class="lbl">OSTATNÉ ponuky</div></div>
+      <div class="stat-card"><div class="num">5</div><div class="lbl">Staršie ako 30 dní</div></div>
+    </div>
+    <div class="legend">
+      <span><span class="dot dot-top"></span>TOP — vlaková stanica priamo v obci + cena pod 2 500 €</span>
+      <span><span class="dot dot-dobre"></span>DOBRÉ — pod 3 000 €, v okolí obce s vlakovým napojením na Prahu</span>
+      <span><span class="dot dot-ostatne"></span>OSTATNÉ — všetko ostatné, čo spĺňa základné kritériá</span>
+    </div>
+  </section>
+
+  <section id="top">
+    <div class="section-head">
+      <h2>🏆 TOP</h2>
+      <p>Vlaková stanica priamo v obci a cena pod 2 500 €/mesiac.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Lokalita</th><th>Cena nájmu</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Do Prahy</th><th>Zverejnené</th><th>Odkaz</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="loc">Roztoky – Žalov<div class="sub">Pod Koláčovem</div>
+              <div class="flags"><span class="pill pill-old">možno staršia ponuka</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 2 472 €</span><br><span class="czk">50 000 + 200 + 9 500 Kč/mes.</span></td>
+            <td>170 m² · 5+1</td>
+            <td>450 m² (záhrada 326 m²)</td>
+            <td>5+1</td>
+            <td>~20–25 min (vlak priamo z Roztok, cesta autom po D8/246)</td>
+            <td>fotky pôvodne júl 2024, doplnené jún 2026</td>
+            <td><a class="listing-link" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/853033-nabidka-pronajem-domu-pod-kolacovem-roztoky" target="_blank">Bezrealitky ↗</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      Garáž + parkovanie, plne vybavený, klidná lokalita. Fotky inzerátu majú pôvodný upload z júla 2024 (aj keď boli doplnené novšie zábery z júna 2026) — <b>odporúčam pred kontaktovaním overiť, či je ponuka stále aktívna.</b>
+    </div>
+  </section>
+
+  <section id="dobre">
+    <div class="section-head">
+      <h2>✅ DOBRÉ</h2>
+      <p>Pod 3 000 €/mesiac, v okolí obce s vlakovým napojením na Prahu.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Lokalita</th><th>Cena nájmu</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Do Prahy</th><th>Zverejnené</th><th>Odkaz</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="loc">Ohrobec (Praha-západ)<div class="sub">Na širokém I</div>
+              <div class="flags"><span class="pill pill-old">&gt;30 dní</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 2 029 €+</span><br><span class="czk">49 000 Kč/mes. + neuvedené poplatky</span></td>
+            <td>171 m² · novostavba</td>
+            <td>záhrada ~250 m²</td>
+            <td>5+kk</td>
+            <td>~25–30 min autom (blízko Radotína s vlak. staníc.)</td>
+            <td>zverejnené 9. 6. 2026 (50 dní)</td>
+            <td><a class="listing-link" href="https://www.realcity.cz/nemovitost/pronajem-domu-ohrobec-na-sirokem-i-4400710" target="_blank">Realcity ↗</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      Garáž (20 m²) + 3 ďalšie parkovacie miesta, pekná lokalita blízko Zbraslavi. Ohrobec nemá vlastnú vlakovú stanicu, ale leží ~5 km od Radotína.
+    </div>
+  </section>
+
+  <section id="ostatne">
+    <div class="section-head">
+      <h2>📋 OSTATNÉ</h2>
+      <p>Spĺňajú základné kritériá (dom, 4+ izby, záhrada, parkovanie/garáž, 110 m²+), ale nespĺňajú TOP/DOBRÉ podmienky na cenu alebo polohu.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Lokalita</th><th>Cena nájmu</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Do Prahy</th><th>Zverejnené</th><th>Odkaz</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="loc">Jesenice, Vilová<div class="sub">Zdiměřice</div></td>
+            <td class="price"><span class="eur">≈ 3 934 €</span><br><span class="czk">80 000 + 15 000 Kč/mes.</span></td>
+            <td>420 m² · vila</td>
+            <td>993 m² (bazén)</td>
+            <td>6+1</td>
+            <td>~20–25 min autom (priamo cieľová obec)</td>
+            <td>zverejnené 21. 7. 2026</td>
+            <td><a class="listing-link" href="https://www.realcity.cz/nemovitost/pronajem-domu-6-1-jesenice-vilova-4409070" target="_blank">Realcity ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Průhonice<div class="sub">Pod Valem II. 956</div>
+              <div class="flags"><span class="pill pill-old">&gt;30 dní</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 3 851 €</span><br><span class="czk">79 000 + 14 000 Kč/mes.</span></td>
+            <td>350 m²</td>
+            <td>záhrada 800 m²</td>
+            <td>6+1</td>
+            <td>~20–25 min autom (D1, hranica s Jesenicí)</td>
+            <td>zverejnené 10. 6. 2026 (49 dní)</td>
+            <td><a class="listing-link" href="https://www.realcity.cz/nemovitost/pronajem-domu-pruhonice-pod-valem-ii-956-4400971" target="_blank">Realcity ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Horoměřice<div class="sub">Rabochova 1006</div>
+              <div class="flags"><span class="pill pill-old">&gt;30 dní</span><span class="pill pill-flag">okraj 5 km okruhu</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 3 147 €</span><br><span class="czk">70 000 + 6 000 Kč/mes.</span></td>
+            <td>250 m²</td>
+            <td>záhrada 550 m²</td>
+            <td>6+kk</td>
+            <td>~20–25 min autom / bus na metro Bořislavka</td>
+            <td>zverejnené 31. 3. 2026 (120 dní)</td>
+            <td><a class="listing-link" href="https://www.realcity.cz/nemovitost/pronajem-domu-horomerice-rabochova-1006-4387418" target="_blank">Realcity ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Kunice<div class="sub">Dolní Lomnice</div></td>
+            <td class="price"><span class="eur">≈ 3 271 €</span><br><span class="czk">75 000 + 1 000 + 3 000 Kč/mes.</span></td>
+            <td>296 m² · bungalov</td>
+            <td>1 662 m²</td>
+            <td>6+kk</td>
+            <td>~25 min autom (5 min na D1), blízko Mnichovic</td>
+            <td>neuvedené (fotky ~máj 2026)</td>
+            <td><a class="listing-link" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/902483-nabidka-pronajem-domu-kunice" target="_blank">Bezrealitky ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Vrané nad Vltavou<div class="sub">K Dubné</div>
+              <div class="flags"><span class="pill pill-flag">mimo 5 km okruh (~9 km od Černošic)</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 1 797 €</span><br><span class="czk">40 000 + 3 400 Kč/mes.</span></td>
+            <td>160 m²</td>
+            <td>600 m²</td>
+            <td>5+kk</td>
+            <td>~30–35 min vlakom priamo z obce (na Hl. nádraží)</td>
+            <td>fotky 26. 6. 2026 (33 dní)</td>
+            <td><a class="listing-link" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/639239-nabidka-pronajem-domu-k-dubne-vrane-nad-vltavou" target="_blank">Bezrealitky ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Okrouhlo<div class="sub">Okrouhlo 79</div>
+              <div class="flags"><span class="pill pill-flag">lokalita/vzdialenosť neoverená</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 2 236 €</span><br><span class="czk">49 000 + 5 000 Kč/mes.</span></td>
+            <td>241 m²</td>
+            <td>977 m²</td>
+            <td>5+kk (2 kuchyne)</td>
+            <td>neoverené — pravdepodobne &gt;45 min</td>
+            <td>dostupné od 17. 6. 2026</td>
+            <td><a class="listing-link" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1035809-nabidka-pronajem-domu" target="_blank">Bezrealitky ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Čerčany<div class="sub">Mánesova</div>
+              <div class="flags"><span class="pill pill-old">&gt;30 dní</span><span class="pill pill-flag">mimo 5 km okruh (~9 km od Mnichovic)</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 1 656 €+</span><br><span class="czk">40 000 Kč/mes. + energie neuvedené</span></td>
+            <td>180 m² (2 byt. jednotky)</td>
+            <td>záhrada, m² neuvedené</td>
+            <td>5+kk spolu (2+kk a 3+kk)</td>
+            <td>~40 min vlakom (uzlová stanica)</td>
+            <td>zverejnené 23. 4. 2026 (97 dní)</td>
+            <td><a class="listing-link" href="https://www.realcity.cz/nemovitost/pronajem-domu-cercany-manesova-4391857" target="_blank">Realcity ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Mnichovice<div class="sub">Pod Budíkovem</div>
+              <div class="flags"><span class="pill pill-old">veľmi stará ponuka (od 2023)</span><span class="pill pill-flag">parkovanie neuvedené</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 1 408 €</span><br><span class="czk">26 000 + 8 000 Kč/mes.</span></td>
+            <td>160 m²</td>
+            <td>450 m²</td>
+            <td>4+1</td>
+            <td>~35–40 min vlakom priamo z obce</td>
+            <td>dostupné od 4. 9. 2023 (inzerát beží dlhodobo)</td>
+            <td><a class="listing-link" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/800787-nabidka-pronajem-domu-pod-budikovem-bozkov" target="_blank">Bezrealitky ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Líbeznice<div class="sub">Kojetická</div>
+              <div class="flags"><span class="pill pill-flag">veľkosť domu neuvedená</span><span class="pill pill-flag">mimo 5 km okruh (~9–10 km od Zelenče)</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 1 884 €</span><br><span class="czk">40 000 + 5 500 Kč/mes.</span></td>
+            <td>m² neuvedené (odhad 4 izby)</td>
+            <td>495 m²</td>
+            <td>~4+1 (odhad z popisu)</td>
+            <td>~20–25 min bus na metro C Ládví</td>
+            <td>zverejnené 17. 7. 2026 (12 dní)</td>
+            <td><a class="listing-link" href="https://www.realcity.cz/nemovitost/pronajem-domu-libeznice-kojeticka-4408463" target="_blank">Realcity ↗</a></td>
+          </tr>
+          <tr>
+            <td class="loc">Mratín<div class="sub">Za Dráhou</div>
+              <div class="flags"><span class="pill pill-flag">veľkosť domu neuvedená</span><span class="pill pill-flag">mimo 5 km okruh (~10 km od Zelenče)</span></div>
+            </td>
+            <td class="price"><span class="eur">≈ 2 029 €</span><br><span class="czk">49 000 Kč/mes.</span></td>
+            <td>m² neuvedené</td>
+            <td>714 m²</td>
+            <td>5+kk</td>
+            <td>~30–35 min autom</td>
+            <td>zverejnené 4. 7. 2026 (25 dní)</td>
+            <td><a class="listing-link" href="https://www.realcity.cz/nemovitost/pronajem-domu-mratin-za-drahou-4406287" target="_blank">Realcity ↗</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="vylucene">
+    <div class="section-head">
+      <h2>🚫 Vylúčené z prehľadu</h2>
+      <p>Nasledovné inzeráty z prehľadaných zdrojov nespĺňali základné kritériá a neboli zahrnuté do tabuľky vyššie.</p>
+    </div>
+    <div class="callout info">
+      <b>Príliš malé / nedostatok izieb:</b> Herink 130 m² (úžitná plocha len 100 m² &lt; 110 m²), Tetín (3+kk, 82 m²), Otročiněves (73 m²), Svinaře (75 m² / pozemok 48 m²), Sadová Beroun (2+kk), Spádová Kamenice (93 m²), Slunečni Vrané n. Vltavou (98 m²), K Junčáku Psáry (3+kk, 78 m²).<br><br>
+      <b>Pravdepodobne mimo dojazdu / nedostatok údajov:</b> Vrátno, Rakovník, Drobovice, Dobrovice, Bělá pod Bezdězem, Nový Vestec, Kladno, Načeradec (Realcity) a Drahelčice (Hyperinzerce, RD 5+kk bez uvedenej plochy/pozemku) — chýbajúce kľúčové údaje alebo zjavne nad 45 min od Prahy.<br><br>
+      <b>Hyperinzerce.cz:</b> z 24 celoštátnych inzerátov iba 1–2 relevantné pre danú lokalitu (byty a vzdialené regióny prevažujú); jezdecký areál Pečky (239 000 Kč) vylúčený pre extrémnu cenu a nejasnú štruktúru (dom zdieľaný s majiteľmi).
+    </div>
+  </section>
+
+  <section id="zdroje">
+    <div class="section-head">
+      <h2>🔗 Zdroje a metodika</h2>
+    </div>
+    <p class="sources">
+      Prehľadané: <code>Realcity.cz</code> (Středočeský kraj, filter dům, 18 inzerátov), <code>Bezrealitky.cz</code> (okresy Praha-východ, Praha-západ, Beroun, 10 inzerátov), <code>Hyperinzerce.cz</code> (celoštátny zoznam pronájem domů, 24 inzerátov). <code>Sreality.cz</code> sa v tomto behu nepodarilo prehľadať (chýba pripojenie Chrome rozšírenia potrebné na JS-rendered stránky) — odporúča sa doplniť pri ďalšom behu alebo manuálne.<br><br>
+      Kurz použitý na prepočet: <b>1 EUR = 24,15 Kč</b> (ČNB, 27. 7. 2026). Ceny v EUR zahŕňajú základný nájom + uvedené mesačné poplatky (energie/služby), okrem prípadov kde poplatky neboli v inzeráte uvedené.
+    </p>
+  </section>
+
+  <footer>
+    Automatizovaný scheduled task „Domy na prenájom – Praha a okolie" · Vygenerované 29. júla 2026 · Tento report je nový súbor, predchádzajúce behy neboli prepísané.
+  </footer>
+<div class="ds-footer-links">
+  <a href="https://mmnto.sk">mmnto.sk</a>
+  <a href="https://blog.mmnto.sk">blog.mmnto.sk</a>
+  <a href="../index.html">&#8592; All dashboards</a>
+</div>
+
+</div>
+
+</body>
+</html>

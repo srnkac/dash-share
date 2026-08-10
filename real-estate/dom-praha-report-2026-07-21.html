@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dom pri Prahe – kúpa – report 21.7.2026</title>
+<style>
+  :root {
+    --bg: #0a0e13;
+    --surface: #10151d;
+    --border: #1c232e;
+    --text: #e9edf2;
+    --text2: #7c8a9c;
+    --accent: #e8a355;
+    --accent-muted: rgba(232, 163, 85, 0.15);
+    --green: #4caf82;
+    --green-muted: rgba(76, 175, 130, 0.15);
+    --yellow: #d9b957;
+    --yellow-muted: rgba(217, 185, 87, 0.15);
+    --red: #d97575;
+    --red-muted: rgba(217, 117, 117, 0.15);
+    --blue: #6ea8d9;
+    --blue-muted: rgba(110, 168, 217, 0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+    margin: 0;
+    padding: 0 20px 100px;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1300px; margin: 0 auto; }
+  header { padding: 60px 0 40px; text-align: center; }
+  header h1 { font-size: 34px; font-weight: 800; margin: 0 0 10px; }
+  header p { color: var(--text2); font-size: 15px; margin: 4px 0; }
+  section { margin-top: 70px; }
+  h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .section-sub { color: var(--text2); font-size: 14px; margin-bottom: 24px; }
+  .stats-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 10px; }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-card .num { font-size: 28px; font-weight: 800; color: var(--accent); }
+  .stat-card .label { color: var(--text2); font-size: 13px; margin-top: 4px; }
+  .cat-header { display: flex; align-items: center; gap: 12px; }
+  .pill { display:inline-block; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; letter-spacing: .03em; }
+  .pill-top { background: var(--green-muted); color: var(--green); }
+  .pill-dobre { background: var(--blue-muted); color: var(--blue); }
+  .pill-ostatne { background: var(--border); color: var(--text2); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; min-width: 1100px; }
+  thead th {
+    text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--text2); background: var(--surface); padding: 12px 14px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+  }
+  tbody td { padding: 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+  tbody tr:nth-child(odd) { background: rgba(255,255,255,0.015); }
+  tbody tr:hover { background: rgba(217,119,87,0.06); }
+  .cell-loc { font-weight: 600; min-width: 170px; }
+  .src { font-weight: 400; color: var(--text2); font-size: 11.5px; margin-top: 2px; }
+  .num { white-space: nowrap; }
+  .eur { color: var(--accent); font-size: 12px; margin-top: 2px; }
+  .lnk { color: var(--accent); text-decoration: none; font-weight: 600; white-space: nowrap; }
+  .lnk:hover { text-decoration: underline; }
+  .pozn { color: var(--text2); font-size: 12.5px; min-width: 220px; }
+  .badges { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .badge-old { background: var(--yellow-muted); color: var(--yellow); }
+  .badge-fresh { background: var(--green-muted); color: var(--green); }
+  .badge-dup { background: var(--red-muted); color: var(--red); }
+  .badge-stale { background: var(--red-muted); color: var(--red); }
+  .badge-unknown { background: var(--border); color: var(--text2); }
+  .callout {
+    background: var(--surface); border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 20px 24px; margin-top: 16px; font-size: 14px; color: var(--text2);
+  }
+  .callout strong { color: var(--text); }
+  .callout ul { margin: 10px 0 0; padding-left: 20px; }
+  .callout li { margin-bottom: 6px; }
+  .source-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px; }
+  .source-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .source-card h3 { margin: 0 0 6px; font-size: 15px; }
+  .status-ok { color: var(--green); font-weight: 700; font-size: 12px; }
+  .status-fail { color: var(--red); font-weight: 700; font-size: 12px; }
+  footer { text-align: center; color: var(--text2); font-size: 12.5px; margin-top: 80px; }
+  @media (max-width: 900px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .source-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .ds-topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.85rem 1.5rem;margin:0 -1.5rem 0;background:rgba(10,14,19,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1c232e;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.82rem;}
+  .ds-topbar-brand{color:#e9edf2;text-decoration:none;font-weight:700;letter-spacing:-0.01em;}
+  .ds-topbar-back{color:#7c8a9c;text-decoration:none;}
+  .ds-topbar-back:hover{color:#e8a355;}
+  .ds-footer-links{max-width:1000px;margin:0 auto;padding:1.25rem 1.5rem 2.5rem;border-top:1px solid #1c232e;display:flex;gap:1.25rem;font-family:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;font-size:0.78rem;}
+  .ds-footer-links a{color:#7c8a9c;text-decoration:none;}
+  .ds-footer-links a:hover{color:#e8a355;}
+</style>
+</head>
+<body>
+<div class="ds-topbar">
+  <a class="ds-topbar-brand" href="../index.html">&#9656; MEMENTO/DASHSHARE</a>
+  <a class="ds-topbar-back" href="../index.html">&#8592; All dashboards</a>
+</div>
+
+<div class="wrap">
+  <header>
+    <h1>🏡 Dom pri Prahe — report z 21. júla 2026</h1>
+    <p>Vyhľadávanie domov na kúpu: Zeleneč, Úvaly, Jesenice, Mnichovice, Beroun, Roztoky, Říčany, Černošice, Radotín (+ okolie do ~5 km)</p>
+    <p>Kurz použitý na prepočet: 1 € = 24,23 Kč (21.7.2026)</p>
+  </header>
+
+  <section>
+    <h2>Zhrnutie</h2>
+    <div class="section-sub">Naprieč 4 zdrojmi (Sreality.cz, Realcity.cz, Bezrealitky.cz, Hyperinzerce.cz)</div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="num">42</div><div class="label">nájdených ponúk</div></div>
+      <div class="stat-card"><div class="num">16</div><div class="label">TOP ponuky</div></div>
+      <div class="stat-card"><div class="num">10</div><div class="label">DOBRÉ ponuky</div></div>
+      <div class="stat-card"><div class="num">412 707 €</div><div class="label">najlacnejšia ponuka</div></div>
+      <div class="stat-card"><div class="num">1 774 247 €</div><div class="label">najdrahšia ponuka</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cat-header"><h2>TOP ponuky</h2><span class="pill pill-top">16</span></div>
+    <div class="section-sub">Vlaková stanica priamo v obci a cena pod 800 000 € (~19,38 mil. Kč). Zoradené: najprv aktuálne a jedinečné ponuky, staršie/duplicitné na konci.</div>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Lokalita / obec</th>
+          <th>Cena</th>
+          <th>Veľkosť domu</th>
+          <th>Veľkosť pozemku</th>
+          <th>Počet izieb</th>
+          <th>Čas do Prahy</th>
+          <th>Dátum zverejnenia</th>
+          <th>Odkaz</th>
+          <th>Poznámka</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+      <td class="cell-loc">Beroun – Lidická<div class="src">Bezrealitky</div></td>
+      <td class="num">9 999 900 Kč<div class="eur">412 707 €</div></td>
+      <td class="num">220 m²</td>
+      <td>889 m²</td>
+      <td>5+1</td>
+      <td>~30 min vlak / 35 min auto</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1015006-nabidka-prodej-domu-lidicka-beroun" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Najlacnejšia nájdená ponuka v tomto behu. Garáž + parkovanie. Dátum zverejnenia neuvedený – overiť aktuálnosť.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Beroun – Slavašovská<div class="src">Realcity</div></td>
+      <td class="num">13 425 000 Kč<div class="eur">554 065 €</div></td>
+      <td class="num">300 m²</td>
+      <td>504 m²</td>
+      <td>6-7 izieb (deliteľné na 3 jedn.)</td>
+      <td>~30 min vlak / 35 min auto</td>
+      <td>16.7.2026<div class="badges"><span class="badge badge-fresh">NOVÉ (5 d)</span></div></td>
+      <td><a class="lnk" href="https://www.realcity.cz/nemovitost/prodej-domu-beroun-slavasovska-4408353" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Prvorepubliková vila, potrebuje rekonštrukciu. Garáž na pozemku.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Zeleneč – Šafránova<div class="src">Sreality</div></td>
+      <td class="num">14 950 000 Kč<div class="eur">617 004 €</div></td>
+      <td class="num">148 m²</td>
+      <td>286 m²</td>
+      <td>5+1</td>
+      <td>~25 min vlak / 30 min auto</td>
+      <td>14.7.2026<div class="badges"><span class="badge badge-fresh">NOVÉ (7 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/zelenec-zelenec-sasankova/737337420" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž + 2 státia. Záhrada v popise výslovne nespomenutá, len pozemok – overiť.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Černošice – Na Marsu<div class="src">Sreality</div></td>
+      <td class="num">15 890 000 Kč<div class="eur">655 799 €</div></td>
+      <td class="num">124 m²</td>
+      <td>805 m² (zahrada 708 m²)</td>
+      <td>6+1</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>1.7.2026<div class="badges"><span class="badge badge-fresh">NOVÉ (20 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/cernosice-cernosice-na-marsu/3746291788" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Priamo v obci, stanica Černošice. Garáž. Starší nezrekonštruovaný dom, 124 m² tesne nad minimom.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Mnichovice – Božkov<div class="src">Bezrealitky</div></td>
+      <td class="num">16 829 512 Kč<div class="eur">694 573 €</div></td>
+      <td class="num">220 m²</td>
+      <td>1 315 m²</td>
+      <td>5+kk</td>
+      <td>~35 min vlak / 40 min auto</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1015848-nabidka-prodej-domu-bozkov-mnichovice" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Parkovanie (bez garáže), pivnica, terasa. Dátum zverejnenia neuvedený na stránke.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Úvaly – Škvorecká<div class="src">Sreality</div></td>
+      <td class="num">13 950 000 Kč<div class="eur">575 733 €</div></td>
+      <td class="num">237 m²</td>
+      <td>808 m² (zahrada 600 m²)</td>
+      <td>5+ izieb</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>18.5.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (64 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-skvorecka/3488845900" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Priamo v obci, ~1,1 km od stanice. Garáž, bazén.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Zeleneč – Husova<div class="src">Sreality</div></td>
+      <td class="num">14 400 000 Kč<div class="eur">594 305 €</div></td>
+      <td class="num">162 m²</td>
+      <td>700 m² (zahrada 538 m²)</td>
+      <td>6 izieb</td>
+      <td>~25 min vlak / 30 min auto</td>
+      <td>20.3.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (123 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/zelenec-zelenec-husova/417940300" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž + 3 státia, pivnica.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Mnichovice – Švermova<div class="src">Sreality</div></td>
+      <td class="num">14 490 000 Kč<div class="eur">598 019 €</div></td>
+      <td class="num">161 m²</td>
+      <td>919 m²</td>
+      <td>5+ izieb</td>
+      <td>~35 min vlak / 40 min auto</td>
+      <td>6.10.2025<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (288 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-mnichovice-svermova/2371601228" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Novostavba 2025. 2 parkovacie miesta. Záhrada spomenutá v popise, nie formálne.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Beroun – Závadilka, Steinerova<div class="src">Sreality</div></td>
+      <td class="num">14 490 000 Kč<div class="eur">598 019 €</div></td>
+      <td class="num">146 m²</td>
+      <td>610 m² (zahrada 548 m²)</td>
+      <td>5+kk</td>
+      <td>~30 min vlak / 35 min auto</td>
+      <td>17.3.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (126 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-zavadilka-steinerova/2189710156" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Novostavba, dokončenie 12/2026. Stanica Beroun ~600 m. 2 parkovacie miesta, bez garáže.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Zeleneč – u lesoparku<div class="src">Sreality</div></td>
+      <td class="num">17 490 000 Kč<div class="eur">721 832 €</div></td>
+      <td class="num">174 m²</td>
+      <td>275 m² (zahrada 139 m²)</td>
+      <td>5+kk</td>
+      <td>~25 min vlak / 30 min auto</td>
+      <td>7.5.2025<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (440 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/zelenec-zelenec-u-lesoparku/1440432716" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž + 1 státie. Vlaková zastávka Zeleneč (S2/S22/S9) potvrdená priamo v obci.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Úvaly – Táboritská<div class="src">Sreality</div></td>
+      <td class="num">17 500 000 Kč<div class="eur">722 245 €</div></td>
+      <td class="num">309 m²</td>
+      <td>1 162 m² (zahrada 921 m²)</td>
+      <td>5+ izieb</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>2.10.2025<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (292 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-taboritska/4269200204" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž pre 2 autá.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Radotín – U Sanatoria<div class="src">Sreality</div></td>
+      <td class="num">18 500 000 Kč<div class="eur">763 516 €</div></td>
+      <td class="num">192 m²</td>
+      <td>1 249 m² (zahrada 1 105 m²)</td>
+      <td>5+ izieb</td>
+      <td>~15 min vlak (S7) / 25 min auto</td>
+      <td>27.8.2025<div class="badges"><span class="badge badge-stale">DLHODOBO NA TRHU</span> <span class="badge badge-old">STARŠIE &gt;30 dní (328 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-u-sanatoria/965210956" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">POZOR: rovnaký inzerát bol už v reporte z 7.7.2026 – dlhodobo na trhu (~11 mesiacov), garáž nie je zapísaná v katastri.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Úvaly – Pernerova<div class="src">Sreality</div></td>
+      <td class="num">18 680 000 Kč<div class="eur">770 945 €</div></td>
+      <td class="num">197 m²</td>
+      <td>840 m² (zahrada 699 m²)</td>
+      <td>6+kk</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>19.6.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (32 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-pernerova/54390860" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž pre 2 autá, FVE.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Úvaly – Sukova<div class="src">Sreality</div></td>
+      <td class="num">18 900 000 Kč<div class="eur">780 025 €</div></td>
+      <td class="num">189 m²</td>
+      <td>1 309 m² (zahrada 982 m²)</td>
+      <td>5+1</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>20.4.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (92 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/uvaly-uvaly-sukova/4137005132" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž + 2 státia.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Černošice – Javorová<div class="src">Realcity</div></td>
+      <td class="num">18 900 000 Kč<div class="eur">780 025 €</div></td>
+      <td class="num">378 m²</td>
+      <td>1 900 m²</td>
+      <td>6+1</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>18.5.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (64 d)</span></div></td>
+      <td><a class="lnk" href="https://www.realcity.cz/nemovitost/prodej-domu-cernosice-javorova-4396497" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Samostatná garáž (30 m²) + parkovanie, svahovitá záhrada.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Mnichovice – Božkov (Nad rybníkem)<div class="src">Sreality + Realcity (duplicitný inzerát)</div></td>
+      <td class="num">16 100 000 Kč<div class="eur">664 466 €</div></td>
+      <td class="num">312 m²</td>
+      <td>2 428 m² (zahrada 2 207 m²)</td>
+      <td>10+2</td>
+      <td>~35 min vlak / 40 min auto</td>
+      <td>2.2.2026<div class="badges"><span class="badge badge-dup">DUPLICITA</span> <span class="badge badge-old">STARŠIE &gt;30 dní (169 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-bozkov-nad-rybnikem/331117388" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Rovnaká ponuka na Sreality aj Realcity. Stanica ~775 m, garáž + 3 státia.</td>
+    </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="cat-header"><h2>DOBRÉ ponuky</h2><span class="pill pill-dobre">10</span></div>
+    <div class="section-sub">Cena pod 900 000 € (~21,81 mil. Kč), v obci alebo v okolí obce s vlakovým napojením do Prahy — bez priamej stanice v obci alebo s cenou nad TOP hranicou.</div>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Lokalita / obec</th>
+          <th>Cena</th>
+          <th>Veľkosť domu</th>
+          <th>Veľkosť pozemku</th>
+          <th>Počet izieb</th>
+          <th>Čas do Prahy</th>
+          <th>Dátum zverejnenia</th>
+          <th>Odkaz</th>
+          <th>Poznámka</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+      <td class="cell-loc">Strančice/Svojšovice (~4 km od Mnichovíc/Říčan)<div class="src">Bezrealitky</div></td>
+      <td class="num">13 590 000 Kč<div class="eur">560 875 €</div></td>
+      <td class="num">134 m²</td>
+      <td>979 m²</td>
+      <td>5+kk</td>
+      <td>~35 min vlak / 40 min auto</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1031919-nabidka-prodej-domu-lucni-svojsovice" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž, balkón, terasa. Presná poloha voči stanici Strančice neoverená – opatrne zaradené do DOBRÉ.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Říčany-Jažlovice<div class="src">Bezrealitky</div></td>
+      <td class="num">15 490 000 Kč<div class="eur">639 290 €</div></td>
+      <td class="num">206 m²</td>
+      <td>1 450 m²</td>
+      <td>6+1</td>
+      <td>~25 min vlak+auto / 30 min auto</td>
+      <td>dostupné od 1.8.2026<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1007553-nabidka-prodej-domu-u-dalnice-ricany" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Dvojgaráž 64 m², bazén, vzrastlá záhrada – veľmi dobrý pomer, ale mimo priamej stanice Říčany.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Beroun-Hostim (časť Berouna)<div class="src">Realcity</div></td>
+      <td class="num">15 990 000 Kč<div class="eur">659 926 €</div></td>
+      <td class="num">356 (užitná 312) m²</td>
+      <td>3 785 m²</td>
+      <td>~6 (2 jednotky 3+1)</td>
+      <td>~30 min vlak / 35 min auto</td>
+      <td>10.6.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (41 d)</span></div></td>
+      <td><a class="lnk" href="https://www.realcity.cz/nemovitost/prodej-domu-beroun-ke-svatemu-janu-4401579" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Aktuálne rozdelený na 2 byty, predáva sa ako celok. Garáž na pozemku, vlastná studňa.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Babice (~5 km od Říčan)<div class="src">Bezrealitky</div></td>
+      <td class="num">16 300 000 Kč<div class="eur">672 720 €</div></td>
+      <td class="num">165 m²</td>
+      <td>800 m²</td>
+      <td>5+kk</td>
+      <td>~35 min auto (bez priamej stanice)</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1037795-nabidka-prodej-domu-k-lesu-babice" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž + parkovanie. V okolí Říčan s vlakovým spojením.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Horoměřice (~4 km od Roztok)<div class="src">Bezrealitky</div></td>
+      <td class="num">17 490 000 Kč<div class="eur">721 832 €</div></td>
+      <td class="num">230 m²</td>
+      <td>348 m²</td>
+      <td>5+kk</td>
+      <td>~30 min auto (bez priamej stanice)</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1001949-nabidka-prodej-domu-svahova-horomerice" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž + parkovanie. V okolí Roztok s vlakovým spojením.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Roztoky – Legií<div class="src">Sreality</div></td>
+      <td class="num">19 480 000 Kč<div class="eur">803 962 €</div></td>
+      <td class="num">245 m²</td>
+      <td>736 m²</td>
+      <td>5+ izieb</td>
+      <td>~17 min vlak / 25 min auto</td>
+      <td>19.6.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (32 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/roztoky-roztoky-legii/2030956620" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Priamo v obci so stanicou. POZOR: dom z r. 1945, popisovaný ako vhodný na rekonštrukciu alebo demoláciu.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Zeleneč<div class="src">Sreality</div></td>
+      <td class="num">20 700 000 Kč<div class="eur">854 313 €</div></td>
+      <td class="num">227 m²</td>
+      <td>513 m² (zahrada 358 m²)</td>
+      <td>7+kk</td>
+      <td>~25 min vlak / 30 min auto</td>
+      <td>7.5.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (75 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/zelenec-zelenec-/3328938060" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Bazén, parkovanie pre 3 autá. Stanica Zeleneč ~479 m.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Zdiby (~3 km od Roztok)<div class="src">Bezrealitky</div></td>
+      <td class="num">20 900 000 Kč<div class="eur">862 567 €</div></td>
+      <td class="num">176 m²</td>
+      <td>506 m²</td>
+      <td>5+kk</td>
+      <td>~30 min auto (bez priamej stanice)</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1019999-nabidka-prodej-domu-v-zatisi-zdiby" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Parkovanie (bez garáže). V okolí Roztok, ktoré majú vlakové spojenie.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Hýskov (~4 km od Berouna)<div class="src">Realcity</div></td>
+      <td class="num">20 990 000 Kč<div class="eur">866 281 €</div></td>
+      <td class="num">280 m²</td>
+      <td>981 m²</td>
+      <td>6+1</td>
+      <td>~35 min vlak+auto / 40 min auto</td>
+      <td>25.5.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (57 d)</span></div></td>
+      <td><a class="lnk" href="https://www.realcity.cz/nemovitost/prodej-domu-hyskov-na-vinickach-4397967" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Parkovanie pre 3 autá na pozemku (bez garáže), bazén, FVE. Priama stanica v obci neoverená.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Říčany – Kriketová<div class="src">Bezrealitky</div></td>
+      <td class="num">21 490 050 Kč<div class="eur">886 919 €</div></td>
+      <td class="num">161 m²</td>
+      <td>384 m²</td>
+      <td>5+kk</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1016192-nabidka-prodej-domu-kriketova-ricany" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Garáž + parkovanie. Priamo v obci so stanicou, cena tesne nad 800-tis. € hranicou TOP.</td>
+    </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="cat-header"><h2>OSTATNÉ ponuky</h2><span class="pill pill-ostatne">16</span></div>
+    <div class="section-sub">Nespĺňajú TOP ani DOBRÉ (cena nad 900 000 €, alebo bez vlakového spojenia v okolí).</div>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Lokalita / obec</th>
+          <th>Cena</th>
+          <th>Veľkosť domu</th>
+          <th>Veľkosť pozemku</th>
+          <th>Počet izieb</th>
+          <th>Čas do Prahy</th>
+          <th>Dátum zverejnenia</th>
+          <th>Odkaz</th>
+          <th>Poznámka</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+      <td class="cell-loc">Modletice (~4 km od Jesenice)<div class="src">Bezrealitky</div></td>
+      <td class="num">13 991 855 Kč<div class="eur">577 460 €</div></td>
+      <td class="num">270 m²</td>
+      <td>868 m²</td>
+      <td>5+kk</td>
+      <td>~40 min auto (bez vlaku)</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/951076-nabidka-prodej-domu-modletice" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Cena pod 800-tis. €, ale bez vlakového spojenia v okolí.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Sulice (~4 km od Jesenice)<div class="src">Bezrealitky</div></td>
+      <td class="num">19 898 000 Kč<div class="eur">821 213 €</div></td>
+      <td class="num">348 m²</td>
+      <td>1 135 m²</td>
+      <td>5+kk</td>
+      <td>~40 min auto (bez vlaku)</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/978068-nabidka-prodej-domu-sulice" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Bez vlakového spojenia v okolí, cena tesne nad 800-tis. € TOP hranicou.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Vestec (~3 km od Jesenice)<div class="src">Bezrealitky</div></td>
+      <td class="num">21 400 000 Kč<div class="eur">883 203 €</div></td>
+      <td class="num">270 m²</td>
+      <td>598 m²</td>
+      <td>5+kk</td>
+      <td>~35 min auto</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1029845-nabidka-prodej-domu-k-remizku-vestec" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Bez vlakového spojenia v okolí.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Roztoky – Zvoncová<div class="src">Sreality</div></td>
+      <td class="num">21 840 000 Kč<div class="eur">901 362 €</div></td>
+      <td class="num">163 m²</td>
+      <td>381 m²</td>
+      <td>5+kk</td>
+      <td>~17 min vlak / 25 min auto</td>
+      <td>16.4.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (96 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/roztoky-roztoky-zvoncova/988852300" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Cena tesne nad 900-tis. € hranicou.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Mnichovice – Myslinská<div class="src">Sreality</div></td>
+      <td class="num">22 400 000 Kč<div class="eur">924 474 €</div></td>
+      <td class="num">321 m²</td>
+      <td>2 875 m² (zahrada 2 671 m²)</td>
+      <td>9+kk</td>
+      <td>~35 min vlak / 40 min auto</td>
+      <td>6.11.2025<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (257 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/mnichovice-mnichovice-myslinska/597701452" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Cena nad 900-tis. € hranicou. Bazén, 3 parkovacie miesta.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Beroun – Za Vinicnou<div class="src">Sreality</div></td>
+      <td class="num">22 990 000 Kč<div class="eur">948 824 €</div></td>
+      <td class="num">246 m²</td>
+      <td>1 270 m² (zahrada 966 m²)</td>
+      <td>5+ izieb</td>
+      <td>~30 min vlak / 35 min auto</td>
+      <td>13.7.2026<div class="badges"><span class="badge badge-fresh">NOVÉ (8 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/beroun-beroun-mesto-za-vinicnou/390324300" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Cena nad 900-tis. € hranicou napriek dobrej polohe priamo v obci.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Říčany – Kozinova<div class="src">Sreality</div></td>
+      <td class="num">24 980 000 Kč<div class="eur">1 030 953 €</div></td>
+      <td class="num">300 m²</td>
+      <td>486 m²</td>
+      <td>12+1</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>18.2.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (153 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-ricany-kozinova/4024263500" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Cena výrazne nad rozpočtovými hranicami.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Šestajovice (~3 km od Zelenče)<div class="src">Bezrealitky</div></td>
+      <td class="num">24 990 000 Kč<div class="eur">1 031 366 €</div></td>
+      <td class="num">180 m²</td>
+      <td>800 m²</td>
+      <td>5+kk</td>
+      <td>~30 min auto</td>
+      <td>—<div class="badges"><span class="badge badge-unknown">dátum neznámy</span></div></td>
+      <td><a class="lnk" href="https://www.bezrealitky.cz/nemovitosti-byty-domy/1046009-nabidka-prodej-domu-sestajovice" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Cena nad rozpočtom.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Jesenice – Za rybníkem<div class="src">Sreality</div></td>
+      <td class="num">24 999 000 Kč<div class="eur">1 031 738 €</div></td>
+      <td class="num">350 m²</td>
+      <td>951 m² (zahrada 740 m²)</td>
+      <td>4+1 (+2+kk suterén)</td>
+      <td>~40 min auto (bez vlaku)</td>
+      <td>23.6.2026<div class="badges"><span class="badge badge-fresh">NOVÉ (28 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-jesenice-za-rybnikem/1236529228" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Bez vlakovej stanice. Cena nad rozpočtom. Hlavná jednotka len 4+1, tesne nad minimom izieb.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Jesenice – Holubí<div class="src">Sreality</div></td>
+      <td class="num">25 990 000 Kč<div class="eur">1 072 637 €</div></td>
+      <td class="num">270 m²</td>
+      <td>654 m² (zahrada 635 m²)</td>
+      <td>5+ izieb</td>
+      <td>~40 min auto (bez vlaku)</td>
+      <td>8.5.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (74 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-jesenice-holubi/2905313356" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Jesenice nemá vlastnú vlakovú stanicu. Cena nad rozpočtom. Bazén, garáž pre 3 autá.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Jesenice – Osnice, Hledíkova<div class="src">Sreality</div></td>
+      <td class="num">26 500 000 Kč<div class="eur">1 093 686 €</div></td>
+      <td class="num">205 m²</td>
+      <td>809 m² (zahrada 695 m²)</td>
+      <td>5+1</td>
+      <td>~40 min auto (bez vlaku)</td>
+      <td>21.5.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (61 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/jesenice-osnice-hledikova/434606156" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Bez vlakovej stanice. Cena nad rozpočtom.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Radotín – Nýrská (v skutočnosti Kosoř)<div class="src">Sreality</div></td>
+      <td class="num">27 500 000 Kč<div class="eur">1 134 957 €</div></td>
+      <td class="num">292 m²</td>
+      <td>1 139 m² (zahrada 880 m²)</td>
+      <td>6+1</td>
+      <td>~25 min vlak+auto / 30 min auto</td>
+      <td>2.6.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (49 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-nyrska/3405611084" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Obec Kosoř ~2 km od Radotína, nie priamo v obci. Cena nad rozpočtom.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Radotín – Karlická<div class="src">Sreality</div></td>
+      <td class="num">28 990 000 Kč<div class="eur">1 196 451 €</div></td>
+      <td class="num">202 m²</td>
+      <td>1 282 m² (zahrada 1 165 m²)</td>
+      <td>5+kk</td>
+      <td>~15 min vlak (S7) / 25 min auto</td>
+      <td>4.2.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (167 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/praha-radotin-karlicka/3161551692" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Predaj vrátane rekonštrukcie 'na kľúč', odovzdanie až 2/2027. Cena nad rozpočtom.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Říčany – Jasmínova<div class="src">Sreality</div></td>
+      <td class="num">29 900 000 Kč<div class="eur">1 234 007 €</div></td>
+      <td class="num">383 m²</td>
+      <td>1 750 m² (zahrada 1 480 m²)</td>
+      <td>6+kk</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>11.5.2026<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (71 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/ricany-ricany-jasminova/2628423756" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Cena výrazne nad rozpočtovými hranicami.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Černošice – Strakonická<div class="src">Sreality</div></td>
+      <td class="num">32 900 000 Kč<div class="eur">1 357 821 €</div></td>
+      <td class="num">206 m²</td>
+      <td>824 m² (zahrada 700 m²)</td>
+      <td>6+1</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>1.9.2025<div class="badges"><span class="badge badge-old">STARŠIE &gt;30 dní (323 d)</span></div></td>
+      <td><a class="lnk" href="https://www.sreality.cz/detail/prodej/dum/rodinny/cernosice-cernosice-strakonicka/3647726412" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Novostavba, ale cena výrazne nad rozpočtom.</td>
+    </tr>
+<tr>
+      <td class="cell-loc">Říčany – Severní<div class="src">Realcity</div></td>
+      <td class="num">42 990 000 Kč<div class="eur">1 774 247 €</div></td>
+      <td class="num">598 m²</td>
+      <td>2 298 m² (zahrada 1 046 m²)</td>
+      <td>27 (luxusná vila)</td>
+      <td>~20 min vlak / 30 min auto</td>
+      <td>26.6.2026<div class="badges"><span class="badge badge-fresh">NOVÉ (25 d)</span></div></td>
+      <td><a class="lnk" href="https://www.realcity.cz/nemovitost/prodej-domu-ricany-severni-4405002" target="_blank" rel="noopener">Inzerát &rarr;</a></td>
+      <td class="pozn">Luxusná vila, výrazne nad rozpočtom. 2 garáže, bazén.</td>
+    </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Stav zdrojov v tomto behu</h2>
+    <div class="source-grid">
+      <div class="source-card"><h3>Sreality.cz</h3><div class="status-ok">✓ funkčné</div><p class="pozn" style="margin-top:8px">Prehľadané cez Claude in Chrome pre všetkých 9 obcí, filter min. 120 m². 24 zodpovedajúcich ponúk.</p></div>
+      <div class="source-card"><h3>Realcity.cz</h3><div class="status-ok">✓ funkčné</div><p class="pozn" style="margin-top:8px">6 zodpovedajúcich ponúk. Jesenice a Praha-Radotín sa nepodarilo spoľahlivo dohľadať cez kategórie (medzera, nie potvrdená nula).</p></div>
+      <div class="source-card"><h3>Bezrealitky.cz</h3><div class="status-ok">✓ funkčné</div><p class="pozn" style="margin-top:8px">12 zodpovedajúcich ponúk, najlepšie štruktúrované dáta. Zeleneč, Mnichovice (čiastočne) a Radotín bez priamych zásahov — nahradené obcami v okolí.</p></div>
+      <div class="source-card"><h3>Hyperinzerce.cz</h3><div class="status-fail">✗ bez výsledkov</div><p class="pozn" style="margin-top:8px">Technicky dostupné, ale lokalitný filter je len fulltextový a nájdené inzeráty boli neaktuálne/nerelevantné (napr. inzerát s upozornením "již není aktuální"). V tomto behu 0 platných zhôd.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Metodologické poznámky</h2>
+    <div class="callout">
+      <strong>Čo bolo overené a čo je potrebné skontrolovať pred kontaktovaním predajcu:</strong>
+      <ul>
+        <li><strong>Duplicity:</strong> 1 ponuka (Mnichovice – Božkov, Nad rybníkem) sa objavuje zhodne na Sreality aj Realcity — zlúčené do jedného riadku.</li>
+        <li><strong>Staršie inzeráty (&gt;30 dní):</strong> 24 z 42 ponúk má dátum zverejnenia starší ako 30 dní — označené žltým odznakom s počtom dní. Odporúčam pred kontaktom overiť, či sú ešte v ponuke.</li>
+        <li><strong>Dlhodobo na trhu:</strong> Radotín – U Sanatoria (Sreality 965210956) sa objavil aj v predchádzajúcom reporte zo 7.7.2026 a pôvodne bol zverejnený už 27.8.2025 (~11 mesiacov) — pravdepodobne sa dlho nedarí predať, alebo je nadhodnotený/má právne komplikácie (garáž nezapísaná v katastri).</li>
+        <li><strong>Zeleneč — korekcia oproti pôvodnému zadaniu:</strong> overené (ČD/PID), že obec Zeleneč MÁ vlastnú vlakovú zastávku (linky S2/S22/S9, ~25 min do centra Prahy) — preto ponuky v Zelenči pod 800-tis. € boli zaradené do TOP kategórie.</li>
+        <li><strong>Jesenice — potvrdené:</strong> Jesenice u Prahy nemá vlastnú vlakovú stanicu (existujúca stanica "Jesenice" na trati 161 patrí obci Jesenice u Rakovníka, úplne inej lokalite) — všetky ponuky v Jesenici preto spadli mimo TOP/DOBRÉ kritéria založené na vlakovom spojení, pokiaľ cena nebola extrémne nízka.</li>
+        <li><strong>Dátum zverejnenia:</strong> Bezrealitky.cz nezobrazuje dátum zverejnenia na stránkach inzerátov — tieto ponuky sú označené ako "dátum neznámy" a ich vek nebolo možné vyhodnotiť.</li>
+        <li><strong>Odhad času do Prahy</strong> je orientačný (vlak/auto do centra), nie z presného trasovania pre každý konkrétny dom.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    Automatický scheduled report · dom-praha-kupa · vygenerované 21.7.2026 · vždy nový súbor, predchádzajúce reporty sa neaktualizujú
+  </footer>
+<div class="ds-footer-links">
+  <a href="https://mmnto.sk">mmnto.sk</a>
+  <a href="https://blog.mmnto.sk">blog.mmnto.sk</a>
+  <a href="../index.html">&#8592; All dashboards</a>
+</div>
+
+</div>
+</body>
+</html>
