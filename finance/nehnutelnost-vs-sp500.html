@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nehnuteľnosť v Bratislave vs. S&P 500 — 10 rokov, 50 000 €</title>
+<style>
+  :root{
+    --bg:#0a0e13; --surface:#10151d; --surface-2:#161c26;
+    --border:#1c232e; --border-hover:#2f3d4f;
+    --text:#e9edf2; --text-2:#7c8a9c; --text-3:#4d5866;
+    --accent:#e8a355; --accent-hover:#f0b672; --accent-ink:#0a0e13;
+    --accent-2:#58bfae;
+    --red:#e0685f; --green:#6fbf8c;
+    --mono: ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;
+    --sans: -apple-system,"Segoe UI",system-ui,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:56px 0;} }
+  h1,h2,h3{font-family:var(--sans);font-weight:700;letter-spacing:-0.02em;color:var(--text);margin:0 0 12px;}
+  h1{font-size:clamp(32px,5vw,52px);line-height:1.08;}
+  h2{font-size:clamp(24px,3.4vw,34px);}
+  h3{font-size:18px;}
+  p{color:var(--text-2);margin:0 0 16px;}
+  .eyebrow{font-family:var(--mono);text-transform:uppercase;font-size:12px;letter-spacing:0.12em;color:var(--accent-2);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .eyebrow::before{content:"//";opacity:0.7;}
+  .band{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  ul.trace{list-style:none;margin:0;padding:0;}
+  ul.trace li{font-family:var(--mono);font-size:14.5px;color:var(--text-2);padding:6px 0 6px 22px;position:relative;}
+  ul.trace li::before{content:"▸";position:absolute;left:0;color:var(--accent);}
+  ul.trace li b{color:var(--text);font-weight:600;}
+
+  /* HERO */
+  .hero{position:relative;padding:120px 0 80px;overflow:hidden;
+    background-image:
+      linear-gradient(var(--border) 1px,transparent 1px),
+      linear-gradient(90deg,var(--border) 1px,transparent 1px);
+    background-size:32px 32px;
+    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
+            mask-image:radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
+  }
+  .hero-inner{position:relative;text-align:center;max-width:820px;margin:0 auto;}
+  .hero p.sub{font-size:17px;max-width:640px;margin:0 auto 40px;}
+  .hero .eyebrow{justify-content:center;}
+
+  /* STAT GRID */
+  .statgrid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--border);gap:1px;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+  .statgrid .stat{background:var(--surface);padding:28px 20px;text-align:center;}
+  .stat .num{font-family:var(--mono);font-size:clamp(24px,3vw,34px);color:var(--accent);font-weight:600;}
+  .stat .lbl{font-family:var(--mono);font-size:12px;color:var(--text-2);text-transform:uppercase;letter-spacing:0.06em;margin-top:6px;}
+  @media (max-width:720px){ .statgrid{grid-template-columns:1fr;} }
+
+  /* GRID / CARDS */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:820px){ .grid2,.grid3{grid-template-columns:1fr;} }
+  .card{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:26px;transition:border-color .15s;}
+  .card:hover{border-color:var(--border-hover);}
+  .card .tag{display:inline-block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2);background:rgba(88,191,174,0.1);border:1px solid rgba(88,191,174,0.25);padding:3px 8px;border-radius:3px;margin-bottom:14px;}
+  .card.re .tag{color:var(--accent);background:rgba(232,163,85,0.1);border-color:rgba(232,163,85,0.3);}
+
+  /* COMPARISON TABLE */
+  .cmp{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:14.5px;}
+  .cmp th,.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--border);}
+  .cmp thead th{color:var(--text-2);text-transform:uppercase;font-size:11.5px;letter-spacing:.06em;border-bottom:1px solid var(--border-hover);}
+  .cmp tbody tr:hover{background:rgba(255,255,255,0.02);}
+  .cmp td.win{color:var(--accent);font-weight:700;}
+  .cmp td.num{text-align:right;}
+  .cmp th.num{text-align:right;}
+  .scrollx{overflow-x:auto;}
+
+  /* CHART */
+  .chartwrap{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:28px 16px 16px;}
+  .legend{display:flex;gap:24px;justify-content:center;margin-bottom:8px;font-family:var(--mono);font-size:12.5px;color:var(--text-2);}
+  .legend span{display:inline-flex;align-items:center;gap:8px;}
+  .swatch{width:14px;height:3px;border-radius:2px;display:inline-block;}
+
+  /* CALLOUT */
+  .callout{border-left:3px solid var(--accent);background:var(--surface);padding:20px 24px;border-radius:0 6px 6px 0;}
+  .callout.warn{border-left-color:var(--red);}
+  .callout .h{font-family:var(--mono);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:8px;}
+  .callout.warn .h{color:var(--red);}
+
+  footer{padding:56px 0 40px;border-top:1px solid var(--border);}
+  footer p{font-size:12.5px;color:var(--text-3);font-family:var(--mono);}
+  footer a{color:var(--text-2);}
+  .sources{columns:2;column-gap:32px;}
+  @media (max-width:720px){ .sources{columns:1;} }
+  .sources li{break-inside:avoid;font-size:12.5px;}
+
+  .badge-pos{color:var(--green);font-family:var(--mono);}
+  .badge-neg{color:var(--red);font-family:var(--mono);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Porovnanie investícií · 2016 – 2026</div>
+    <h1>Byt v Bratislave na hypotéku,<br>alebo lacný ETF na S&P 500?</h1>
+    <p class="sub">Rovnaký vklad 50 000 €, dve úplne odlišné cesty. Pri nehnuteľnosti 80 % hypotéka, nájomné, dane aj náklady na správu. Pri akciách lacný akumulačný ETF a nula starostí. Toto je výsledok za posledných 10 rokov, čísla po nákladoch aj po daniach.</p>
+    <div class="statgrid">
+      <div class="stat"><div class="num">50 000 €</div><div class="lbl">Vlastný vklad (obe strany)</div></div>
+      <div class="stat"><div class="num" style="color:var(--accent)">409 818 €</div><div class="lbl">Nehnuteľnosť po 10 rokoch</div></div>
+      <div class="stat"><div class="num" style="color:var(--accent-2)">186 204 €</div><div class="lbl">S&P 500 ETF po 10 rokoch</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSUMPTIONS -->
+<section id="predpoklady">
+  <div class="wrap">
+    <div class="eyebrow">Zadanie</div>
+    <h2>Čo presne porovnávame</h2>
+    <p style="max-width:700px;">Aby bolo porovnanie férové, obe strany dostanú rovnaký vklad aj rovnaké obdobie (2016 – 2026). Nižšie sú všetky predpoklady, aby ste si vedeli dosadiť vlastné čísla, ak sa vaša situácia líši.</p>
+    <div class="grid2" style="margin-top:32px;">
+      <div class="card re">
+        <span class="tag">Nehnuteľnosť</span>
+        <h3>Byt v Bratislave na hypotéku</h3>
+        <ul class="trace">
+          <li>Kúpna cena bytu: <b>250 000 €</b> (2016)</li>
+          <li>Vlastné zdroje: <b>50 000 €</b> (20 %), hypotéka <b>200 000 €</b> (80 %)</li>
+          <li>Anuita na 30 rokov, sadzba sa refixuje každý rok podľa priemernej trhovej sadzby na Slovensku (NBS / Financer.sk): 1,86 % v 2016 → min. 0,90 % v 2021 → 4,00 % v 2024 → 3,60 % v 2025</li>
+          <li>Rast ceny bytu: <b>+120 % za dekádu</b> (reálny údaj NBS pre Bratislavu) → 250 000 € → 550 000 €</li>
+          <li>Hrubý nájomný výnos: <b>4,0 %</b> z aktuálnej hodnoty bytu ročne (priemer BA podľa Global Property Guide / Investropa)</li>
+          <li>Prevádzkové náklady: <b>25 %</b> hrubého nájmu (fond opráv, poistenie, daň z nehnuteľnosti, rezerva na neobsadenosť a opravy)</li>
+          <li>Daň z prenájmu: <b>19 %</b> zo zisku (nájom mínus náklady mínus úroky). Odvody sa z § 6 ods. 3 príjmov neplatia</li>
+          <li>Predaj po 10 rokoch → vlastníctvo &gt; 5 rokov → príjem z predaja <b>oslobodený od dane</b></li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag" style="color:var(--accent-2)">Akcie</span>
+        <h3>Jednorazový vklad do S&P 500 ETF</h3>
+        <ul class="trace">
+          <li>Jednorazový vklad: <b>50 000 €</b> (2016), žiadne priebežné vklady ani výbery</li>
+          <li>Lacný akumulačný UCITS ETF (napr. iShares Core S&P 500), TER <b>0,07 %</b> ročne</li>
+          <li>Ročné výnosy S&P 500 total return (s reinvestovanými dividendami) 2016 – 2025, podľa SlickCharts</li>
+          <li>Odpočítaná odhadovaná zrážková daň z amerických dividend v rámci fondu (~0,2 %/rok)</li>
+          <li>Prepočet na EUR: kurz EUR/USD sa za dekádu posilnil z ~1,107 na ~1,156 → kumulatívne cca −4,4 % k výnosu pre eurového investora</li>
+          <li>Predaj po 10 rokoch → držba &gt; 1 rok → zisk z predaja podielov <b>oslobodený od dane</b> z príjmu na Slovensku</li>
+          <li>Žiadna páka, žiadny úver, žiadna správa nehnuteľnosti</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT COMPARISON -->
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Výsledok</div>
+    <h2>Po 10 rokoch a po zdanení</h2>
+    <div class="scrollx" style="margin-top:24px;">
+    <table class="cmp">
+      <thead>
+        <tr><th>Ukazovateľ</th><th class="num">Nehnuteľnosť (BA, 80 % hypotéka)</th><th class="num">S&P 500 ETF</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Vlastný vklad</td><td class="num">50 000 €</td><td class="num">50 000 €</td></tr>
+        <tr><td>Hodnota po 10 rokoch</td><td class="num">550 000 € (byt)</td><td class="num">186 204 € (portfólio)</td></tr>
+        <tr><td>Zostatok hypotéky pri predaji</td><td class="num">146 745 €</td><td class="num">—</td></tr>
+        <tr><td>Čistý výnos z predaja</td><td class="num">403 255 € (bez dane)</td><td class="num">186 204 € (bez dane)</td></tr>
+        <tr><td>Súčet nájmu po nákladoch a dani (10 r.)</td><td class="num">6 563 €</td><td class="num">—</td></tr>
+        <tr><td><b>Konečný majetok</b></td><td class="num win">409 818 €</td><td class="num">186 204 €</td></tr>
+        <tr><td><b>Čistý zisk</b></td><td class="num win">+359 818 €</td><td class="num">+136 204 €</td></tr>
+        <tr><td><b>Násobok vkladu (MOIC)</b></td><td class="num win">8,2×</td><td class="num">3,7×</td></tr>
+        <tr><td><b>Priemerný ročný výnos (IRR / CAGR)</b></td><td class="num win">~23,0 % p.a.</td><td class="num">~14,1 % p.a.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin-top:20px;font-size:14px;">V tomto konkrétnom desaťročí vyšla nehnuteľnosť na hypotéku o <b style="color:var(--text)">223 614 €</b> lepšie. Dôvod nie je "nehnuteľnosti sú lepšia investícia" — je to <b style="color:var(--text)">5-násobná páka</b> (80 % hypotéka) nasadená na mimoriadne silný rast cien bytov v Bratislave. Rovnaká páka funguje presne opačne, ak ceny klesnú — pozri sekciu o riziku nižšie.</p>
+  </div>
+</section>
+
+<!-- CHART -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Vývoj v čase</div>
+    <h2>Ako rástol majetok rok po roku</h2>
+    <p style="max-width:700px;">Nehnuteľnosť rastie hladko vďaka páke a splácaniu istiny, no v prvých rokoch (2016 – 2018) nájom nestačil pokryť splátku hypotéky — vlastník musel dorovnávať z vlastného vrecka. ETF portfólio kolíše s trhom (pokles v 2018 a najmä v 2022), ale bez cudzieho kapitálu a bez nutnosti dopĺňať hotovosť.</p>
+    <div class="chartwrap">
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--accent)"></i>Nehnuteľnosť (majetok po odpočítaní hypotéky)</span>
+        <span><i class="swatch" style="background:var(--accent-2)"></i>S&P 500 ETF</span>
+      </div>
+      <svg viewBox="0 0 1180 400" width="100%" style="display:block;">
+        <!-- gridlines -->
+        <g stroke="#1c232e" stroke-width="1">
+          <line x1="60" y1="380" x2="1160" y2="380"/>
+          <line x1="60" y1="298.6" x2="1160" y2="298.6"/>
+          <line x1="60" y1="217.2" x2="1160" y2="217.2"/>
+          <line x1="60" y1="135.8" x2="1160" y2="135.8"/>
+          <line x1="60" y1="54.4" x2="1160" y2="54.4"/>
+        </g>
+        <g font-family="ui-monospace,monospace" font-size="11" fill="#4d5866">
+          <text x="8" y="384">0 €</text>
+          <text x="8" y="302.6">100k</text>
+          <text x="8" y="221.2">200k</text>
+          <text x="8" y="139.8">300k</text>
+          <text x="8" y="58.4">400k</text>
+        </g>
+        <g font-family="ui-monospace,monospace" font-size="11" fill="#4d5866">
+          <text x="52" y="398" text-anchor="middle">'16</text>
+          <text x="160" y="398" text-anchor="middle">'17</text>
+          <text x="268" y="398" text-anchor="middle">'18</text>
+          <text x="376" y="398" text-anchor="middle">'19</text>
+          <text x="484" y="398" text-anchor="middle">'20</text>
+          <text x="592" y="398" text-anchor="middle">'21</text>
+          <text x="700" y="398" text-anchor="middle">'22</text>
+          <text x="808" y="398" text-anchor="middle">'23</text>
+          <text x="916" y="398" text-anchor="middle">'24</text>
+          <text x="1024" y="398" text-anchor="middle">'25</text>
+        </g>
+        <polyline points="60.0,339.3 168.0,320.1 276.0,298.9 384.0,275.4 492.0,249.5 600.0,221.2 708.0,190.1 816.0,157.1 924.0,123.5 1032.0,86.9 1140.0,46.4" fill="none" stroke="#e8a355" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <polyline points="60.0,339.3 168.0,334.7 276.0,325.2 384.0,328.0 492.0,312.1 600.0,300.1 708.0,277.8 816.0,297.0 924.0,275.8 1032.0,250.6 1140.0,228.4" fill="none" stroke="#58bfae" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="1140" cy="46.4" r="4.5" fill="#e8a355"/>
+        <circle cx="1140" cy="228.4" r="4.5" fill="#58bfae"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- COST BREAKDOWN -->
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Detail</div>
+    <h2>Kam počas tých 10 rokov išli peniaze</h2>
+    <div class="grid2" style="margin-top:24px;">
+      <div class="card re">
+        <span class="tag">Nehnuteľnosť — súčty za 10 rokov</span>
+        <table class="cmp" style="font-size:14px;">
+          <tbody>
+            <tr><td>Prijaté hrubé nájomné</td><td class="num badge-pos">+146 275 €</td></tr>
+            <tr><td>Prevádzkové náklady (fond opráv, poistenie, dane...)</td><td class="num badge-neg">−36 569 €</td></tr>
+            <tr><td>Zaplatené úroky z hypotéky</td><td class="num badge-neg">−35 857 €</td></tr>
+            <tr><td>Splatená istina hypotéky (zostáva vám ako equity)</td><td class="num">53 255 €</td></tr>
+            <tr><td>Daň z príjmu z prenájmu (19 %)</td><td class="num badge-neg">−14 031 €</td></tr>
+            <tr><td>Splátky hypotéky spolu (úrok + istina)</td><td class="num">89 111 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <span class="tag" style="color:var(--accent-2)">ETF — náklady za 10 rokov</span>
+        <table class="cmp" style="font-size:14px;">
+          <tbody>
+            <tr><td>Poplatok fondu (TER 0,07 % p.a.)</td><td class="num badge-neg">≈ 700 €</td></tr>
+            <tr><td>Zrážková daň z dividend v akumul. fonde (~0,2 % p.a.)</td><td class="num badge-neg">≈ 2 100 €</td></tr>
+            <tr><td>Vplyv posilnenia eura voči doláru (−4,4 % kumulatívne)</td><td class="num badge-neg">≈ 8 300 €</td></tr>
+            <tr><td>Daň pri predaji (držba &gt; 1 rok)</td><td class="num">0 €</td></tr>
+            <tr><td>Vstupné poplatky, réžia, starosti</td><td class="num">0 €</td></tr>
+            <tr><td>Váš čas strávený správou</td><td class="num">~0 hodín</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK / SENSITIVITY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Riziko</div>
+    <h2>Páka funguje na obe strany</h2>
+    <p style="max-width:700px;">Výsledok nehnuteľnosti je extrémne citlivý na to, čo sa stane s cenou bytu — pretože 80 % hodnoty je cudzí kapitál. Tabuľka ukazuje ten istý byt, tú istú hypotéku, tie isté náklady — mení sa len to, ako rástla (alebo klesala) cena počas 10 rokov.</p>
+    <div class="scrollx" style="margin-top:20px;">
+    <table class="cmp">
+      <thead>
+        <tr><th>Scenár rastu ceny bytu za 10 rokov</th><th class="num">Konečný majetok</th><th class="num">Násobok vkladu</th><th class="num">Ročný výnos (IRR)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Pokles −20 % (krach trhu)</td><td class="num badge-neg">26 015 €</td><td class="num badge-neg">0,5×</td><td class="num badge-neg">−4,9 %</td></tr>
+        <tr><td>Stagnácia (0 %)</td><td class="num">81 706 €</td><td class="num">1,6×</td><td class="num">+4,5 %</td></tr>
+        <tr><td>Len inflácia (~+35 %)</td><td class="num">178 249 €</td><td class="num">3,6×</td><td class="num">+12,8 %</td></tr>
+        <tr><td>Mierny rast (+60 %)</td><td class="num">246 701 €</td><td class="num">4,9×</td><td class="num">+16,7 %</td></tr>
+        <tr><td>Priemer Slovenska (+90 %)</td><td class="num">328 435 €</td><td class="num">6,6×</td><td class="num">+20,2 %</td></tr>
+        <tr><td><b>Realita Bratislavy (+120 %) — základný scenár</b></td><td class="num win">409 818 €</td><td class="num win">8,2×</td><td class="num win">+23,0 %</td></tr>
+        <tr><td>Silný boom (+150 %)</td><td class="num">490 919 €</td><td class="num">9,8×</td><td class="num">+25,4 %</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="callout warn" style="margin-top:28px;">
+      <div class="h">Dôležité</div>
+      <p style="margin:0;color:var(--text);">Pri poklese ceny bytu už len o 20 % prídete o polovicu z vloženej hotovosti — a to ešte pri pozitívnom nájme. ETF portfólio pri rovnakom −20 % prepade jednoducho stojí o 20 % menej, nemáte splátky, nemôže vás nikto nútiť predať a nehrozí vám dorovnávanie hypotéky z vlastného vrecka. Posledná dekáda (2016 – 2026) bola pre bratislavské nehnuteľnosti mimoriadne priaznivá — takýto rast cien nie je zaručený do budúcna.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUALITATIVE -->
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Mimo čísel</div>
+    <h2>Rozdiely, ktoré tabuľka nezachytí</h2>
+    <div class="grid3" style="margin-top:24px;">
+      <div class="card">
+        <h3>Likvidita</h3>
+        <p style="margin:0;">ETF podiely predáte za sekundy. Byt sa predáva týždne až mesiace, s neistou konečnou cenou.</p>
+      </div>
+      <div class="card">
+        <h3>Koncentrácia rizika</h3>
+        <p style="margin:0;">Celý majetok je v jednom byte, na jednej ulici, v jednom meste. ETF drží 500 firiem naprieč sektormi a krajinami sveta.</p>
+      </div>
+      <div class="card">
+        <h3>Námaha a čas</h3>
+        <p style="margin:0;">Hľadanie nájomníkov, opravy, papierovanie, riziko neplatiča. ETF si nevyžaduje takmer žiadnu starostlivosť.</p>
+      </div>
+      <div class="card">
+        <h3>Záväzok a flexibilita</h3>
+        <p style="margin:0;">Hypotéka je 30-ročný záväzok viazaný na jeden asset. Do ETF môžete kedykoľvek dokúpiť, alebo čiastočne predať.</p>
+      </div>
+      <div class="card">
+        <h3>Prístup k páke</h3>
+        <p style="margin:0;">Banka vám požičia 4-násobok vkladu na byt, ale nie na kúpu akcií — to je jediný dôvod, prečo nehnuteľnosť v tomto modeli vyhráva.</p>
+      </div>
+      <div class="card">
+        <h3>Nepredvídané náklady</h3>
+        <p style="margin:0;">Havária, súdny spor so susedom, dlhodobá neobsadenosť — pri nehnuteľnosti existuje "chvostové" riziko, ktoré tento model nepočíta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="color:var(--text-2);font-family:var(--sans);font-size:14px;max-width:760px;">
+      Toto je ilustračný model s konkrétnymi, transparentne uvedenými predpokladmi — nie investičné poradenstvo. Skutočný byt, skutočná hypotéka a skutočné ETF sa budú líšiť. Minulá výkonnosť (najmä extrémny rast cien bratislavských bytov 2016 – 2026) negarantuje budúce výsledky.
+    </p>
+    <p style="margin-top:24px;">Zdroje dát:</p>
+    <ul class="sources trace">
+      <li>NBS — Vývoj cien nehnuteľností na bývanie v SR</li>
+      <li>Financer.sk — Úrokové sadzby hypoték 2026, vývoj od 1998</li>
+      <li>Global Property Guide / Investropa — nájomné výnosy Bratislava</li>
+      <li>SlickCharts — S&P 500 Total Returns by Year</li>
+      <li>exchange-rates.org / x-rates.com — historický kurz EUR/USD</li>
+      <li>NeoTax / FinancnaSprava.sk — oslobodenie príjmu z predaja CP po 1 roku</li>
+      <li>eSudca.sk — oslobodenie príjmu z predaja nehnuteľnosti po 5 rokoch</li>
+      <li>Money.sk / Finsider.sk — zdanenie príjmu z prenájmu (19 %, bez odvodov)</li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
