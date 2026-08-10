@@ -48,11 +48,22 @@
     .home-link { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-2); text-decoration: none; }
     .home-link:hover { color: var(--accent); }
 
-    .intro { padding: 3.5rem 0 2.5rem; }
+    .intro { padding: 3.5rem 0 2.5rem; position: relative; z-index: 0; overflow: hidden; }
+    .intro::after {
+      content: ""; position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 75% 80% at 50% 40%, rgba(10,14,19,0) 0%, var(--bg) 82%);
+      pointer-events: none;
+    }
+    .intro-network { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; opacity: 0.8; }
+    .net-edge { fill: none; stroke: var(--accent-2); stroke-opacity: 0.16; stroke-width: 1.2; }
+    .net-node-ring { fill: none; stroke: var(--accent-2); stroke-opacity: 0.3; stroke-width: 1; }
+    .net-node { fill: var(--accent-2); opacity: 0.6; }
+    .net-packet { fill: var(--accent); }
+    .intro-content { position: relative; z-index: 1; }
     .eyebrow {
       font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--accent-2); font-weight: 600;
-      margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 0.9rem; display: inline-flex; align-items: center; gap: 0.5rem;
     }
     .eyebrow::before { content: "//"; color: var(--text-3); }
     .intro h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.9rem; }
@@ -100,10 +111,105 @@
 
   <main class="container">
     <section class="intro">
-      <div class="eyebrow">Public dashboards</div>
-      <h1>Static dashboards, built to share</h1>
-      <p>Self-contained briefings and data screens on whatever we're tracking that week — each page is a single static HTML file, no login, no build step.</p>
+      <svg class="intro-network" viewBox="0 0 900 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="packet-glow" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="2.2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <path id="f1" class="net-edge" d="M60,65 L165,180" />
+        <path id="f2" class="net-edge" d="M165,180 L285,220" />
+        <path id="f3" class="net-edge" d="M60,65 L300,42" />
+        <path id="f4" class="net-edge" d="M300,42 L450,105" />
+        <path id="f5" class="net-edge" d="M285,220 L450,105" />
+        <path id="f6" class="net-edge" d="M450,105 L585,30" />
+        <path id="f7" class="net-edge" d="M450,105 L640,200" />
+        <path id="f8" class="net-edge" d="M585,30 L765,80" />
+        <path id="f9" class="net-edge" d="M640,200 L765,80" />
+        <path id="f10" class="net-edge" d="M765,80 L855,165" />
+        <path id="f11" class="net-edge" d="M300,42 L585,30" />
+        <path id="f12" class="net-edge" d="M165,180 L640,200" />
+
+        <path class="net-edge" d="M60,65 L-30,45" />
+        <path class="net-edge" d="M165,180 L130,290" />
+        <path class="net-edge" d="M300,42 L320,-30" />
+        <path class="net-edge" d="M285,220 L255,300" />
+        <path class="net-edge" d="M585,30 L565,-30" />
+        <path class="net-edge" d="M640,200 L665,300" />
+        <path class="net-edge" d="M765,80 L930,55" />
+        <path class="net-edge" d="M855,165 L930,190" />
+
+        <g>
+          <circle class="net-node-ring" cx="60" cy="65" r="7" />
+          <circle class="net-node" cx="60" cy="65" r="3" />
+          <circle class="net-node-ring" cx="165" cy="180" r="5.5" />
+          <circle class="net-node" cx="165" cy="180" r="2.4" />
+          <circle class="net-node-ring" cx="300" cy="42" r="6.5" />
+          <circle class="net-node" cx="300" cy="42" r="2.8" />
+          <circle class="net-node-ring" cx="285" cy="220" r="5.5" />
+          <circle class="net-node" cx="285" cy="220" r="2.4" />
+          <circle class="net-node-ring" cx="450" cy="105" r="8" />
+          <circle class="net-node" cx="450" cy="105" r="3.4" />
+          <circle class="net-node-ring" cx="585" cy="30" r="5.5" />
+          <circle class="net-node" cx="585" cy="30" r="2.4" />
+          <circle class="net-node-ring" cx="640" cy="200" r="6.5" />
+          <circle class="net-node" cx="640" cy="200" r="2.8" />
+          <circle class="net-node-ring" cx="765" cy="80" r="7" />
+          <circle class="net-node" cx="765" cy="80" r="3" />
+          <circle class="net-node-ring" cx="855" cy="165" r="5.5" />
+          <circle class="net-node" cx="855" cy="165" r="2.4" />
+        </g>
+
+        <circle class="net-packet" r="3.4" filter="url(#packet-glow)">
+          <animateMotion dur="5.5s" repeatCount="indefinite"><mpath href="#f1" /></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.5s" repeatCount="indefinite" />
+        </circle>
+        <circle class="net-packet" r="3" filter="url(#packet-glow)">
+          <animateMotion dur="7s" begin="-1.5s" repeatCount="indefinite"><mpath href="#f3" /></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="7s" begin="-1.5s" repeatCount="indefinite" />
+        </circle>
+        <circle class="net-packet" r="3.6" filter="url(#packet-glow)">
+          <animateMotion dur="4.5s" begin="-2.5s" repeatCount="indefinite"><mpath href="#f4" /></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" begin="-2.5s" repeatCount="indefinite" />
+        </circle>
+        <circle class="net-packet" r="3" filter="url(#packet-glow)">
+          <animateMotion dur="6.5s" begin="-0.8s" repeatCount="indefinite"><mpath href="#f6" /></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="6.5s" begin="-0.8s" repeatCount="indefinite" />
+        </circle>
+        <circle class="net-packet" r="3.4" filter="url(#packet-glow)">
+          <animateMotion dur="8s" begin="-4s" repeatCount="indefinite"><mpath href="#f7" /></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="8s" begin="-4s" repeatCount="indefinite" />
+        </circle>
+        <circle class="net-packet" r="3.2" filter="url(#packet-glow)">
+          <animateMotion dur="5s" begin="-3s" repeatCount="indefinite"><mpath href="#f9" /></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" begin="-3s" repeatCount="indefinite" />
+        </circle>
+        <circle class="net-packet" r="3" filter="url(#packet-glow)">
+          <animateMotion dur="9s" begin="-5s" repeatCount="indefinite"><mpath href="#f11" /></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="9s" begin="-5s" repeatCount="indefinite" />
+        </circle>
+        <circle class="net-packet" r="3.4" filter="url(#packet-glow)">
+          <animateMotion dur="7.5s" begin="-2s" repeatCount="indefinite"><mpath href="#f12" /></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="7.5s" begin="-2s" repeatCount="indefinite" />
+        </circle>
+      </svg>
+      <div class="intro-content">
+        <div class="eyebrow">Public dashboards</div>
+        <h1>Static dashboards, built to share</h1>
+        <p>Self-contained briefings and data screens on whatever we're tracking that week — each page is a single static HTML file, no login, no build step.</p>
+      </div>
     </section>
+    <script>
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        var introNetwork = document.querySelector('.intro-network');
+        if (introNetwork && typeof introNetwork.pauseAnimations === 'function') introNetwork.pauseAnimations();
+      }
+    </script>
 
     <section class="group">
       <div class="group-title"><span>Finance</span><span class="count">4 dashboards</span></div>
