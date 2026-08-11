@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaufland Weekly Basket: 7-Country Price Comparison</title>
+<style>
+  :root{
+    --bg:#0a0e13; --surface:#10151d; --surface-2:#161c26;
+    --border:#1c232e; --border-hover:#2f3d4f;
+    --text:#e9edf2; --text-2:#7c8a9c; --text-3:#4d5866;
+    --accent:#e8a355; --accent-hover:#f0b672; --accent-ink:#0a0e13;
+    --accent-2:#58bfae;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text); font-family:var(--sans); line-height:1.55; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:56px 0;} }
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-2); margin-bottom:14px;}
+  .eyebrow::before{content:"// "; color:var(--text-3);}
+  h1{font-size:44px; font-weight:700; letter-spacing:-.02em; margin-bottom:18px;}
+  h2{font-size:30px; font-weight:700; letter-spacing:-.01em; margin-bottom:12px;}
+  @media (max-width:720px){ h1{font-size:30px;} h2{font-size:24px;} }
+  p{color:var(--text-2); font-size:16px; max-width:720px;}
+  .lede{font-size:18px; color:var(--text-2); max-width:680px;}
+
+  /* HERO */
+  .hero{position:relative; overflow:hidden; padding:100px 0 80px; border-bottom:1px solid var(--border);}
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:32px 32px; opacity:.45; z-index:0;
+  }
+  .hero .wrap{position:relative; z-index:1;}
+  .hero-meta{display:flex; gap:28px; flex-wrap:wrap; margin-top:28px; font-family:var(--mono); font-size:13px; color:var(--text-3);}
+  .hero-meta b{color:var(--text-2); font-weight:500;}
+
+  /* SECTION LABEL ROW */
+  .section-head{margin-bottom:40px;}
+
+  /* BASKET GRID */
+  .basket-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden;}
+  @media (max-width:900px){ .basket-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .basket-grid{grid-template-columns:1fr;} }
+  .basket-item{background:var(--surface-2); padding:18px 20px;}
+  .basket-item .qty{font-family:var(--mono); color:var(--accent); font-size:13px; margin-bottom:4px;}
+  .basket-item .name{font-size:15px; color:var(--text);}
+
+  /* CALLOUT */
+  .callout{border-left:3px solid var(--accent); background:var(--surface); padding:22px 26px; border-radius:0 6px 6px 0; margin:28px 0;}
+  .callout .ctitle{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); margin-bottom:8px;}
+  .callout p{font-size:14.5px; color:var(--text-2); max-width:none;}
+  .callout ul{margin:10px 0 0 0; padding:0; list-style:none;}
+  .callout li{font-size:14.5px; color:var(--text-2); padding-left:18px; position:relative; margin-bottom:6px;}
+  .callout li::before{content:"▸"; color:var(--accent); font-family:var(--mono); position:absolute; left:0;}
+
+  /* TABLE */
+  .table-scroll{overflow-x:auto; border:1px solid var(--border); border-radius:6px;}
+  table{width:100%; border-collapse:collapse; font-size:14.5px; min-width:760px;}
+  thead th{
+    text-align:left; font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.05em;
+    color:var(--text-3); background:var(--surface-2); padding:14px 16px; border-bottom:1px solid var(--border);
+    position:sticky; top:0;
+  }
+  tbody td{padding:14px 16px; border-bottom:1px solid var(--border); color:var(--text-2);}
+  tbody tr:nth-child(odd){background:var(--surface);}
+  tbody tr:nth-child(even){background:var(--bg);}
+  tbody tr:hover{background:var(--surface-2);}
+  td.num{font-family:var(--mono); color:var(--text);}
+  td.country{color:var(--text); font-weight:600;}
+  .rank1 td.country{color:var(--accent);}
+  .flag{margin-right:8px;}
+  .badge{display:inline-block; font-family:var(--mono); font-size:11px; padding:3px 8px; border-radius:3px; letter-spacing:.03em;}
+  .badge-official{background:rgba(88,191,174,.12); color:var(--accent-2); border:1px solid rgba(88,191,174,.3);}
+  .badge-estimate{background:rgba(232,163,85,.1); color:var(--accent); border:1px solid rgba(232,163,85,.3);}
+
+  /* BAR CHART */
+  .barchart{border:1px solid var(--border); border-radius:6px; background:var(--surface); padding:28px 28px 12px;}
+  .bar-row{display:grid; grid-template-columns:150px 1fr 90px; align-items:center; gap:14px; margin-bottom:18px;}
+  @media (max-width:600px){ .bar-row{grid-template-columns:96px 1fr 70px; gap:8px;} }
+  .bar-label{font-family:var(--mono); font-size:13px; color:var(--text-2);}
+  .bar-track{background:var(--surface-2); border-radius:4px; height:22px; overflow:hidden; border:1px solid var(--border);}
+  .bar-fill{height:100%; border-radius:4px 0 0 4px; background:linear-gradient(90deg, var(--accent-2), var(--accent));}
+  .bar-value{font-family:var(--mono); font-size:13px; color:var(--text); text-align:right;}
+  .bar-row.top .bar-label, .bar-row.top .bar-value{color:var(--accent);}
+
+  /* STAT GRID */
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-top:28px;}
+  @media (max-width:900px){ .stat-grid{grid-template-columns:repeat(2,1fr);} }
+  .stat-cell{background:var(--surface-2); padding:22px 20px;}
+  .stat-num{font-family:var(--mono); font-size:26px; color:var(--accent); font-weight:600; margin-bottom:6px;}
+  .stat-label{font-size:12.5px; color:var(--text-2);}
+  .stat-sub{font-family:var(--mono); font-size:11px; color:var(--text-3); margin-top:6px;}
+
+  /* TWO COL */
+  .two-col{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:start;}
+  @media (max-width:900px){ .two-col{grid-template-columns:1fr;} }
+
+  footer{border-top:1px solid var(--border); padding:48px 0; }
+  footer p{font-size:12.5px; color:var(--text-3); max-width:none;}
+  footer a{color:var(--text-2);}
+  .src-list{margin-top:14px; padding-left:18px; color:var(--text-3); font-size:12px;}
+  .src-list li{margin-bottom:5px;}
+
+  .divider{height:1px; background:var(--border); margin:56px 0 0;}
+  .alt{background:var(--surface);}
+</style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Kaufland // 7-country grocery comparison</div>
+      <h1>What a week of groceries costs at Kaufland — across 7 countries</h1>
+      <p class="lede">Same 19-item basket, sized for a family of two adults and two 7-year-olds, priced at Kaufland in Germany, Czechia, Slovakia, Poland, Croatia, Bulgaria and Romania — then checked against what families in each country actually take home.</p>
+      <div class="hero-meta">
+        <span><b>Family:</b> 2 adults + 2 children (7y)</span>
+        <span><b>Period:</b> 1 week</span>
+        <span><b>Countries:</b> 7</span>
+        <span><b>Retailer:</b> Kaufland</span>
+        <span><b>Data pulled:</b> Aug 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">The basket</div>
+        <h2>19 items, chosen to be identical or near-identical in every country</h2>
+        <p>Standard, private-label-grade goods — the kind stocked in every Kaufland regardless of market — sized for one week of meals for a family of four.</p>
+      </div>
+      <div class="basket-grid">
+        <div class="basket-item"><div class="qty">1.5 kg</div><div class="name">Mixed wheat-rye bread</div></div>
+        <div class="basket-item"><div class="qty">7 L</div><div class="name">Full-fat milk (3.5%)</div></div>
+        <div class="basket-item"><div class="qty">10 pcs</div><div class="name">Eggs, size M</div></div>
+        <div class="basket-item"><div class="qty">250 g</div><div class="name">Butter</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Chicken breast fillet</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Mixed minced meat</div></div>
+        <div class="basket-item"><div class="qty">2 kg</div><div class="name">Potatoes</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Tomatoes</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Onions</div></div>
+        <div class="basket-item"><div class="qty">2 kg</div><div class="name">Apples</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Bananas</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Rice</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Pasta</div></div>
+        <div class="basket-item"><div class="qty">300 g</div><div class="name">Gouda / Edam cheese</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Natural yoghurt</div></div>
+        <div class="basket-item"><div class="qty">1 L</div><div class="name">Sunflower oil</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Sugar</div></div>
+        <div class="basket-item"><div class="qty">1 kg</div><div class="name">Wheat flour</div></div>
+        <div class="basket-item"><div class="qty">1 L</div><div class="name">Orange juice</div></div>
+      </div>
+
+      <div class="callout">
+        <div class="ctitle">Methodology — read before the numbers</div>
+        <p>Kaufland only runs a public, priced online catalogue in Germany (kaufland.de) and Slovakia/Poland (marketplace, shipped goods — not representative of in-store shelf prices). For most markets Kaufland does not publish a browsable shelf-price list, so item-by-item matching across all 7 countries isn't possible from public sources.</p>
+        <ul>
+          <li><b style="color:var(--text)">Germany</b> — priced directly from real, crowdsourced Kaufland shelf prices (supermarktcheck.de product-price database, cross-checked against kaufland.de), for standard/private-label (K-Classic) versions of each item. Basket total: <b style="color:var(--text)">€56.22</b>.</li>
+          <li><b style="color:var(--text)">Czechia, Slovakia, Romania</b> — the German basket is rescaled using Eurostat's official 2025 Price Level Index for "food & non-alcoholic beverages" (EU=100), which is confirmed for these three countries in Eurostat's June 2026 release.</li>
+          <li><b style="color:var(--text)">Poland, Croatia, Bulgaria</b> — Eurostat's country-level index wasn't retrievable as text (published only as a table image), so these three use an indicative index cross-referenced from Numbeo-based grocery cost comparisons, sense-checked against Eurostat's qualitative rankings. Treat these three as directional, not exact.</li>
+        </ul>
+        <p style="margin-top:10px">This means: absolute basket costs for DE/CZ/SK/RO rest on official price-level data; PL/HR/BG are best-effort estimates. All are anchored to real, sourced Kaufland Germany prices — not a guess pulled from thin air.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Basket cost by country</div>
+        <h2>Germany is the most expensive — Poland the cheapest</h2>
+        <p>Weekly basket cost, converted to EUR at approximate August 2026 exchange rates.</p>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Country</th>
+              <th>Basket — local currency</th>
+              <th>Basket — EUR</th>
+              <th>vs. Germany</th>
+              <th>Source basis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="rank1">
+              <td class="num">1</td>
+              <td class="country">🇩🇪 Germany</td>
+              <td class="num">€56.22</td>
+              <td class="num">€56.22</td>
+              <td class="num">—</td>
+              <td><span class="badge badge-official">Real Kaufland prices</span></td>
+            </tr>
+            <tr>
+              <td class="num">2</td>
+              <td class="country">🇨🇿 Czechia</td>
+              <td class="num">≈1,208 Kč</td>
+              <td class="num">€49.31</td>
+              <td class="num">−12%</td>
+              <td><span class="badge badge-official">Eurostat PLI 2025</span></td>
+            </tr>
+            <tr>
+              <td class="num">3</td>
+              <td class="country">🇸🇰 Slovakia</td>
+              <td class="num">€45.57</td>
+              <td class="num">€45.57</td>
+              <td class="num">−19%</td>
+              <td><span class="badge badge-official">Eurostat PLI 2025</span></td>
+            </tr>
+            <tr>
+              <td class="num">4</td>
+              <td class="country">🇷🇴 Romania</td>
+              <td class="num">≈223 lei</td>
+              <td class="num">€43.92</td>
+              <td class="num">−22%</td>
+              <td><span class="badge badge-official">Eurostat PLI 2025</span></td>
+            </tr>
+            <tr>
+              <td class="num">5</td>
+              <td class="country">🇭🇷 Croatia</td>
+              <td class="num">€41.89</td>
+              <td class="num">€41.89</td>
+              <td class="num">−25%</td>
+              <td><span class="badge badge-estimate">Indicative estimate</span></td>
+            </tr>
+            <tr>
+              <td class="num">6</td>
+              <td class="country">🇧🇬 Bulgaria</td>
+              <td class="num">€39.53</td>
+              <td class="num">€39.53</td>
+              <td class="num">−30%</td>
+              <td><span class="badge badge-estimate">Indicative estimate</span></td>
+            </tr>
+            <tr>
+              <td class="num">7</td>
+              <td class="country">🇵🇱 Poland</td>
+              <td class="num">≈166 zł</td>
+              <td class="num">€39.03</td>
+              <td class="num">−31%</td>
+              <td><span class="badge badge-estimate">Indicative estimate</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="margin-top:56px">
+        <div class="eyebrow">Priciest → cheapest, visualized</div>
+        <div class="barchart">
+          <div class="bar-row top">
+            <div class="bar-label">🇩🇪 Germany</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+            <div class="bar-value">€56.22</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇨🇿 Czechia</div>
+            <div class="bar-track"><div class="bar-fill" style="width:87.7%"></div></div>
+            <div class="bar-value">€49.31</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇸🇰 Slovakia</div>
+            <div class="bar-track"><div class="bar-fill" style="width:81.1%"></div></div>
+            <div class="bar-value">€45.57</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇷🇴 Romania</div>
+            <div class="bar-track"><div class="bar-fill" style="width:78.1%"></div></div>
+            <div class="bar-value">€43.92</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇭🇷 Croatia</div>
+            <div class="bar-track"><div class="bar-fill" style="width:74.5%"></div></div>
+            <div class="bar-value">€41.89</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇧🇬 Bulgaria</div>
+            <div class="bar-track"><div class="bar-fill" style="width:70.3%"></div></div>
+            <div class="bar-value">€39.53</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇵🇱 Poland</div>
+            <div class="bar-track"><div class="bar-fill" style="width:69.4%"></div></div>
+            <div class="bar-value">€39.03</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Now bring in income</div>
+        <h2>Cheapest basket ≠ easiest to afford</h2>
+        <p>Family net income assumes two working adults, each earning the country's average net monthly salary (2025/26 data). Real household income varies with employment status, benefits and number of earners — treat this as a benchmark, not a survey.</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-cell"><div class="stat-num">€5,300</div><div class="stat-label">🇩🇪 Germany — family monthly net income</div><div class="stat-sub">≈€2,650 / earner</div></div>
+        <div class="stat-cell"><div class="stat-num">€3,262</div><div class="stat-label">🇨🇿 Czechia</div><div class="stat-sub">≈€1,631 / earner</div></div>
+        <div class="stat-cell"><div class="stat-num">€2,876</div><div class="stat-label">🇭🇷 Croatia</div><div class="stat-sub">≈€1,438 / earner</div></div>
+        <div class="stat-cell"><div class="stat-num">€2,694</div><div class="stat-label">🇵🇱 Poland</div><div class="stat-sub">≈€1,347 / earner</div></div>
+        <div class="stat-cell"><div class="stat-num">€2,614</div><div class="stat-label">🇸🇰 Slovakia</div><div class="stat-sub">≈€1,307 / earner</div></div>
+        <div class="stat-cell"><div class="stat-num">€2,290</div><div class="stat-label">🇧🇬 Bulgaria</div><div class="stat-sub">≈€1,145 / earner</div></div>
+        <div class="stat-cell"><div class="stat-num">€2,204</div><div class="stat-label">🇷🇴 Romania</div><div class="stat-sub">≈€1,102 / earner</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap two-col">
+      <div>
+        <div class="eyebrow">Affordability burden</div>
+        <h2>One week's basket, as % of monthly family income</h2>
+        <p style="margin-bottom:28px">Romania has the cheapest basket in cash terms among the euro-converted figures except Poland/Bulgaria — but the lowest income too. One week of groceries eats almost 2% of a Romanian family's entire monthly take-home pay, nearly double Germany's burden, even though the German basket costs 28% more in euros.</p>
+
+        <div class="barchart">
+          <div class="bar-row top">
+            <div class="bar-label">🇷🇴 Romania</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+            <div class="bar-value">1.99%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇸🇰 Slovakia</div>
+            <div class="bar-track"><div class="bar-fill" style="width:87.4%"></div></div>
+            <div class="bar-value">1.74%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇧🇬 Bulgaria</div>
+            <div class="bar-track"><div class="bar-fill" style="width:86.9%"></div></div>
+            <div class="bar-value">1.73%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇨🇿 Czechia</div>
+            <div class="bar-track"><div class="bar-fill" style="width:75.9%"></div></div>
+            <div class="bar-value">1.51%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇭🇷 Croatia</div>
+            <div class="bar-track"><div class="bar-fill" style="width:73.4%"></div></div>
+            <div class="bar-value">1.46%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇵🇱 Poland</div>
+            <div class="bar-track"><div class="bar-fill" style="width:72.9%"></div></div>
+            <div class="bar-value">1.45%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">🇩🇪 Germany</div>
+            <div class="bar-track"><div class="bar-fill" style="width:53.3%"></div></div>
+            <div class="bar-value">1.06%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:0">
+        <div class="ctitle">Two different answers to "priciest"</div>
+        <p><b style="color:var(--text)">By sticker price:</b> Germany is priciest (€56.22/week), Poland cheapest (€39.03/week) — a 44% spread.</p>
+        <p style="margin-top:10px"><b style="color:var(--text)">By what it costs a family relatively:</b> Romania is the toughest place to fill this basket (1.99% of monthly income), Germany the easiest (1.06%) — despite Germany's basket costing the most in absolute euros.</p>
+        <p style="margin-top:10px">The gap exists because food-price levels converge across the EU far faster than wages do: Germany's food prices are only ~28% above Romania's, but German net income is roughly 2.4x higher.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p><b style="color:var(--text-2)">Sources & notes.</b> Germany basket items priced from supermarktcheck.de's crowdsourced Kaufland product-price database (Aug 2026) and kaufland.de category listings, using standard/private-label (K-Classic) product versions. Food & non-alcoholic beverage Price Level Indices (EU=100, 2025) from Eurostat, "Comparative price levels for food, beverages and tobacco," Statistics Explained, data release 17 June 2026 (confirmed for Germany 102.4, Czechia 89.8, Slovakia 83, Romania 80 via Eurostat and Trinity Bank/Peak.cz coverage of the release); Poland/Croatia/Bulgaria indices are indicative, cross-referenced against Numbeo-based grocery-cost comparisons (finorum.com, 2026) as Eurostat's full country table was only published as an image. Average net monthly salaries per employed person (2025/26) from nomadnotmad.com "Average Net Salary in the EU by Country," itself built on Eurostat annual net earnings data; family income assumes two working adults at the national average. FX rates approximate, August 2026 (EUR/CZK ≈24.5, EUR/PLN ≈4.25, EUR/RON ≈5.08). Bulgaria adopted the euro on 1 January 2026, hence EUR throughout for BG.</p>
+      <ul class="src-list">
+        <li>Eurostat — Comparative price levels for food, beverages and tobacco (Statistics Explained, June 2026)</li>
+        <li>Eurostat — Household consumption: price levels in 2024/2025 (news releases)</li>
+        <li>supermarktcheck.de — Kaufland Sortiment mit Preisen (crowdsourced shelf prices)</li>
+        <li>kaufland.de — online catalogue (Germany)</li>
+        <li>Peak.cz / Trinity Bank (Lukáš Kovanda) — coverage of Eurostat 2025 price-level release</li>
+        <li>finorum.com — Grocery Prices in Europe 2026: Food Costs vs Income by Country</li>
+        <li>nomadnotmad.com — Average Net Salary in the EU by Country (2026 Rankings)</li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
