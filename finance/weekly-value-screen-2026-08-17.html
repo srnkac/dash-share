@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Value Screen — 17 Aug 2026</title>
+<style>
+  :root{
+    --bg:#0a0e13; --surface:#10151d; --surface-2:#161c26;
+    --border:#1c232e; --border-hover:#2f3d4f;
+    --text:#e9edf2; --text-2:#7c8a9c; --text-3:#4d5866;
+    --accent:#e8a355; --accent-hover:#f0b672; --accent-ink:#0a0e13;
+    --accent-2:#58bfae;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); line-height:1.55; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-2);}
+  .eyebrow::before{content:"// "; opacity:.8;}
+  h1{font-family:var(--sans); font-size:38px; line-height:1.15; margin:12px 0 8px; font-weight:700;}
+  h2{font-family:var(--sans); font-size:24px; margin:0 0 6px; font-weight:700;}
+  h3{font-family:var(--sans); font-size:20px; margin:0 0 4px; font-weight:700;}
+  p{color:var(--text-2); margin:0 0 14px;}
+  section{padding:64px 0;}
+  section.alt{background:var(--surface);}
+  .hero{position:relative; padding:80px 0 56px; overflow:hidden;}
+  .hero-grid{position:absolute; inset:0; background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:32px 32px; opacity:.5; z-index:0;}
+  .hero-content{position:relative; z-index:1;}
+  .subhead{color:var(--text-2); font-size:16px; max-width:680px;}
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-top:32px;}
+  .stat{background:var(--surface); padding:20px;}
+  .stat .num{font-family:var(--mono); font-size:26px; color:var(--accent); font-weight:600;}
+  .stat .label{font-family:var(--mono); font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:.05em; margin-top:6px;}
+  .section-head{margin-bottom:36px;}
+  .badge{display:inline-block; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:4px 10px; border-radius:3px; border:1px solid var(--border-hover);}
+  .badge.high{color:var(--accent); border-color:var(--accent);}
+  .badge.mod{color:var(--accent-2); border-color:var(--accent-2);}
+  .card{background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:28px; margin-bottom:24px; transition:border-color .15s;}
+  .card:hover{border-color:var(--border-hover);}
+  .card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:6px;}
+  .ticker{font-family:var(--mono); color:var(--accent-2); font-size:13px;}
+  .rank{font-family:var(--mono); color:var(--text-3); font-size:12px;}
+  .card p.desc{color:var(--text); font-size:15px; margin-bottom:16px;}
+  .card p.thesis-label, .card p.bear-label, .card p.tax-label{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-3); margin-bottom:6px;}
+  .mini-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin:16px 0 18px;}
+  .mini-stat{background:var(--bg); padding:14px 16px;}
+  .mini-stat .num{font-family:var(--mono); font-size:18px; color:var(--accent); font-weight:600;}
+  .mini-stat .label{font-family:var(--mono); font-size:10px; color:var(--text-3); text-transform:uppercase; margin-top:4px;}
+  .callout{border-left:3px solid var(--accent); background:var(--surface); padding:14px 18px; border-radius:0 6px 6px 0; margin:14px 0;}
+  .callout p{margin:0; color:var(--text-2); font-size:14px;}
+  ul.bullets{list-style:none; padding:0; margin:0 0 14px;}
+  ul.bullets li{font-size:14px; color:var(--text-2); padding-left:18px; position:relative; margin-bottom:6px;}
+  ul.bullets li::before{content:"▸"; color:var(--accent); position:absolute; left:0; font-family:var(--mono);}
+  .taxnote{font-size:13px; color:var(--text-3); font-style:italic; margin-top:10px;}
+  .empty-state{border:1px dashed var(--border-hover); border-radius:6px; padding:32px; text-align:center; color:var(--text-3); font-family:var(--mono); font-size:13px;}
+  footer{padding:48px 0 64px; border-top:1px solid var(--border);}
+  footer p{font-size:12px; color:var(--text-3);}
+  footer a{color:var(--text-2);}
+  .src{font-size:12px; color:var(--text-3); margin:2px 0;}
+  @media(max-width:720px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .mini-stats{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-content">
+    <div class="eyebrow">Weekly Value Screen · Slovakia-based investor</div>
+    <h1>Value Screen — 17 August 2026</h1>
+    <p class="subhead">Buffett/Munger-style scan: durable moat, honest management, low risk, large margin of safety. European market first, US/Global second. Overlooked mispricings only — not screener-cheap.</p>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">656.9</div><div class="label">STOXX 600 · record high</div></div>
+      <div class="stat"><div class="num">+10%</div><div class="label">STOXX 600 YTD 2026</div></div>
+      <div class="stat"><div class="num">~15x</div><div class="label">STOXX 600 fwd P/E</div></div>
+      <div class="stat"><div class="num">71st pct</div><div class="label">vs 25-yr P/E history</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">European candidates</div>
+      <h2>Ranked by conviction</h2>
+      <p>3 names cleared the bar this week. All are European — no US/Global idea qualified (see note below).</p>
+    </div>
+
+    <!-- Teleperformance -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <span class="rank">#1</span> <h3 style="display:inline;"> Teleperformance</h3>
+          <div class="ticker">TEP.PA · France · Business Process Outsourcing / CX</div>
+        </div>
+        <span class="badge high">High conviction</span>
+      </div>
+      <p class="desc">Global leader in outsourced customer experience (CX/BPO) delivery — scale, multilingual footprint across 90+ countries, and switching costs from embedded client operations form the moat. Market is pricing the stock as if AI voice agents make the business obsolete; FY26 guidance is flat-to-+2% like-for-like revenue with ~15% EBITA margin, and TEP is repositioning around AI-augmented (not AI-replaced) delivery.</p>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="num">€70.86</div><div class="label">Price, 14 Aug 2026</div></div>
+        <div class="mini-stat"><div class="num">~9x</div><div class="label">TTM P/E</div></div>
+        <div class="mini-stat"><div class="num">~16%</div><div class="label">FCF yield (est.)</div></div>
+        <div class="mini-stat"><div class="num">8.25%</div><div class="label">Dividend yield</div></div>
+      </div>
+      <p class="thesis-label">Margin of safety (est.)</p>
+      <p style="color:var(--text-2); font-size:14px; margin-bottom:14px;">Roughly 30–40%+ vs. a conservatively normalized value, assuming further (not zero) margin erosion — a high-single-digit P/E and mid-teens FCF yield for a still-profitable global leader is a wide cushion if the AI-obsolescence thesis is overstated.</p>
+      <div class="callout">
+        <p class="bear-label" style="margin-bottom:4px;">Bear case</p>
+        <p>AI disruption fear could simply be correct — if voice/CX volumes structurally shrink faster than management admits, the low multiple is a value trap, not a bargain. Majorel-deal leverage adds risk if EBITDA erodes further; French labor law limits restructuring speed. Stock is already +62% off its 52-week low (€43.65), so some of the "crisis" pricing has already closed.</p>
+      </div>
+      <p class="taxnote">Holding note: France withholds dividend tax at source (treaty-reduced rate for Slovak residents not verified here — confirm current France–Slovakia treaty rate). With an 8%+ yield, dividend tax drag matters regardless of personal vs. company wrapper; Slovak >1yr capital-gains exemption (if still current) mainly benefits price appreciation, not the yield component.</p>
+    </div>
+
+    <!-- Diageo -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <span class="rank">#2</span> <h3 style="display:inline;"> Diageo</h3>
+          <div class="ticker">DGE.L · United Kingdom · Global Spirits</div>
+        </div>
+        <span class="badge high">High conviction</span>
+      </div>
+      <p class="desc">Owns Johnnie Walker, Guinness, Smirnoff, Captain Morgan, Tanqueray — a genuine brand moat with a long history of pricing power. Down ~50% over three years on GLP-1 "moderation" fears, US destocking, tariff noise, and a dividend cut that spooked income holders. New CEO (ex-Tesco) has launched a $1bn three-year cost-savings and portfolio-pruning plan.</p>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="num">£16.40</div><div class="label">Recent price</div></div>
+        <div class="mini-stat"><div class="num">£21.40</div><div class="label">Morningstar fair value</div></div>
+        <div class="mini-stat"><div class="num">~25-30%</div><div class="label">Discount to est. FV</div></div>
+        <div class="mini-stat"><div class="num">-50%</div><div class="label">3-yr share price move</div></div>
+      </div>
+      <p class="thesis-label">Margin of safety (est.)</p>
+      <p style="color:var(--text-2); font-size:14px; margin-bottom:14px;">Moderate-to-large if the brand moat and pricing power are structurally intact; smaller if volume decline proves permanent rather than cyclical. Multiple independent screens (Morningstar 4-star, GuruFocus GF Value) converge on meaningful undervaluation.</p>
+      <div class="callout">
+        <p class="bear-label" style="margin-bottom:4px;">Bear case</p>
+        <p>The "temporary" overhang could be structural — younger cohorts drinking less, GLP-1 adoption curve still early — meaning the old growth algorithm and premium multiple may never return. A second dividend cut is plausible and not obviously priced in by investors still chasing the yield.</p>
+      </div>
+      <p class="taxnote">Holding note: UK shares generally carry no UK dividend withholding tax, making this relatively clean to hold personally. Slovak >1yr capital-gains exemption (if still current) would apply to price gains — confirm current rule before sizing.</p>
+    </div>
+
+    <!-- MFE MediaForEurope -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <span class="rank">#3</span> <h3 style="display:inline;"> MFE-MediaForEurope</h3>
+          <div class="ticker">MFEA.MI · Italy / Netherlands · Broadcasting</div>
+        </div>
+        <span class="badge mod">Moderate conviction · special situation</span>
+      </div>
+      <p class="desc">Berlusconi-family-controlled broadcaster (Mediaset Italy, Mediaset España) that secured a 75.6% stake in ProSiebenSat.1 (closed Sept 2025), creating Europe's largest commercial broadcasting group and targeting ~€419m of EBIT synergies by year four. Market still appears to price it as a standalone declining linear-TV asset rather than a consolidator gaining scale and ad-buying leverage across Italy, Spain and Germany. This is a catalyst/consolidation play, not a classic wide-moat compounder.</p>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="num">~€3.05</div><div class="label">Recent price</div></div>
+        <div class="mini-stat"><div class="num">~9x</div><div class="label">Forward P/E</div></div>
+        <div class="mini-stat"><div class="num">~€809m</div><div class="label">Net debt, Mar-26</div></div>
+        <div class="mini-stat"><div class="num">~€419m</div><div class="label">Target EBIT synergy, yr 4</div></div>
+      </div>
+      <p class="thesis-label">Margin of safety (est.)</p>
+      <p style="color:var(--text-2); font-size:14px; margin-bottom:14px;">Automated DCF-fair-value screens flag 40–50% "undervaluation" — treat these mechanical outputs skeptically. The more defensible case rests on synergy delivery and consolidation leverage, not a screener discount; size accordingly smaller than the headline discount implies.</p>
+      <div class="callout">
+        <p class="bear-label" style="margin-bottom:4px;">Bear case</p>
+        <p>Linear TV and broadcast advertising are in secular decline across all three core markets. The ProSieben deal added leverage right as the core business needs reinvestment. Dual-class, family-control structure (Berlusconi heirs) is a real governance red flag for capital-allocation discipline and minority treatment — underwrite the numbers, don't just trust management here.</p>
+      </div>
+      <p class="taxnote">Holding note: Dutch-domiciled NV typically applies dividend withholding tax (~15% headline, treaty-reduced) — confirm Slovak treaty relief and current 1-year CGT exemption status. Governance risk argues for a smaller position regardless of tax treatment.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">US / Global</div>
+      <h2>No candidates this week</h2>
+    </div>
+    <div class="empty-state">No US/Global name screened as both statistically cheap and genuinely overlooked this week. Not forcing a pick — will keep scanning next run.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="color:var(--text-2); font-size:13px; margin-bottom:16px;">Not investment advice. Tax treatment (dividend withholding, Slovak capital-gains exemption on shares held &gt;1 year) noted where relevant but not independently verified for current rules — confirm with a tax advisor before acting. Prices and multiples sourced via web search on/around 14–17 Aug 2026 and may have moved since.</p>
+    <p class="src">Sources: stockanalysis.com, investing.com, MarketScreener, Simply Wall St, Morningstar, GuruFocus, CNBC, ad-hoc-news.de, ProSiebenSat.1 press releases, EFG International IR.</p>
+    <p style="margin-top:16px;">Generated 17 August 2026 · Weekly Value Screen</p>
+  </div>
+</footer>
+
+</body>
+</html>

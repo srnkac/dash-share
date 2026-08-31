@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Value Screen — 2026-08-24</title>
+<style>
+  :root{
+    --bg:#0a0e13; --surface:#10151d; --surface-2:#161c26;
+    --border:#1c232e; --border-hover:#2f3d4f;
+    --text:#e9edf2; --text-2:#7c8a9c; --text-3:#4d5866;
+    --accent:#e8a355; --accent-hover:#f0b672; --accent-ink:#0a0e13; --accent-2:#58bfae;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  a{color:var(--accent);}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-2); margin-bottom:12px; display:flex; align-items:center; gap:8px;}
+  .eyebrow::before{content:"//"; color:var(--text-3);}
+
+  header.hero{
+    padding:72px 0 56px; border-bottom:1px solid var(--border);
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:32px 32px; background-position:center top;
+    position:relative;
+  }
+  header.hero .wrap{position:relative; z-index:1;}
+  h1{font-size:38px; font-weight:700; letter-spacing:-0.01em; margin-bottom:14px;}
+  .sub{color:var(--text-2); font-size:16px; max-width:680px;}
+  .meta-row{display:flex; gap:24px; margin-top:28px; flex-wrap:wrap; font-family:var(--mono); font-size:12px; color:var(--text-3);}
+  .meta-row span b{color:var(--text-2); font-weight:500;}
+
+  section{padding:64px 0; border-bottom:1px solid var(--border);}
+  section.alt{background:var(--surface);}
+  h2{font-size:24px; font-weight:700; margin-bottom:6px;}
+  .section-desc{color:var(--text-2); font-size:14px; max-width:720px; margin-bottom:36px;}
+
+  .stat-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-bottom:8px;
+  }
+  .stat{background:var(--surface-2); padding:18px 16px;}
+  .stat .num{font-family:var(--mono); font-size:22px; color:var(--accent); font-weight:600; line-height:1.2;}
+  .stat .lbl{font-family:var(--mono); font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:.05em; margin-top:6px;}
+
+  .card{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:6px;
+    padding:28px; margin-bottom:28px; transition:border-color .15s;
+  }
+  .card:hover{border-color:var(--border-hover);}
+  .card-head{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:6px; flex-wrap:wrap;}
+  .ticker-block{display:flex; align-items:center; gap:12px;}
+  .rank{font-family:var(--mono); font-size:12px; color:var(--accent-ink); background:var(--accent); border-radius:3px; padding:2px 8px; font-weight:700;}
+  .card h3{font-size:20px; font-weight:700;}
+  .ticker{font-family:var(--mono); font-size:13px; color:var(--text-2);}
+  .badge{font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:3px; text-transform:uppercase; letter-spacing:.04em; white-space:nowrap;}
+  .badge.high{background:rgba(88,191,174,.12); color:var(--accent-2); border:1px solid rgba(88,191,174,.3);}
+  .badge.med{background:rgba(232,163,85,.12); color:var(--accent); border:1px solid rgba(232,163,85,.3);}
+  .badge.low{background:rgba(124,138,156,.12); color:var(--text-2); border:1px solid var(--border-hover);}
+
+  .desc{color:var(--text-2); font-size:14.5px; margin:14px 0 20px;}
+  .desc b{color:var(--text);}
+  .why{font-size:14.5px; margin-bottom:20px;}
+  .why .lbl{font-family:var(--mono); font-size:11px; color:var(--accent-2); text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; display:block;}
+
+  .callout{border-left:3px solid var(--accent); background:var(--surface); padding:14px 18px; border-radius:0 6px 6px 0; margin:18px 0; font-size:14px; color:var(--text-2);}
+  .callout .lbl{font-family:var(--mono); font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; display:block;}
+  .callout b{color:var(--text);}
+
+  .footrow{display:flex; justify-content:space-between; align-items:center; margin-top:18px; padding-top:16px; border-top:1px solid var(--border); font-family:var(--mono); font-size:11.5px; color:var(--text-3); flex-wrap:wrap; gap:10px;}
+  .footrow b{color:var(--text-2); font-weight:500;}
+
+  .context-box{background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:22px 26px; font-size:14.5px; color:var(--text-2);}
+  .context-box .lbl{font-family:var(--mono); font-size:11px; color:var(--accent-2); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; display:block;}
+
+  footer{padding:40px 0; text-align:center; color:var(--text-3); font-family:var(--mono); font-size:11.5px;}
+
+  @media(max-width:720px){
+    h1{font-size:28px;}
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .card-head{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Weekly Value Screen</div>
+    <h1>Deep value, wide moat, priced for pessimism</h1>
+    <p class="sub">Three candidates cleared the bar this week — two Europe-domiciled, one US. Ranked by conviction. Bear cases included, not buried.</p>
+    <div class="meta-row">
+      <span><b>Run date:</b> 24 Aug 2026</span>
+      <span><b>Universe:</b> Europe-first, then US/Global</span>
+      <span><b>Screen type:</b> Buffett/Munger — moat, management, margin of safety</span>
+    </div>
+  </div>
+</header>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Europe</div>
+    <h2>EU / European-listed candidates</h2>
+    <p class="section-desc">Ranked #1 and #2 by conviction. Both idiosyncratic mispricings — sector sentiment and holding-company structure — rather than broad-market bargains.</p>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="ticker-block">
+          <span class="rank">#1</span>
+          <div>
+            <h3>British American Tobacco</h3>
+            <span class="ticker">LSE: BATS · NYSE ADR: BTI</span>
+          </div>
+        </div>
+        <span class="badge high">High conviction</span>
+      </div>
+      <p class="desc">Global combustible + reduced-risk nicotine products — <b>Dunhill, Kent, Lucky Strike, Pall Mall</b>, plus fast-scaling Vuse (vapor) and Velo (pouches).</p>
+
+      <div class="why">
+        <span class="lbl">Why mispriced</span>
+        ESG-driven capital flight and a "melting cigarette" narrative have kept the multiple depressed even as new-category revenue scales at high margin and deleveraging is ahead of schedule — the market is pricing terminal decline faster than the cash flows are actually declining.
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><div class="num">~12.1x</div><div class="lbl">Fwd P/E</div></div>
+        <div class="stat"><div class="num">5.6–5.9%</div><div class="lbl">Div. yield</div></div>
+        <div class="stat"><div class="num">2.0–2.5x</div><div class="lbl">Net debt/EBITDA target, YE26</div></div>
+        <div class="stat"><div class="num">+85%</div><div class="lbl">H1'26 FCF growth (£2,285m)</div></div>
+      </div>
+
+      <div class="callout">
+        <span class="lbl">Bear case</span>
+        Combustible volume declines could outrun pricing power; US menthol-ban and litigation tail risk remain live; new categories (vapor/pouches) may not scale to high-teens group margins fast enough to offset cigarette erosion. Regulatory moat cuts both ways — it also caps growth optionality.
+      </div>
+
+      <div class="footrow">
+        <span><b>Margin of safety:</b> Moderate-high — cash machine priced near ~8x normalized FCF vs. ~15–16x staples peer average</span>
+        <span><b>Holding note:</b> UK plc, no UK dividend WHT generally; ADR route may differ — confirm mechanics before buying. Slovak >1yr personal CGT exemption likely applies to the share gain — verify specifics with an advisor</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="ticker-block">
+          <span class="rank">#2</span>
+          <div>
+            <h3>Exor N.V.</h3>
+            <span class="ticker">Euronext Amsterdam: EXO</span>
+          </div>
+        </div>
+        <span class="badge high">High conviction</span>
+      </div>
+      <p class="desc">Agnelli family holding company — stakes in <b>Ferrari, Stellantis, CNH Industrial, Philips</b>, plus Lingotto asset management, reinsurance, and Juventus.</p>
+
+      <div class="why">
+        <span class="lbl">Why mispriced</span>
+        Stellantis's operational troubles have spooked the whole portfolio, blowing the NAV discount out to roughly double its historical average — but the discount is being applied on top of holdings whose own share prices already reflect that cyclicality. Effectively a double discount.
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><div class="num">€70.10</div><div class="lbl">Share price</div></div>
+        <div class="stat"><div class="num">€164.4</div><div class="lbl">NAV/share (Mar '26)</div></div>
+        <div class="stat"><div class="num">~57%</div><div class="lbl">Discount to NAV</div></div>
+        <div class="stat"><div class="num">€3.5bn+</div><div class="lbl">Deployable cash</div></div>
+      </div>
+
+      <div class="callout">
+        <span class="lbl">Bear case</span>
+        The discount may be structural, not cyclical — family control and historically low payouts have kept it wide for years. NAV itself is volatile and auto-heavy; further Stellantis/Ferrari weakness lowers the anchor, not just the discount. Buybacks — the main historical lever for narrowing the gap — are currently paused ("cash is king").
+      </div>
+
+      <div class="footrow">
+        <span><b>Margin of safety:</b> Large on paper (~57% discount) but low-quality — depends on discount narrowing, not just NAV growth</span>
+        <span><b>Holding note:</b> Dutch NV — dividend WHT typically ~15%, treaty-creditable. Slovak >1yr personal CGT exemption likely applies to the equity gain — confirm treaty withholding treatment with an advisor</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">US / Global</div>
+    <h2>US-listed candidate — flagged as lower conviction</h2>
+    <p class="section-desc">Statistically the cheapest name on the list. Included for completeness, not conviction — the numbers are better than the business quality.</p>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="ticker-block">
+          <span class="rank">#3</span>
+          <div>
+            <h3>Conagra Brands</h3>
+            <span class="ticker">NYSE: CAG</span>
+          </div>
+        </div>
+        <span class="badge low">Watch-item, not core</span>
+      </div>
+      <p class="desc">US packaged food — <b>Birds Eye, Slim Jim, Marie Callender's, Healthy Choice</b>.</p>
+
+      <div class="why">
+        <span class="lbl">Why mispriced (bull argument)</span>
+        GLP-1 volume fears plus a just-executed 50% dividend cut have pushed sentiment past what current FCF generation implies — the stock now trades at a statistical extreme versus staples peers.
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><div class="num">7.65x</div><div class="lbl">P/E</div></div>
+        <div class="stat"><div class="num">~13.7%</div><div class="lbl">FCF yield</div></div>
+        <div class="stat"><div class="num">3.83x</div><div class="lbl">Net debt/EBITDA</div></div>
+        <div class="stat"><div class="num">0.89</div><div class="lbl">Current ratio</div></div>
+      </div>
+
+      <div class="callout">
+        <span class="lbl">Bear case — why this is ranked last</span>
+        This is closer to a Graham cigar-butt than a Buffett-quality compounder. Leverage near 4x with a sub-1 current ratio limits flexibility; private-label share loss and GLP-1-driven volume erosion look structural, not sentiment-driven; the dividend was already cut once and could be cut again if EBITDA keeps slipping. Packaged-food brand loyalty is a much weaker moat than tobacco's regulatory/addiction-based pricing power. Does not clearly clear a genuine high-conviction bar — treat as a monitor, not a buy signal.
+      </div>
+
+      <div class="footrow">
+        <span><b>Margin of safety:</b> Deep on paper, low quality — price reflects real balance-sheet and volume risk, not just overreaction</span>
+        <span><b>Holding note:</b> US stock — Slovak holders face US dividend WHT (~15% w/ W-8BEN), creditable against Slovak tax. Capital gain likely eligible for Slovak >1yr personal exemption — confirm specifics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Context</div>
+    <div class="context-box">
+      <span class="lbl">Market regime note</span>
+      European indices (STOXX 600) are trading near record highs in 2026, thinning out broad-market bargains — which is why this week's ideas are idiosyncratic (sector sentiment on tobacco, holding-company structure on Exor) rather than screen-wide cheapness. US rates remain a headwind for leveraged balance sheets like Conagra's, reinforcing the caution on that name specifically.
+    </div>
+  </div>
+</section>
+
+<footer>
+  Weekly Value Screen · Generated 2026-08-24 · Not investment advice · Verify all figures independently before acting
+</footer>
+
+</body>
+</html>

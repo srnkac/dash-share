@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Value Screen — July 21, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0f10; --surface:#1a1a1d; --border:#2a2a2d;
+    --text:#ffffff; --text2:#a0a0a0; --accent:#D97757; --accent-muted:rgba(217,119,87,0.15);
+    --green:#4ade80; --green-muted:rgba(74,222,128,0.12);
+    --red:#f87171; --red-muted:rgba(248,113,113,0.12);
+    --blue:#60a5fa; --blue-muted:rgba(96,165,250,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:56px 24px 100px;}
+  header{margin-bottom:48px;}
+  .eyebrow{
+    display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent);background:var(--accent-muted);
+    padding:6px 12px;border-radius:100px;margin-bottom:16px;
+  }
+  h1{font-size:34px;font-weight:800;letter-spacing:-0.02em;margin-bottom:10px;}
+  .sub{color:var(--text2);font-size:15px;}
+  section{margin-top:64px;}
+  h2{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+  h2 .flag{font-size:16px;}
+  .callout{
+    border-left:3px solid var(--accent); background:var(--surface); border-radius:0 12px 12px 0;
+    padding:16px 20px; color:var(--text2); font-size:14px; margin-bottom:8px;
+  }
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:28px; margin-bottom:20px;
+  }
+  .card-head{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:6px; flex-wrap:wrap;}
+  .name{font-size:19px; font-weight:700;}
+  .ticker{color:var(--text2); font-weight:500; font-size:14px;}
+  .badge{
+    font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    padding:5px 10px; border-radius:100px; white-space:nowrap;
+  }
+  .badge.high{background:var(--green-muted); color:var(--green);}
+  .badge.mod{background:var(--blue-muted); color:var(--blue);}
+  .badge.low{background:var(--red-muted); color:var(--red);}
+  .desc{color:var(--text2); font-size:14px; margin:10px 0 18px;}
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px;}
+  .stat{background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:12px 14px;}
+  .stat .val{font-size:18px; font-weight:700;}
+  .stat .lbl{font-size:11px; color:var(--text2); margin-top:2px;}
+  .block{margin-top:14px;}
+  .block .k{font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--accent); margin-bottom:4px;}
+  .block p{font-size:14px; color:#d4d4d4;}
+  .bear{border-left:3px solid var(--red); background:var(--red-muted); border-radius:0 8px 8px 0; padding:12px 16px; margin-top:14px;}
+  .bear .k{color:var(--red);}
+  .bear p{color:#e8c2c2; font-size:13.5px;}
+  .tax{border-left:3px solid var(--blue); background:var(--blue-muted); border-radius:0 8px 8px 0; padding:12px 16px; margin-top:10px;}
+  .tax .k{color:var(--blue);}
+  .tax p{color:#c2d5e8; font-size:13px;}
+  .src{font-size:11px; color:#6a6a6a; margin-top:14px;}
+  .rejected{
+    background:var(--surface); border:1px dashed var(--border); border-radius:12px; padding:22px;
+    color:var(--text2); font-size:14px;
+  }
+  .rejected b{color:var(--text);}
+  footer{margin-top:64px; padding-top:24px; border-top:1px solid var(--border); color:#6a6a6a; font-size:12px;}
+  @media (max-width:640px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:26px;}
+    .card{padding:20px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow">Weekly Value Screen</span>
+    <h1>Value Investing Scan — July 21, 2026</h1>
+    <p class="sub">Buffett/Munger-style screen: durable moat, rational management, large margin of safety. Ranked by conviction.</p>
+  </header>
+
+  <section>
+    <h2><span class="flag">🇪🇺</span> Europe</h2>
+
+    <div class="card">
+      <div class="card-head">
+        <div><span class="name">Groupe Bruxelles Lambert</span> &nbsp;<span class="ticker">GBLB.BR — Euronext Brussels</span></div>
+        <span class="badge high">High conviction</span>
+      </div>
+      <p class="desc">Belgian family-anchored (Frère/Desmarais) holding company: diversified stakes in quality operating businesses — Adidas, Pernod Ricard, SGS, Umicore, Imerys, plus a growing private-assets sleeve.</p>
+      <div class="stats">
+        <div class="stat"><div class="val">22.1%</div><div class="lbl">Discount to NAV</div></div>
+        <div class="stat"><div class="val">€77.75</div><div class="lbl">Price vs NAV (Mar-26)</div></div>
+        <div class="stat"><div class="val">~21.8x</div><div class="lbl">P/E 2026E</div></div>
+        <div class="stat"><div class="val">~4.5–6%</div><div class="lbl">Dividend yield</div></div>
+      </div>
+      <div class="block"><div class="k">Why overlooked</div><p>Holding-company structure is structurally ignored by index flows and sell-side coverage; discount has persisted despite buybacks and a shift toward higher-growth private holdings that the market hasn't re-rated.</p></div>
+      <div class="block"><div class="k">Margin of safety</div><p>Buying a diversified basket of quality European industrials/consumer names at ~78% of independently-reported NAV — the discount itself is the margin of safety, on top of underlying business moats.</p></div>
+      <div class="bear"><div class="k">Bear case</div><p>Holdco discounts can persist indefinitely — there's no forced catalyst to close it. NAV is concentrated in a handful of large stakes (if Adidas/Pernod Ricard/SGS derate, NAV falls too). Family control limits minority shareholders' ability to force value-realizing action.</p></div>
+      <div class="tax"><div class="k">Slovak holding note</div><p>Belgian dividend withholding tax (typically ~30%, treaty-reducible) applies regardless of wrapper. Capital gains: if held >1 year personally, likely qualifies for the Slovak individual CGT exemption on listed shares — worth confirming current conditions with an advisor, as this rule and the required holding/broker conditions can change.</p></div>
+      <div class="src">Source: GBL investor relations NAV report, Mar 31 2026; MarketScreener, Jul 2026.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div><span class="name">Diageo</span> &nbsp;<span class="ticker">DGE.L — London</span></div>
+        <span class="badge mod">Moderate-high conviction</span>
+      </div>
+      <p class="desc">Global spirits portfolio (Johnnie Walker, Guinness, Smirnoff, Captain Morgan) — brand + distribution moat built over decades.</p>
+      <div class="stats">
+        <div class="stat"><div class="val">15.8x</div><div class="lbl">Forward P/E</div></div>
+        <div class="stat"><div class="val">~5.2–5.8%</div><div class="lbl">FCF yield</div></div>
+        <div class="stat"><div class="val">~5.0%</div><div class="lbl">Dividend yield</div></div>
+        <div class="stat"><div class="val">£15.74</div><div class="lbl">Price, Jul 17 2026</div></div>
+      </div>
+      <div class="block"><div class="k">Why overlooked</div><p>Multi-year narrative of structural spirits decline (China/LatAm destocking, GLP-1 drug fears, US consumer softness) has been extrapolated hard; sentiment is at multi-year lows even as brand equity and pricing power are intact.</p></div>
+      <div class="block"><div class="k">Margin of safety</div><p>Trading near the cheapest forward multiple in over a decade for a business with genuine moat; most sell-side fair-value/DCF estimates cluster 20–37% above current price, though these algorithmic estimates should be treated as directional, not precise.</p></div>
+      <div class="bear"><div class="k">Bear case</div><p>This is the one to take seriously: leverage is elevated (weak Altman Z-score / financial-strength readings flagged by third-party screens), new CEO adds execution risk, and if volume decline proves structural rather than cyclical (GLP-1 impact on drinking is a real open question), further guidance cuts and dividend risk are plausible. Not a "low risk" holding until leverage trend is confirmed improving.</p></div>
+      <div class="tax"><div class="k">Slovak holding note</div><p>UK dividend withholding tax is 0% at source, which is efficient either personally or corporately. Personal >1yr CGT exemption should apply as with any listed equity — again, confirm current rule specifics before relying on it.</p></div>
+      <div class="src">Source: LSE tearsheet, GuruFocus FCF/PE data, Jul 2026.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div><span class="name">Fevertree Drinks</span> &nbsp;<span class="ticker">FEVR.L — AIM, London</span></div>
+        <span class="badge low">Lower conviction / watch</span>
+      </div>
+      <p class="desc">Premium mixers (tonic, ginger beer) — asset-light, net cash balance sheet, small-cap.</p>
+      <div class="stats">
+        <div class="stat"><div class="val">~48%</div><div class="lbl">Below DCF fair value*</div></div>
+        <div class="stat"><div class="val">Net cash</div><div class="lbl">Balance sheet</div></div>
+        <div class="stat"><div class="val">-6%</div><div class="lbl">UK revenue, H1-25</div></div>
+        <div class="stat"><div class="val">20%+</div><div class="lbl">Consensus EPS growth</div></div>
+      </div>
+      <div class="block"><div class="k">Why overlooked</div><p>UK on-trade weakness and a soft H1 have knocked sentiment; small-cap, thinly covered, off most institutional screens.</p></div>
+      <div class="block"><div class="k">Margin of safety</div><p>Statistically cheap and debt-free, but *DCF fair-value figure is algorithmic (Simply Wall St-style) and highly assumption-sensitive — treat as a starting point, not a verified intrinsic value.</p></div>
+      <div class="bear"><div class="k">Bear case</div><p>The moat is genuinely questionable — premium mixers is a low-differentiation category facing private-label and Fentimans-style competition, and pub-chain exclusivity deals can lapse. This is closer to "cheap" than "wide moat" — fails the strict Buffett/Munger bar unless conviction on brand durability improves.</p></div>
+      <div class="tax"><div class="k">Slovak holding note</div><p>Same UK 0% dividend withholding and likely >1yr personal CGT exemption as Diageo — confirm current conditions.</p></div>
+      <div class="src">Source: Simply Wall St / AInvest coverage, Jul 2026.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="flag">🌍</span> US / Global</h2>
+    <div class="rejected">
+      <p><b>No US/Global name clears a genuine high-conviction bar this week.</b> Nike screened as "50%+ undervalued" on several algorithmic DCF models, but its forward P/E is ~27.7x and at least one independent DCF put fair value near $26 — well <i>below</i> the current price, directly contradicting the "undervalued" headlines. That inconsistency, plus real tariff/China and category-competition risk (HOKA, On, Adidas resurgence), means the margin of safety isn't there yet. Not forcing this one — noted for future monitoring if the multiple compresses further or the DCF signals converge.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="flag">📌</span> Market context</h2>
+    <div class="callout">STOXX Europe 600 has been resilient (+~2% on the week of the screen) on lower oil and easing inflation expectations — broad European valuations are not distressed, which is exactly why the mispricings above are concentrated in structurally-out-of-favor pockets (holdco discounts, spirits sentiment) rather than the market as a whole.</div>
+  </section>
+
+  <footer>
+    Automated weekly scan. Valuation figures sourced via live web search on the run date and may move intraday — verify before acting. Tax treatment notes are general and not tax advice; Slovak rules can change — confirm with an advisor before relying on any exemption.
+  </footer>
+
+</div>
+</body>
+</html>

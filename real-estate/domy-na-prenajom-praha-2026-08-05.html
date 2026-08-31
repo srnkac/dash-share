@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domy na prenájom — Praha a okolie — 5. 8. 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0f10; --surface:#1a1a1d; --border:#2a2a2d;
+    --text:#ffffff; --text2:#a0a0a0;
+    --accent:#D97757; --accent-muted:rgba(217,119,87,0.15);
+    --green:#3ecf8e; --green-muted:rgba(62,207,142,0.15);
+    --yellow:#e0b93f; --yellow-muted:rgba(224,185,63,0.15);
+    --blue:#5b9bd5; --blue-muted:rgba(91,155,213,0.15);
+    --red:#e05f5f; --red-muted:rgba(224,95,95,0.15);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,sans-serif; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  header.hero{
+    padding:64px 24px 40px; text-align:center;
+    border-bottom:1px solid var(--border);
+  }
+  header.hero .eyebrow{
+    display:inline-block; padding:6px 14px; border-radius:999px;
+    background:var(--accent-muted); color:var(--accent);
+    font-size:13px; font-weight:600; letter-spacing:.02em; margin-bottom:18px;
+  }
+  header.hero h1{font-size:40px; font-weight:800; margin:0 0 12px; letter-spacing:-0.02em;}
+  header.hero p{color:var(--text2); font-size:16px; max-width:680px; margin:0 auto;}
+
+  section{padding:56px 24px; border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{max-width:1180px; margin:0 auto 28px;}
+  .section-head h2{font-size:26px; font-weight:700; margin:0 0 6px; letter-spacing:-0.01em;}
+  .section-head p{color:var(--text2); font-size:15px; margin:0; max-width:760px;}
+
+  .stat-row{
+    max-width:1180px; margin:0 auto; display:grid;
+    grid-template-columns:repeat(5,1fr); gap:16px;
+  }
+  .stat-card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:22px 18px; text-align:center;
+  }
+  .stat-card .num{font-size:32px; font-weight:800; color:var(--accent);}
+  .stat-card .lbl{font-size:13px; color:var(--text2); margin-top:4px;}
+
+  .badge{
+    display:inline-block; padding:4px 11px; border-radius:999px;
+    font-size:12px; font-weight:700; letter-spacing:.02em;
+  }
+  .badge.top{background:var(--green-muted); color:var(--green);}
+  .badge.dobre{background:var(--blue-muted); color:var(--blue);}
+  .badge.ostatne{background:var(--yellow-muted); color:var(--yellow);}
+  .badge.old{background:var(--red-muted); color:var(--red);}
+  .badge.new{background:var(--accent-muted); color:var(--accent);}
+
+  .callout{
+    max-width:1180px; margin:0 auto 28px; padding:16px 20px;
+    background:var(--surface); border-left:3px solid var(--accent);
+    border-radius:8px; color:var(--text2); font-size:14px;
+  }
+  .callout b{color:var(--text);}
+
+  table{
+    width:100%; border-collapse:collapse; background:var(--surface);
+    border:1px solid var(--border); border-radius:12px; overflow:hidden;
+    font-size:14px;
+  }
+  .table-wrap{max-width:1180px; margin:0 auto; overflow-x:auto; border-radius:12px;}
+  thead th{
+    background:#141416; text-align:left; padding:12px 14px;
+    font-size:12px; text-transform:uppercase; letter-spacing:.03em;
+    color:var(--text2); border-bottom:1px solid var(--border); white-space:nowrap;
+  }
+  tbody td{
+    padding:14px; border-bottom:1px solid var(--border); vertical-align:top;
+    color:var(--text);
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:#1f1f22;}
+  .addr{font-weight:600;}
+  .sub{color:var(--text2); font-size:12.5px;}
+  .price{font-weight:700; color:var(--accent);}
+  .eur{color:var(--text2); font-size:12.5px;}
+  a.link{color:var(--blue); text-decoration:none; font-weight:600; font-size:13px;}
+  a.link:hover{text-decoration:underline;}
+
+  .icon-grid{
+    max-width:1180px; margin:0 auto; display:grid;
+    grid-template-columns:repeat(3,1fr); gap:16px;
+  }
+  .icon-card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:20px;
+  }
+  .icon-card .emoji{font-size:22px; margin-bottom:8px;}
+  .icon-card h3{font-size:15px; margin:0 0 6px;}
+  .icon-card p{font-size:13px; color:var(--text2); margin:0;}
+
+  footer{padding:40px 24px; text-align:center; color:var(--text2); font-size:13px;}
+
+  @media(max-width:900px){
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+    .icon-grid{grid-template-columns:1fr;}
+    header.hero h1{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="eyebrow">Automatický prehľad · 5. august 2026</span>
+  <h1>Domy na prenájom — Praha a okolie</h1>
+  <p>Prehľad domov k prenájmu spĺňajúcich zadané kritériá (min. 4 izby, záhrada, garáž/parkovanie, min. 110 m², do 45 min od Prahy) zo Sreality.cz, Realcity.cz, Bezrealitky.cz a Hyperinzerce.cz.</p>
+</header>
+
+<section>
+  <div class="stat-row">
+    <div class="stat-card"><div class="num">4</div><div class="lbl">prehľadané zdroje</div></div>
+    <div class="stat-card"><div class="num">12</div><div class="lbl">relevantných ponúk</div></div>
+    <div class="stat-card" style="border-color:var(--green);"><div class="num">5</div><div class="lbl">TOP ponuky</div></div>
+    <div class="stat-card" style="border-color:var(--blue);"><div class="num">3</div><div class="lbl">DOBRÉ ponuky</div></div>
+    <div class="stat-card" style="border-color:var(--yellow);"><div class="num">4</div><div class="lbl">OSTATNÉ ponuky</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🏆 TOP ponuky</h2>
+    <p>Vlaková stanica priamo v obci + nájom pod 2 500 €/mesiac. Zoradené podľa polohy (vzdialenosť domu od stanice), potom veľkosti, potom ceny.</p>
+  </div>
+  <div class="callout">Kurz použitý na prepočet: <b>1 € ≈ 24,2 Kč</b> (5. 8. 2026, orientačne).</div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Obec</th><th>Nájom</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Do Prahy</th><th>Zverejnené</th><th>Odkaz</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="addr">Boženy Němcové, Úvaly</div><div class="sub">stanica Úvaly ~330 m od domu</div></td>
+        <td><div class="price">46 990 Kč</div><div class="eur">≈ 1 941 €/mes.</div></td>
+        <td>174 m²</td>
+        <td>404 m²</td>
+        <td>4+kk<br><span class="sub">parkovanie 3 autá, bez garáže</span></td>
+        <td>vlak 24 min</td>
+        <td><span class="badge new">13. 7. 2026</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/uvaly-uvaly-bozeny-nemcove/3055804492" target="_blank">Sreality ↗</a></td>
+      </tr>
+      <tr>
+        <td><div class="addr">Říčany (centrum)</div><div class="sub">stanica Říčany ~945 m od domu</div></td>
+        <td><div class="price">55 000 Kč</div><div class="eur">≈ 2 273 €/mes.</div></td>
+        <td>160 m²</td>
+        <td>827 m²</td>
+        <td>4+1<br><span class="sub">kuchyňa samostatne · 3 parkovacie miesta</span></td>
+        <td>vlak 25 min</td>
+        <td><span class="badge new">19. 7. 2026</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/ricany-ricany-/961994828" target="_blank">Sreality ↗</a></td>
+      </tr>
+      <tr>
+        <td><div class="addr">Skácelova, Úvaly</div><div class="sub">stanica Úvaly ~1 050 m od domu</div></td>
+        <td><div class="price">47 000 Kč</div><div class="eur">≈ 1 942 €/mes.</div></td>
+        <td>128 m²</td>
+        <td>350 m²</td>
+        <td>4+kk<br><span class="sub">garáž + 2 parkovacie miesta</span></td>
+        <td>vlak 25 min</td>
+        <td><span class="badge new">26. 7. 2026</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/uvaly-uvaly-skacelova/3360215116" target="_blank">Sreality ↗</a></td>
+      </tr>
+      <tr>
+        <td><div class="addr">Zvoncová, Roztoky</div><div class="sub">stanica Roztoky-Žalov ~1 260 m od domu</div></td>
+        <td><div class="price">55 000 Kč</div><div class="eur">≈ 2 273 €/mes.</div></td>
+        <td>163 m²</td>
+        <td>450 m²</td>
+        <td>5+kk<br><span class="sub">garáž + 1 parkovacie miesto</span></td>
+        <td>vlak 15 min</td>
+        <td><span class="badge old">⏱ 14. 5. 2026 — starší</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/roztoky-roztoky-zvoncova/310218828" target="_blank">Sreality ↗</a></td>
+      </tr>
+      <tr>
+        <td><div class="addr">U Židovského hřbitova, Beroun</div><div class="sub">najbližšia stanica Králův Dvůr ~1 940 m</div></td>
+        <td><div class="price">43 000 Kč</div><div class="eur">≈ 1 777 €/mes.</div></td>
+        <td>140 m²</td>
+        <td>450 m²</td>
+        <td>4 izby<br><span class="sub">2 parkovacie miesta, bez garáže</span></td>
+        <td>vlak ~35 min</td>
+        <td><span class="badge new">14. 7. 2026</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/beroun-beroun-mesto-u-zidovskeho-hrbitova/1652744268" target="_blank">Sreality ↗</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>👍 DOBRÉ ponuky</h2>
+    <p>Nájom pod 3 000 €/mesiac, v obci alebo bezprostrednom okolí obce s vlakovým napojením na Prahu (bez stanice priamo v mieste domu).</p>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Obec</th><th>Nájom</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Do Prahy</th><th>Zverejnené</th><th>Odkaz</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="addr">Hvězdova, Úvaly (vila)</div><div class="sub">stanica Úvaly ~990 m</div></td>
+        <td><div class="price">69 000 Kč</div><div class="eur">≈ 2 851 €/mes.</div></td>
+        <td>162 m²</td>
+        <td>1 270 m²</td>
+        <td>5+ izieb<br><span class="sub">2 garáže</span></td>
+        <td>vlak 25 min</td>
+        <td><span class="badge old">⏱ 3. 7. 2026 — starší (33 dní)</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/vila/uvaly-uvaly-hvezdova/1869209676" target="_blank">Sreality ↗</a></td>
+      </tr>
+      <tr>
+        <td><div class="addr">Višňová, Říčany – Voděrádky</div><div class="sub">najbližšia stanica Světice ~2 km</div></td>
+        <td><div class="price">41 000 Kč</div><div class="eur">≈ 1 694 €/mes.</div></td>
+        <td>127 m²</td>
+        <td>348 m²</td>
+        <td>4 izby + kk<br><span class="sub">2 parkovacie miesta, bez garáže</span></td>
+        <td>vlak ~30 min</td>
+        <td><span class="badge new">5. 8. 2026</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/ricany-voderadky-visnova/4230008908" target="_blank">Sreality ↗</a></td>
+      </tr>
+      <tr>
+        <td><div class="addr">Višňová, Říčany – Voděrádky <span class="sub">(iná jednotka, rovnaký areál)</span></div><div class="sub">najbližšia stanica Světice ~2 km</div></td>
+        <td><div class="price">41 000 Kč</div><div class="eur">≈ 1 694 €/mes.</div></td>
+        <td>120 m²</td>
+        <td>335 m²</td>
+        <td>4 izby + kk<br><span class="sub">2 parkovacie miesta, bez garáže</span></td>
+        <td>vlak ~30 min</td>
+        <td><span class="badge old">⏱ 1. 7. 2026 — starší (35 dní)</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/ricany-voderadky-visnova/2798973004" target="_blank">Sreality ↗</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout" style="margin-top:16px;">Obe ponuky na Višňové, Voděrádky sú v rovnakom uzavretom areáli „Gardens Resort Voděrádky" od toho istého makléra (Pavel Prchal) — pravdepodobne rôzne jednotky toho istého developerského projektu, nie duplicitný inzerát tej istej nehnuteľnosti.</div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>📋 OSTATNÉ ponuky</h2>
+    <p>Nespĺňajú TOP ani DOBRÉ kritériá — spravidla vyššia cena, chýbajúce vlakové spojenie v lokalite alebo veľmi starý inzerát.</p>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Obec</th><th>Nájom</th><th>Dom</th><th>Pozemok</th><th>Izby</th><th>Poznámka</th><th>Zverejnené</th><th>Odkaz</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="addr">Vilová, Jesenice – Zdiměřice (vila)</div></td>
+        <td><div class="price">80 000 Kč</div><div class="eur">≈ 3 306 €/mes.</div></td>
+        <td>420 m²</td>
+        <td>993 m²</td>
+        <td>6+1<br><span class="sub">garáž pre 2 autá</span></td>
+        <td>nad 3 000 €; Jesenice bez vlakového spojenia (len autobus/auto)</td>
+        <td><span class="badge new">21. 7. 2026</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/vila/jesenice-zdimerice-vilova/1904599116" target="_blank">Sreality ↗</a><br><span class="sub">= duplicita s <a class="link" href="https://www.realcity.cz/nemovitost/pronajem-domu-6-1-jesenice-vilova-4411722" target="_blank">Realcity ↗</a></span></td>
+      </tr>
+      <tr>
+        <td><div class="addr">Růžová, Jesenice – Osnice</div></td>
+        <td><div class="price">60 000 Kč</div><div class="eur">≈ 2 479 €/mes.</div></td>
+        <td>185 m²</td>
+        <td>288 m²</td>
+        <td>4+kk<br><span class="sub">dvojgaráž + 2 vonkajšie miesta</span></td>
+        <td>cena pod 2 500 €, ale Jesenice bez vlakového spojenia na Prahu</td>
+        <td><span class="badge old">⏱ 26. 6. 2026 — starší (40 dní)</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/jesenice-osnice-ruzova/1299705932" target="_blank">Sreality ↗</a></td>
+      </tr>
+      <tr>
+        <td><div class="addr">Tiché údolí, Roztoky</div></td>
+        <td><div class="price">110 000 Kč</div><div class="eur">≈ 4 545 €/mes.</div></td>
+        <td>350 m²</td>
+        <td>700 m²</td>
+        <td>7 izieb<br><span class="sub">garáž pre 2 autá</span></td>
+        <td>vysoko nad rozpočtovým prahom pre TOP/DOBRÉ</td>
+        <td><span class="badge old">⏱ 11. 2. 2026 — veľmi starý (175 dní)</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/roztoky-roztoky-tiche-udoli/46883660" target="_blank">Sreality ↗</a></td>
+      </tr>
+      <tr>
+        <td><div class="addr">Libušina, Černošice</div></td>
+        <td><div class="price">140 000 Kč</div><div class="eur">≈ 5 785 €/mes.</div></td>
+        <td>356 m²</td>
+        <td>1 389 m²</td>
+        <td>5+ izieb<br><span class="sub">garáž pre 2 autá</span></td>
+        <td>ďaleko nad rozpočtom; inzerát pôvodne z r. 2023 — vysoko pravdepodobne neaktuálny</td>
+        <td><span class="badge old">⏱ 27. 11. 2023 — extrémne starý</span></td>
+        <td><a class="link" href="https://www.sreality.cz/detail/pronajem/dum/rodinny/cernosice-cernosice-libusina/385738060" target="_blank">Sreality ↗</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>⚠️ Vylúčené / nedostupné ponuky</h2>
+    <p>Nájdené vo vybraných zdrojoch, ale nespĺňajú zadané kritériá alebo už nie sú dostupné.</p>
+  </div>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <div class="emoji">🚫</div>
+      <h3>Pod Koláčovem, Roztoky – Žalov</h3>
+      <p>170 m², 5+1, garáž — inak by spĺňal DOBRÉ kritériá, ale inzerát na Bezrealitky.cz je označený ako <b>„Rezervováno" / „Inzerát již není v nabídce"</b>. Vylúčené ako nedostupné.</p>
+    </div>
+    <div class="icon-card">
+      <div class="emoji">📏</div>
+      <h3>Sluneční 164, Mnichovice</h3>
+      <p>109 m² — tesne pod stanovené minimum 110 m² úžitkovej plochy. Cena 31 500 Kč/mes. Vylúčené kvôli veľkosti (na 1 m² od limitu, vhodné na manuálne overenie).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>🔍 Metodika a poznámky</h2>
+  </div>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <div class="emoji">🌐</div>
+      <h3>Prehľadané zdroje</h3>
+      <p>Sreality.cz (okresy Praha-východ, Praha-západ, Beroun — cez Claude in Chrome), Realcity.cz, Bezrealitky.cz a Hyperinzerce.cz (priamy fetch).</p>
+    </div>
+    <div class="icon-card">
+      <div class="emoji">📍</div>
+      <h3>Lokalita — obmedzenie</h3>
+      <p>Radotín a Černošice patria administratívne pod Prahu/susedný okres a v okresných filtroch Sreality (Praha-východ/západ, Beroun) sa nemusia zobraziť všetky ponuky priamo v Radotíne. Pre Zeleneč a Mnichovice sa v tomto behu na Sreality nenašli žiadne aktuálne ponuky domov.</p>
+    </div>
+    <div class="icon-card">
+      <div class="emoji">📐</div>
+      <h3>„4+kk" vs. „4+1"</h3>
+      <p>Zadanie žiada kuchyňu počítať samostatne. Notácia „4+1" (samostatná kuchyňa) toto spĺňa presne; „4+kk" (kuchynský kút v obývačke) je hraničný prípad — ponechané v prehľade, ale označené.</p>
+    </div>
+    <div class="icon-card">
+      <div class="emoji">💱</div>
+      <h3>Prepočet meny</h3>
+      <p>Kurz 1 € ≈ 24,2 Kč k 5. 8. 2026, orientačný medzibankový kurz — pri reálnom prevode počítajte s bankovým poplatkom/maržou.</p>
+    </div>
+    <div class="icon-card">
+      <div class="emoji">🕐</div>
+      <h3>Staré inzeráty</h3>
+      <p>Inzeráty staršie ako 30 dní od dátumu vloženia sú označené oranžovým/červeným štítkom. Dátum „Upraveno" na Sreality sa mení automaticky pri každom prehliadnutí ponuky, preto sa na určenie veku používa výhradne dátum „Vloženo".</p>
+    </div>
+    <div class="icon-card">
+      <div class="emoji">🔁</div>
+      <h3>Duplicity naprieč portálmi</h3>
+      <p>Vila Vilová, Jesenice (420 m², 80 000 Kč) sa zhoduje na Sreality aj Realcity — počítaná ako jedna ponuka.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Vygenerované automaticky · 5. august 2026 · Zdroje: Sreality.cz, Realcity.cz, Bezrealitky.cz, Hyperinzerce.cz
+</footer>
+
+</body>
+</html>

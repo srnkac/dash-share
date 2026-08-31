@@ -1,0 +1,389 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PC &amp; Notebook Price Forecast 2026–2029</title><style>
+:root{
+  --bg:#0a0e13; --surface:#10151d; --surface-2:#161c26; --border:#1c232e;
+  --border-hover:#2f3d4f; --text:#e9edf2; --text-2:#7c8a9c; --text-3:#4d5866;
+  --accent:#e8a355; --accent-hover:#f0b672; --accent-ink:#0a0e13; --accent-2:#58bfae;
+  --mono:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;
+  --sans:-apple-system,"Segoe UI",system-ui,Roboto,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+section{padding:96px 0;border-top:1px solid var(--border);scroll-margin-top:66px}
+section.alt{background:var(--surface)}
+h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.02em}
+h1{font-size:clamp(34px,5.4vw,60px);font-weight:650}
+h2{font-size:clamp(25px,3.2vw,34px);font-weight:620;margin-bottom:14px}
+h3{font-size:17px;font-weight:620;letter-spacing:-.01em}
+p{margin:0 0 16px;color:var(--text-2);max-width:74ch}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(232,163,85,.3)}
+a:hover{color:var(--accent-hover);border-bottom-color:var(--accent-hover)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:16px;display:block}
+.eyebrow::before{content:"// ";color:var(--text-3)}
+.lede{font-size:19px;color:var(--text-2);max-width:70ch;margin-top:22px}
+.lede strong{color:var(--text);font-weight:600}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(10,14,19,.88);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:20px}
+.brand{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text)}
+.brand b{color:var(--accent);font-weight:600}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-2);border:0}
+nav a:hover{color:var(--accent)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:104px 0 88px;border-top:0}
+.hero::before{content:"";position:absolute;inset:0;
+  background-image:repeating-linear-gradient(0deg,var(--border) 0 1px,transparent 1px 32px),
+                   repeating-linear-gradient(90deg,var(--border) 0 1px,transparent 1px 32px);
+  opacity:.55;pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:3px;
+  border:1px solid var(--border-hover);color:var(--text-2);background:var(--surface)}
+.tag.hot{color:var(--accent);border-color:rgba(232,163,85,.45)}
+.tag.warn{color:var(--accent-2);border-color:rgba(88,191,174,.4)}
+
+/* stat divider grid */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:52px}
+.stat{background:var(--bg);padding:22px 20px}
+.stat .n{font-family:var(--mono);font-size:31px;color:var(--accent);letter-spacing:-.02em;line-height:1.1}
+.stat .l{font-size:12.5px;color:var(--text-2);margin-top:8px;line-height:1.45}
+.stat .s{font-family:var(--mono);font-size:10.5px;color:var(--text-3);margin-top:8px;
+  letter-spacing:.06em;text-transform:uppercase}
+
+/* cards */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:22px}
+section.alt .card{background:var(--surface-2)}
+.card:hover{border-color:var(--border-hover)}
+.card h3{margin-bottom:8px}
+.card p{font-size:14.5px;margin:0;color:var(--text-2)}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent-2);display:block;margin-bottom:10px}
+ul.bul{list-style:none;padding:0;margin:12px 0 0}
+ul.bul li{position:relative;padding-left:20px;margin-bottom:8px;font-size:14.5px;color:var(--text-2)}
+ul.bul li::before{content:"\25B8";position:absolute;left:0;color:var(--accent);font-family:var(--mono)}
+ul.bul li b{color:var(--text);font-weight:600}
+
+/* callout */
+.callout{border-left:3px solid var(--accent);background:var(--surface);border-radius:0 6px 6px 0;
+  padding:20px 24px;margin:28px 0}
+section.alt .callout{background:var(--bg)}
+.callout .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);display:block;margin-bottom:8px}
+.callout p{margin:0;font-size:15px}
+
+/* figure + chart */
+figure{margin:28px 0 0;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+  padding:22px 22px 18px}
+section.alt figure{background:var(--bg)}
+figcaption{font-size:13px;color:var(--text-2);margin-top:14px;border-top:1px solid var(--border);
+  padding-top:12px;line-height:1.55}
+.figtitle{font-size:15.5px;font-weight:620;color:var(--text);margin-bottom:2px}
+.figsub{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:14px}
+.chartbox{overflow-x:auto}
+svg.chart{display:block;width:100%;min-width:560px;height:auto}
+svg.chart .ax{font-family:var(--mono);font-size:11px;fill:var(--text-2)}
+svg.chart .ax2{font-family:var(--mono);font-size:11px;fill:var(--text-2)}
+svg.chart .vl{font-family:var(--mono);font-size:11.5px;fill:var(--text)}
+svg.chart .rl{font-size:13px;fill:var(--text)}
+svg.chart .rs{font-family:var(--mono);font-size:10.5px;fill:var(--text-2)}
+svg.chart .dl{font-family:var(--mono);font-size:11.5px;font-weight:600}
+svg.chart .dl2{font-family:var(--mono);font-size:11px;fill:var(--text-2)}
+svg.chart .mk{transition:opacity .12s}
+svg.chart:hover .mk{opacity:.72}
+svg.chart .mk:hover{opacity:1}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+.legend span{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;
+  color:var(--text-2)}
+.legend i{width:11px;height:11px;border-radius:2px;display:inline-block}
+details.tbl{margin-top:12px}
+details.tbl summary{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-3);cursor:pointer;list-style:none}
+details.tbl summary::before{content:"\25B8 ";color:var(--accent)}
+details[open].tbl summary::before{content:"\25BE "}
+details.tbl summary:hover{color:var(--accent)}
+
+/* tables */
+.tw{overflow-x:auto;margin-top:16px;border:1px solid var(--border);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--text-3);text-align:left;padding:12px 16px;background:var(--surface);
+  border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+tbody tr:nth-child(even) td{background:rgba(255,255,255,.014)}
+tbody tr:last-child td{border-bottom:0}
+td.num{font-family:var(--mono);color:var(--text);white-space:nowrap}
+td.hi{color:var(--accent);font-family:var(--mono)}
+td b{color:var(--text)}
+
+/* badges */
+.badge{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:3px;white-space:nowrap;display:inline-block}
+.b-hi{background:rgba(144,133,233,.15);color:#a99fee;border:1px solid rgba(144,133,233,.3)}
+.b-md{background:rgba(232,163,85,.13);color:var(--accent);border:1px solid rgba(232,163,85,.3)}
+.b-lo{background:rgba(25,158,112,.15);color:#3cbb8c;border:1px solid rgba(25,158,112,.32)}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:32px;
+  border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--border)}
+.flow .step{background:var(--surface-2);padding:20px 18px;position:relative}
+section.alt .flow .step{background:var(--bg)}
+.flow .step .n{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em;
+  display:block;margin-bottom:10px}
+.flow .step h3{font-size:14.5px;margin-bottom:6px}
+.flow .step p{font-size:13px;margin:0}
+.flow .step:not(:last-child)::after{content:"\2192";position:absolute;right:-9px;top:50%;
+  transform:translateY(-50%);color:var(--accent);font-family:var(--mono);font-size:15px;z-index:2;
+  background:var(--surface-2);padding:2px 0}
+section.alt .flow .step:not(:last-child)::after{background:var(--bg)}
+
+/* timeline */
+.tl{position:relative;margin-top:32px;padding-left:30px}
+.tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--border)}
+.tl .ev{position:relative;padding-bottom:26px}
+.tl .ev::before{content:"";position:absolute;left:-29px;top:6px;width:11px;height:11px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--accent)}
+.tl .ev.dim::before{border-color:var(--border-hover)}
+.tl .d{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:4px}
+.tl .ev.dim .d{color:var(--text-3)}
+.tl .ev h3{font-size:15px;margin-bottom:4px}
+.tl .ev p{font-size:14px;margin:0}
+
+/* sources */
+ol.src{padding-left:22px;margin:0;columns:2;column-gap:36px}
+ol.src li{font-size:13.5px;color:var(--text-2);margin-bottom:10px;break-inside:avoid}
+footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--text-3);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer .mono{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+
+#tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .1s;background:var(--surface-2);
+  border:1px solid var(--border-hover);border-radius:4px;padding:7px 10px;font-family:var(--mono);
+  font-size:11.5px;color:var(--text);z-index:99;white-space:nowrap;
+  box-shadow:0 6px 20px rgba(0,0,0,.5)}
+
+@media (max-width:900px){
+  section{padding:64px 0}
+  .hero{padding:72px 0 60px}
+  .wrap{padding:0 20px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .g2,.g3{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr}
+  .flow .step:not(:last-child)::after{content:"\2193";right:auto;left:50%;top:auto;bottom:-9px;
+    transform:translateX(-50%)}
+  ol.src{columns:1}
+  nav{display:none}
+}
+@media print{.hero::before{display:none}}
+</style></head><body>
+<header><div class="wrap">
+<div class="brand">PC&nbsp;PRICE <b>OUTLOOK</b></div>
+<nav>
+<a href="#now">Where we are</a><a href="#why">Why</a><a href="#forecast">Forecast</a>
+<a href="#segments">Segments</a><a href="#supply">Supply</a><a href="#advice">What to do</a>
+<a href="#risks">Risks</a><a href="#sources">Sources</a>
+</nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+<span class="eyebrow">Memory cycle &middot; briefing of 31 August 2026</span>
+<h1>Computers are not getting<br>cheaper again for a while.</h1>
+<p class="lede">AI infrastructure has bought up the memory industry's output. Consumer DRAM and
+NAND were the residual claimant, and they repriced &mdash; <strong>3&ndash;4&times; in eighteen months</strong>.
+Finished PCs absorb only part of that, but the direction is set: the base case is
+<strong>roughly +30% on a like-for-like machine by 2027</strong> versus 2025, with the first real relief
+arriving in <strong>2028&ndash;2029</strong>, not next year.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:26px">
+<span class="tag hot">Rate of increase decelerating</span>
+<span class="tag">Price levels still rising</span>
+<span class="tag warn">New fab output: 2H27 at the earliest</span>
+</div>
+<div class="stats">
+<div class="stat"><div class="n">+17%</div><div class="l">Forecast growth in the average selling price of a PC in 2026</div><div class="s">IDC</div></div>
+<div class="stat"><div class="n">4&times;</div><div class="l">EU retail price of a 32&nbsp;GB DDR5 kit versus June 2025 &mdash; now well over &euro;300</div><div class="s">3DCenter / Notebookcheck</div></div>
+<div class="stat"><div class="n">&minus;11.3%</div><div class="l">Forecast decline in global PC shipments in 2026 as buyers balk</div><div class="s">IDC</div></div>
+<div class="stat"><div class="n">15&ndash;20%</div><div class="l">Dell's list-price increase from mid-December 2025; Lenovo followed in January</div><div class="s">TrendForce</div></div>
+<div class="stat"><div class="n">68%</div><div class="l">Share of hyperscaler capex that memory alone will consume in 2027</div><div class="s">TrendForce</div></div>
+<div class="stat"><div class="n">2H27</div><div class="l">Earliest ramp of new DRAM capacity &mdash; meaningful output not before 2028</div><div class="s">TrendForce</div></div>
+</div>
+</div></section>
+<section id="now"><div class="wrap"><span class="eyebrow">Where we are</span><h2>The shock already happened. It is now flattening at a high level.</h2><p>Two different things are being confused in the coverage. The <b style="color:var(--text)">rate</b> of memory price increase has collapsed since Q1. The <b style="color:var(--text)">level</b> has not come down at all &mdash; and everything built after Q1 2026 is priced off that level.</p><figure><div class="figtitle">Memory contract prices, quarter-on-quarter change</div><div class="figsub">Percent increase vs previous quarter &middot; 2026</div><div class="legend"><span><i style="background:#c98500"></i>DRAM</span><span><i style="background:#199e70"></i>NAND / SSD</span></div><div class="chartbox"><svg viewBox="0 0 760 310" class="chart" role="img" preserveAspectRatio="xMidYMid meet">
+<line x1="52" y1="258.0" x2="744" y2="258.0" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="262.0" text-anchor="end" class="ax">0%</text>
+<line x1="52" y1="209.6" x2="744" y2="209.6" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="213.6" text-anchor="end" class="ax">34%</text>
+<line x1="52" y1="161.2" x2="744" y2="161.2" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="165.2" text-anchor="end" class="ax">68%</text>
+<line x1="52" y1="112.8" x2="744" y2="112.8" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="116.8" text-anchor="end" class="ax">102%</text>
+<line x1="52" y1="64.4" x2="744" y2="64.4" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="68.4" text-anchor="end" class="ax">136%</text>
+<line x1="52" y1="16.0" x2="744" y2="16.0" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="20.0" text-anchor="end" class="ax">170%</text>
+<path d="M120.3,258.0 L120.3,105.4 Q120.3,101.4 124.3,101.4 L162.3,101.4 Q166.3,101.4 166.3,105.4 L166.3,258.0 Z" fill="#c98500" class="mk" data-t="Q1 2026 &middot; DRAM: +110%"/>
+<text x="143.3" y="93.4" text-anchor="middle" class="vl">+110%</text>
+<path d="M168.3,258.0 L168.3,52.7 Q168.3,48.7 172.3,48.7 L210.3,48.7 Q214.3,48.7 214.3,52.7 L214.3,258.0 Z" fill="#199e70" class="mk" data-t="Q1 2026 &middot; NAND / SSD: +147%"/>
+<text x="191.3" y="40.7" text-anchor="middle" class="vl">+147%</text>
+<text x="167.3" y="282" text-anchor="middle" class="ax2">Q1 2026</text>
+<path d="M351.0,258.0 L351.0,175.9 Q351.0,171.9 355.0,171.9 L393.0,171.9 Q397.0,171.9 397.0,175.9 L397.0,258.0 Z" fill="#c98500" class="mk" data-t="Q2 2026 &middot; DRAM: +60.5%"/>
+<text x="374.0" y="163.9" text-anchor="middle" class="vl">+60.5%</text>
+<path d="M399.0,258.0 L399.0,158.8 Q399.0,154.8 403.0,154.8 L441.0,154.8 Q445.0,154.8 445.0,158.8 L445.0,258.0 Z" fill="#199e70" class="mk" data-t="Q2 2026 &middot; NAND / SSD: +72.5%"/>
+<text x="422.0" y="146.8" text-anchor="middle" class="vl">+72.5%</text>
+<text x="398.0" y="282" text-anchor="middle" class="ax2">Q2 2026</text>
+<path d="M581.7,258.0 L581.7,239.9 Q581.7,235.9 585.7,235.9 L623.7,235.9 Q627.7,235.9 627.7,239.9 L627.7,258.0 Z" fill="#c98500" class="mk" data-t="Q3 2026 F &middot; DRAM: +15.5%"/>
+<text x="604.7" y="227.9" text-anchor="middle" class="vl">+15.5%</text>
+<path d="M629.7,258.0 L629.7,244.2 Q629.7,240.2 633.7,240.2 L671.7,240.2 Q675.7,240.2 675.7,244.2 L675.7,258.0 Z" fill="#199e70" class="mk" data-t="Q3 2026 F &middot; NAND / SSD: +12.5%"/>
+<text x="652.7" y="232.2" text-anchor="middle" class="vl">+12.5%</text>
+<text x="628.7" y="282" text-anchor="middle" class="ax2">Q3 2026 F</text>
+<line x1="52" y1="258" x2="744" y2="258" stroke="#2f3d4f" stroke-width="1"/>
+<text x="52" y="14" class="ax2">QoQ change</text>
+</svg></div><details class="tbl"><summary>Data table</summary><div class="tw"><table class=""><thead><tr><th>Quarter</th><th>DRAM contract, QoQ</th><th>NAND / SSD contract, QoQ</th><th>Source</th></tr></thead><tbody><tr><td>Q1 2026</td><td class="num">+110%</td><td class="num">+147%</td><td>Counterpoint Memory Price Tracker (8GB DDR4 SoDIMM / 1TB NVMe)</td></tr><tr><td>Q2 2026</td><td class="num">+58&ndash;63%</td><td class="num">+70&ndash;75%</td><td>TrendForce, 31 Mar 2026</td></tr><tr><td>Q3 2026 F</td><td class="num">+13&ndash;18%</td><td class="num">+10&ndash;15%</td><td>TrendForce via Tom's Hardware</td></tr></tbody></table></div></details><figcaption>Q1 figures are Counterpoint's tracked parts (8&nbsp;GB DDR4 SoDIMM, 1&nbsp;TB DRAM-less NVMe); Q2 and Q3 are TrendForce contract-price surveys. Q3 2026 is a forecast. The deceleration is a demand-side effect &mdash; device makers can no longer absorb the cost &mdash; not a sign that supply has improved.</figcaption></figure><figure><div class="figtitle">What EU buyers actually pay now</div><div class="figsub">Retail price as a multiple of mid-2025 &middot; euro area</div><div class="chartbox"><svg viewBox="0 0 760 214" class="chart" role="img" preserveAspectRatio="xMidYMid meet">
+<line x1="250.0" y1="8" x2="250.0" y2="184" stroke="#1c232e" stroke-width="1"/>
+<text x="250.0" y="204" text-anchor="middle" class="ax">0.0×</text>
+<line x1="360.0" y1="8" x2="360.0" y2="184" stroke="#1c232e" stroke-width="1"/>
+<text x="360.0" y="204" text-anchor="middle" class="ax">1.1×</text>
+<line x1="470.0" y1="8" x2="470.0" y2="184" stroke="#1c232e" stroke-width="1"/>
+<text x="470.0" y="204" text-anchor="middle" class="ax">2.2×</text>
+<line x1="580.0" y1="8" x2="580.0" y2="184" stroke="#1c232e" stroke-width="1"/>
+<text x="580.0" y="204" text-anchor="middle" class="ax">3.4×</text>
+<line x1="690.0" y1="8" x2="690.0" y2="184" stroke="#1c232e" stroke-width="1"/>
+<text x="690.0" y="204" text-anchor="middle" class="ax">4.5×</text>
+<text x="236" y="28" text-anchor="end" class="rl">32 GB DDR5 kit</text>
+<text x="236" y="41" text-anchor="end" class="rs">aftermarket desktop memory</text>
+<path d="M250.0,17.0 L637.1,17.0 Q641.1,17.0 641.1,21.0 L641.1,35.0 Q641.1,39.0 637.1,39.0 L250.0,39.0 Z" fill="#a06600" class="mk" data-t="32 GB DDR5 kit: 4.00×"/>
+<text x="651.1" y="33" class="vl">4.00×</text>
+<text x="236" y="72" text-anchor="end" class="rl">32 GB DDR4 kit</text>
+<text x="236" y="85" text-anchor="end" class="rs">older platforms, also squeezed</text>
+<path d="M250.0,61.0 L539.3,61.0 Q543.3,61.0 543.3,65.0 L543.3,79.0 Q543.3,83.0 539.3,83.0 L250.0,83.0 Z" fill="#bd7a0d" class="mk" data-t="32 GB DDR4 kit: 3.00×"/>
+<text x="553.3" y="77" class="vl">3.00×</text>
+<text x="236" y="116" text-anchor="end" class="rl">M.2 NVMe SSD</text>
+<text x="236" y="129" text-anchor="end" class="rs">mainstream 1-2 TB</text>
+<path d="M250.0,105.0 L441.6,105.0 Q445.6,105.0 445.6,109.0 L445.6,123.0 Q445.6,127.0 441.6,127.0 L250.0,127.0 Z" fill="#d29024" class="mk" data-t="M.2 NVMe SSD: 2.00×"/>
+<text x="455.6" y="121" class="vl">2.00×</text>
+<text x="236" y="160" text-anchor="end" class="rl">Finished notebook</text>
+<text x="236" y="173" text-anchor="end" class="rs">like-for-like config, EU retail</text>
+<path d="M250.0,149.0 L368.2,149.0 Q372.2,149.0 372.2,153.0 L372.2,167.0 Q372.2,171.0 368.2,171.0 L250.0,171.0 Z" fill="#e3a94f" class="mk" data-t="Finished notebook: 1.25×"/>
+<text x="382.2" y="165" class="vl">1.25×</text>
+<line x1="250" y1="8" x2="250" y2="184" stroke="#2f3d4f" stroke-width="1"/>
+</svg></div><details class="tbl"><summary>Data table</summary><div class="tw"><table class=""><thead><tr><th>Item</th><th>Multiple vs mid-2025</th><th>Note</th></tr></thead><tbody><tr><td>32 GB DDR5 kit</td><td class="num">4.00&times;</td><td>aftermarket desktop memory</td></tr><tr><td>32 GB DDR4 kit</td><td class="num">3.00&times;</td><td>older platforms, also squeezed</td></tr><tr><td>M.2 NVMe SSD</td><td class="num">2.00&times;</td><td>mainstream 1-2 TB</td></tr><tr><td>Finished notebook</td><td class="num">1.25&times;</td><td>like-for-like config, EU retail</td></tr></tbody></table></div></details><figcaption>Component figures from 3DCenter's European retail tracking (via Notebookcheck, June 2026); a 32&nbsp;GB DDR5 kit costs 4&times; its June 2025 price and monthly increases have slowed to roughly +1%. The finished-notebook multiple is derived from IDC's +17% 2026 ASP forecast plus announced vendor hikes of 15&ndash;30% &mdash; memory is only part of a PC's bill of materials, which is why the machine inflates far less than the chip inside it.</figcaption></figure><div class="callout"><span class="k">The asymmetry that matters</span><p>Components are up 200&ndash;300%. Finished computers are up 20&ndash;30%. That gap is vendor margin and configuration cuts absorbing the shock &mdash; and both of those buffers are nearly spent. Omdia measures the added memory and storage cost of a mainstream PC at <b style="color:var(--text)">$90&ndash;165 per unit</b> since Q1 2025.</p></div></div></section><section id="why" class="alt"><div class="wrap"><span class="eyebrow">Mechanism</span><h2>Why AI training clusters set the price of your laptop</h2><p>A memory fab has one wafer budget. HBM for AI accelerators consumes far more wafer per usable bit than ordinary DRAM, and it sells at a far higher margin. Every wafer moved to HBM removes several wafers worth of consumer memory from the market.</p><div class="flow"><div class="step"><span class="n">01</span><h3>AI capex</h3><p>Hyperscaler capex up 98% in 2026 and another 50% in 2027.</p></div><div class="step"><span class="n">02</span><h3>Memory takes the budget</h3><p>DRAM and NAND move from 47% of that capex in 2026 to 68% in 2027.</p></div><div class="step"><span class="n">03</span><h3>Wafers reallocate</h3><p>HBM plus server RDIMM take 51% of all DRAM bit supply in 2026.</p></div><div class="step"><span class="n">04</span><h3>Consumer is residual</h3><p>Suppliers price catch-up increases into PC, phone and graphics memory.</p></div><div class="step"><span class="n">05</span><h3>Retail reprices</h3><p>Vendors cut configurations first, then raise list prices 15&ndash;30%.</p></div></div><div class="grid g3" style="margin-top:32px"><div class="card"><span class="k">Locked demand</span><h3>2027 is already sold</h3><p>Cloud providers have moved to long-term supply agreements, booking capacity years ahead. Server DRAM contract prices rose a cumulative 64% in 2H25 and roughly 270% across 2026.</p></div><div class="card"><span class="k">Physics of supply</span><h3>Fabs take four years</h3><p>SK hynix's Yongin Y2 starts mid-2029; its M17 NAND line late 2028; Samsung's Yongin site in 2029. Capex is up nearly 340% between 2024 and 2027 and it still cannot arrive sooner.</p></div><div class="card"><span class="k">Demand elasticity</span><h3>Buyers pushed back</h3><p>The Q3 slowdown to +13&ndash;18% came from device makers refusing to pay, not from more supply. IDC expects Q4 2026 PC shipments down about 20% year on year.</p></div></div></div></section><section id="forecast"><div class="wrap"><span class="eyebrow">The forecast</span><h2>Three paths for the price of a like-for-like PC</h2><p>Index of what the same specification costs at EU retail, 2025 = 100. 2026 is effectively settled; the fork is 2027&ndash;2029 and it turns entirely on when new wafer capacity meets AI demand.</p><figure><div class="figtitle">Like-for-like PC price index, 2025&ndash;2029</div><div class="figsub">2025 = 100 &middot; EU retail, identical configuration</div><div class="legend"><span><i style="background:#199e70"></i>Relief (25%)</span><span><i style="background:#c98500"></i>Base (50%)</span><span><i style="background:#9085e9"></i>Prolonged (25%)</span></div><div class="chartbox"><svg viewBox="0 0 760 350" class="chart" role="img" preserveAspectRatio="xMidYMid meet">
+<line x1="52" y1="304.0" x2="632" y2="304.0" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="308.0" text-anchor="end" class="ax">90</text>
+<line x1="52" y1="263.7" x2="632" y2="263.7" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="267.7" text-anchor="end" class="ax">100</text>
+<line x1="52" y1="223.4" x2="632" y2="223.4" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="227.4" text-anchor="end" class="ax">110</text>
+<line x1="52" y1="183.1" x2="632" y2="183.1" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="187.1" text-anchor="end" class="ax">120</text>
+<line x1="52" y1="142.9" x2="632" y2="142.9" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="146.9" text-anchor="end" class="ax">130</text>
+<line x1="52" y1="102.6" x2="632" y2="102.6" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="106.6" text-anchor="end" class="ax">140</text>
+<line x1="52" y1="62.3" x2="632" y2="62.3" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="66.3" text-anchor="end" class="ax">150</text>
+<line x1="52" y1="22.0" x2="632" y2="22.0" stroke="#1c232e" stroke-width="1"/>
+<text x="42" y="26.0" text-anchor="end" class="ax">160</text>
+<text x="52.0" y="328" text-anchor="middle" class="ax2">2025</text>
+<text x="197.0" y="328" text-anchor="middle" class="ax2">2026</text>
+<text x="342.0" y="328" text-anchor="middle" class="ax2">2027</text>
+<text x="487.0" y="328" text-anchor="middle" class="ax2">2028</text>
+<text x="632.0" y="328" text-anchor="middle" class="ax2">2029</text>
+<line x1="52" y1="263.7" x2="632" y2="263.7" stroke="#2f3d4f" stroke-width="1" stroke-dasharray="3 4"/>
+<path d="M52.0,263.7 L197.0,203.3 L342.0,183.1 L487.0,223.4 L632.0,275.8" fill="none" stroke="#199e70" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 5"/>
+<circle cx="52.0" cy="263.7" r="4.5" fill="#199e70" stroke="#10151d" stroke-width="2" class="mk" data-t="Relief &middot; 2025: 100"/>
+<circle cx="197.0" cy="203.3" r="4.5" fill="#199e70" stroke="#10151d" stroke-width="2" class="mk" data-t="Relief &middot; 2026: 115"/>
+<circle cx="342.0" cy="183.1" r="4.5" fill="#199e70" stroke="#10151d" stroke-width="2" class="mk" data-t="Relief &middot; 2027: 120"/>
+<circle cx="487.0" cy="223.4" r="4.5" fill="#199e70" stroke="#10151d" stroke-width="2" class="mk" data-t="Relief &middot; 2028: 110"/>
+<circle cx="632.0" cy="275.8" r="4.5" fill="#199e70" stroke="#10151d" stroke-width="2" class="mk" data-t="Relief &middot; 2029: 97"/>
+<text x="644.0" y="279.8" class="dl" fill="#199e70">Relief</text>
+<text x="644.0" y="294.8" class="dl2">97</text>
+<path d="M52.0,263.7 L197.0,191.2 L342.0,142.9 L487.0,134.8 L632.0,167.0" fill="none" stroke="#c98500" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="52.0" cy="263.7" r="4.5" fill="#c98500" stroke="#10151d" stroke-width="2" class="mk" data-t="Base &middot; 2025: 100"/>
+<circle cx="197.0" cy="191.2" r="4.5" fill="#c98500" stroke="#10151d" stroke-width="2" class="mk" data-t="Base &middot; 2026: 118"/>
+<circle cx="342.0" cy="142.9" r="4.5" fill="#c98500" stroke="#10151d" stroke-width="2" class="mk" data-t="Base &middot; 2027: 130"/>
+<circle cx="487.0" cy="134.8" r="4.5" fill="#c98500" stroke="#10151d" stroke-width="2" class="mk" data-t="Base &middot; 2028: 132"/>
+<circle cx="632.0" cy="167.0" r="4.5" fill="#c98500" stroke="#10151d" stroke-width="2" class="mk" data-t="Base &middot; 2029: 124"/>
+<text x="644.0" y="171.0" class="dl" fill="#c98500">Base</text>
+<text x="644.0" y="186.0" class="dl2">124</text>
+<path d="M52.0,263.7 L197.0,175.1 L342.0,86.5 L487.0,42.1 L632.0,42.1" fill="none" stroke="#9085e9" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 5"/>
+<circle cx="52.0" cy="263.7" r="4.5" fill="#9085e9" stroke="#10151d" stroke-width="2" class="mk" data-t="Prolonged &middot; 2025: 100"/>
+<circle cx="197.0" cy="175.1" r="4.5" fill="#9085e9" stroke="#10151d" stroke-width="2" class="mk" data-t="Prolonged &middot; 2026: 122"/>
+<circle cx="342.0" cy="86.5" r="4.5" fill="#9085e9" stroke="#10151d" stroke-width="2" class="mk" data-t="Prolonged &middot; 2027: 144"/>
+<circle cx="487.0" cy="42.1" r="4.5" fill="#9085e9" stroke="#10151d" stroke-width="2" class="mk" data-t="Prolonged &middot; 2028: 155"/>
+<circle cx="632.0" cy="42.1" r="4.5" fill="#9085e9" stroke="#10151d" stroke-width="2" class="mk" data-t="Prolonged &middot; 2029: 155"/>
+<text x="644.0" y="46.1" class="dl" fill="#9085e9">Prolonged</text>
+<text x="644.0" y="61.1" class="dl2">155</text>
+<line x1="52" y1="304" x2="632" y2="304" stroke="#2f3d4f" stroke-width="1"/>
+<text x="52" y="16" class="ax2">Index (2025 = 100)</text>
+</svg></div><details class="tbl"><summary>Data table</summary><div class="tw"><table class=""><thead><tr><th>Scenario</th><th>Probability</th><th>2026</th><th>2027</th><th>2028</th><th>2029</th><th>Cumulative vs 2025</th></tr></thead><tbody><tr><td><b>Relief</b></td><td class="num">25%</td><td class="num">115</td><td class="num">120</td><td class="num">110</td><td class="num">97</td><td class="hi">&minus;3%</td></tr><tr><td><b>Base</b></td><td class="num">50%</td><td class="num">118</td><td class="num">130</td><td class="num">132</td><td class="num">124</td><td class="hi">+24%</td></tr><tr><td><b>Prolonged</b></td><td class="num">25%</td><td class="num">122</td><td class="num">144</td><td class="num">155</td><td class="num">155</td><td class="hi">+55%</td></tr></tbody></table></div></details><figcaption>Author's model. 2026 is anchored to IDC's +17% ASP forecast and announced vendor increases of 15&ndash;30%. 2027 follows TrendForce's view that the DRAM supply-demand gap widens while NAND turns to surplus in 2H27. 2028&ndash;2029 is scenario-dependent on the fab ramp timing above. Dashed lines are the low-probability branches.</figcaption></figure><div class="grid g3" style="margin-top:28px"><div class="card"><span class="k" style="color:#3cbb8c">Relief &middot; 25%</span><h3>AI capex digests early</h3><p>Hyperscaler spending decelerates in 2027, NAND surplus arrives on schedule, and the $500bn+ of new Korean and US fab investment lands sooner than guided. Prices round-trip to roughly 2025 levels by 2029.</p><ul class="bul"><li>Watch: memory prices falling <b>while</b> bit shipments stall</li></ul></div><div class="card" style="border-color:rgba(232,163,85,.35)"><span class="k">Base &middot; 50%</span><h3>Grind up, then a slow bleed off</h3><p>DRAM stays tight through 2027, NAND eases from 2H27, and new DRAM output only bites in late 2028. Peak PC pricing in 2028, then a partial retracement. Prices never return to 2025 &mdash; IDC says the same.</p><ul class="bul"><li>Peak pain: <b>2027 H2 &ndash; 2028 H1</b></li></ul></div><div class="card"><span class="k" style="color:#a99fee">Prolonged &middot; 25%</span><h3>Shortage runs past 2029</h3><p>AI demand keeps absorbing every incremental wafer; suppliers pause expansion to protect pricing. Samsung and SK hynix have warned publicly that the shortage could last until 2027 and beyond, and SK hynix sees no quick recovery before 2028. The sub-&euro;500 laptop disappears entirely.</p><ul class="bul"><li>Watch: further HBM price increases of <b>70&ndash;140% in 2027</b></li></ul></div></div><div class="callout"><span class="k">The single most useful number</span><p>In the base case a computer bought in mid-2027 costs about <b style="color:var(--text)">10&ndash;12% more</b> than the same machine today, and about <b style="color:var(--text)">30% more</b> than in 2025. Waiting only pays in the relief branch, and even there the payoff lands in 2029 &mdash; not next year.</p></div></div></section><section id="segments" class="alt"><div class="wrap"><span class="eyebrow">Distribution</span><h2>The pain is not spread evenly</h2><p>Memory is a much larger share of the bill of materials on a cheap machine than an expensive one. That inverts the usual intuition: the budget end is hit hardest, and in places it is simply being withdrawn.</p><figure><div class="figtitle">Price increase by segment, 2025 to 2027</div><div class="figsub">Base case &middot; cumulative percent &middot; author's model</div><div class="chartbox"><svg viewBox="0 0 760 302" class="chart" role="img" preserveAspectRatio="xMidYMid meet">
+<line x1="250.0" y1="8" x2="250.0" y2="272" stroke="#1c232e" stroke-width="1"/>
+<text x="250.0" y="292" text-anchor="middle" class="ax">0%</text>
+<line x1="360.0" y1="8" x2="360.0" y2="272" stroke="#1c232e" stroke-width="1"/>
+<text x="360.0" y="292" text-anchor="middle" class="ax">15%</text>
+<line x1="470.0" y1="8" x2="470.0" y2="272" stroke="#1c232e" stroke-width="1"/>
+<text x="470.0" y="292" text-anchor="middle" class="ax">30%</text>
+<line x1="580.0" y1="8" x2="580.0" y2="272" stroke="#1c232e" stroke-width="1"/>
+<text x="580.0" y="292" text-anchor="middle" class="ax">45%</text>
+<line x1="690.0" y1="8" x2="690.0" y2="272" stroke="#1c232e" stroke-width="1"/>
+<text x="690.0" y="292" text-anchor="middle" class="ax">60%</text>
+<text x="236" y="28" text-anchor="end" class="rl">Self-build desktop</text>
+<text x="236" y="41" text-anchor="end" class="rs">RAM + SSD + GPU all hit</text>
+<path d="M250.0,17.0 L649.3,17.0 Q653.3,17.0 653.3,21.0 L653.3,35.0 Q653.3,39.0 649.3,39.0 L250.0,39.0 Z" fill="#835300" class="mk" data-t="Self-build desktop: +55%"/>
+<text x="663.3" y="33" class="vl">+55%</text>
+<text x="236" y="72" text-anchor="end" class="rl">Entry notebook (under €500)</text>
+<text x="236" y="85" text-anchor="end" class="rs">tier is being discontinued</text>
+<path d="M250.0,61.0 L554.0,61.0 Q558.0,61.0 558.0,65.0 L558.0,79.0 Q558.0,83.0 554.0,83.0 L250.0,83.0 Z" fill="#a06600" class="mk" data-t="Entry notebook (under €500): +42%"/>
+<text x="568.0" y="77" class="vl">+42%</text>
+<text x="236" y="116" text-anchor="end" class="rl">Gaming laptop (32 GB)</text>
+<text x="236" y="129" text-anchor="end" class="rs">GDDR7 + high memory count</text>
+<path d="M250.0,105.0 L510.0,105.0 Q514.0,105.0 514.0,109.0 L514.0,123.0 Q514.0,127.0 510.0,127.0 L250.0,127.0 Z" fill="#bd7a0d" class="mk" data-t="Gaming laptop (32 GB): +36%"/>
+<text x="524.0" y="121" class="vl">+36%</text>
+<text x="236" y="160" text-anchor="end" class="rl">Mainstream notebook 16/512</text>
+<text x="236" y="173" text-anchor="end" class="rs">the volume segment</text>
+<path d="M250.0,149.0 L466.0,149.0 Q470.0,149.0 470.0,153.0 L470.0,167.0 Q470.0,171.0 466.0,171.0 L250.0,171.0 Z" fill="#d29024" class="mk" data-t="Mainstream notebook 16/512: +30%"/>
+<text x="480.0" y="165" class="vl">+30%</text>
+<text x="236" y="204" text-anchor="end" class="rl">Business ultrabook</text>
+<text x="236" y="217" text-anchor="end" class="rs">memory a smaller share of BOM</text>
+<path d="M250.0,193.0 L378.0,193.0 Q382.0,193.0 382.0,197.0 L382.0,211.0 Q382.0,215.0 378.0,215.0 L250.0,215.0 Z" fill="#d29024" class="mk" data-t="Business ultrabook: +18%"/>
+<text x="392.0" y="209" class="vl">+18%</text>
+<text x="236" y="248" text-anchor="end" class="rl">Apple / integrated premium</text>
+<text x="236" y="261" text-anchor="end" class="rs">long-term supply contracts</text>
+<path d="M250.0,237.0 L348.7,237.0 Q352.7,237.0 352.7,241.0 L352.7,255.0 Q352.7,259.0 348.7,259.0 L250.0,259.0 Z" fill="#e3a94f" class="mk" data-t="Apple / integrated premium: +14%"/>
+<text x="362.7" y="253" class="vl">+14%</text>
+<line x1="250" y1="8" x2="250" y2="272" stroke="#2f3d4f" stroke-width="1"/>
+</svg></div><details class="tbl"><summary>Data table</summary><div class="tw"><table class=""><thead><tr><th>Segment</th><th>Cumulative 2025&rarr;2027, base case</th><th>Driver</th></tr></thead><tbody><tr><td>Self-build desktop</td><td class="num">+55%</td><td>RAM + SSD + GPU all hit</td></tr><tr><td>Entry notebook (under €500)</td><td class="num">+42%</td><td>tier is being discontinued</td></tr><tr><td>Gaming laptop (32 GB)</td><td class="num">+36%</td><td>GDDR7 + high memory count</td></tr><tr><td>Mainstream notebook 16/512</td><td class="num">+30%</td><td>the volume segment</td></tr><tr><td>Business ultrabook</td><td class="num">+18%</td><td>memory a smaller share of BOM</td></tr><tr><td>Apple / integrated premium</td><td class="num">+14%</td><td>long-term supply contracts</td></tr></tbody></table></div></details><figcaption>Modelled from the component multiples above and each segment's memory and storage share of BOM. Omdia reports the under-$500 tier already shrinking 28% in units in 2026 while the $900+ tier still grows; Gartner's Ranjit Atwal states plainly that entry-level laptops have become non-viable at current memory costs.</figcaption></figure><h3 style="margin-top:44px;font-size:19px">What the same money buys</h3><div class="tw"><table class=""><thead><tr><th>What &euro;800 bought / buys</th><th>Mid-2025</th><th>August 2026</th><th>2027, base case</th></tr></thead><tbody><tr><td><b>15&quot; mainstream notebook</b></td><td>16 GB / 512 GB, current CPU</td><td class="hi">8&ndash;16 GB / 512 GB</td><td class="hi">8 GB / 256 GB, prior-gen CPU</td></tr><tr><td><b>Same machine, 16/512</b></td><td class="num">&asymp; &euro;700</td><td class="num">&asymp; &euro;880</td><td class="num">&asymp; &euro;960</td></tr><tr><td><b>32 GB DDR5 desktop kit</b></td><td class="num">&asymp; &euro;85&ndash;95</td><td class="num">&gt; &euro;340</td><td class="num">&asymp; &euro;370</td></tr><tr><td><b>2 TB NVMe SSD</b></td><td class="num">&asymp; &euro;110</td><td class="num">&asymp; &euro;220</td><td class="num">&asymp; &euro;235</td></tr><tr><td><b>8 TB SSD with DRAM cache</b></td><td class="num">&asymp; &euro;450</td><td class="num">&euro;1,029 minimum</td><td class="num">still rising fastest</td></tr></tbody></table></div><p style="margin-top:14px;font-size:13px;color:var(--text-3);max-width:74ch">Component prices for mid-2025 and August 2026 are anchored to European retail tracking; the 2027 column and the notebook rows are modelled. Prices include VAT and reflect euro-area listings.</p><div class="callout"><span class="k">Watch the spec sheet, not the price tag</span><p>The first response to a cost shock is not a higher price &mdash; it is a quieter configuration. Vendors have cut base RAM and storage, and some are now shipping pre-built desktops <b style="color:var(--text)">with no memory installed at all</b>. A machine at last year's price this year is almost certainly a smaller machine.</p></div></div></section><section id="supply"><div class="wrap"><span class="eyebrow">Supply</span><h2>When new capacity actually arrives</h2><p>Every forecast above reduces to this calendar. Memory capex is up nearly 340% between 2024 and 2027, but a fab announced today produces bits three to four years later.</p><div class="tl"><div class="ev"><div class="d">Now &middot; Q3 2026</div><h3>Increases decelerate, levels hold</h3><p>DRAM contract prices +13&ndash;18% QoQ, NAND +10&ndash;15%, down from roughly +60% in Q2. Cause: buyers refusing to pay, not more supply.</p></div><div class="ev"><div class="d">Q4 2026</div><h3>Demand destruction shows up</h3><p>IDC expects PC shipments down about 20% year on year, with full-year 2026 at &minus;11.3% and ASPs up 17%. Total market value still rises to roughly $274bn.</p></div><div class="ev"><div class="d">2027</div><h3>DRAM gap widens, NAND turns</h3><p>TrendForce sees the DRAM sufficiency ratio deteriorating further while NAND flips to surplus in 2H27. HBM contract prices could still rise 70&ndash;140%. Notebook and smartphone shipments decline again.</p></div><div class="ev"><div class="d">2H 2027</div><h3>First new DRAM lines ramp</h3><p>The earliest new capacity comes online &mdash; but TrendForce is explicit that substantial output contributions are not expected until 2028.</p></div><div class="ev dim"><div class="d">Late 2028</div><h3>SK hynix M17 NAND online</h3><p>$13.5bn NAND facility begins operations. Storage is the first component to normalise.</p></div><div class="ev dim"><div class="d">2029</div><h3>Yongin comes online &mdash; and the risk window opens</h3><p>SK hynix Y2 and Samsung's Yongin site start production. This is also the year analysts flag as peak risk for an AI-capex correction: enough memory, packaging and energised data-centre capacity arrives at once to test whether demand was real.</p></div></div></div></section><section id="advice" class="alt"><div class="wrap"><span class="eyebrow">What to do</span><h2>Buying decisions that follow from this</h2><p>The base case gives no reward for waiting through 2027. It gives a large reward for buying the right configuration once, and for not paying the aftermarket premium on memory twice.</p><div class="grid g2" style="margin-top:28px"><div class="card"><span class="k">Timing</span><h3>If you need it within 12 months, buy now</h3><p>Two of three scenarios have 2027 more expensive than today, and the third only pays off in 2029. There is no branch in which mid-2027 is a better moment than mid-2026 to buy a computer.</p><ul class="bul"><li>Exception: if you can wait <b>three years</b>, waiting is a real option</li><li>Do not wait for a specific model refresh &mdash; refreshes now arrive with worse base specs</li></ul></div><div class="card"><span class="k">Configuration</span><h3>Over-specify memory and storage at purchase</h3><p>Aftermarket DDR5 is the single most inflated item on the market at 4&times; its 2025 price, and adding RAM later now costs more than it did to have it factory-fitted a year ago. On soldered-memory laptops this is irreversible.</p><ul class="bul"><li>Target <b>32 GB / 1 TB</b> if the machine must last five years</li><li>Buy the storage you need now &mdash; 8 TB class drives rose 24% in a single month</li></ul></div><div class="card"><span class="k">Desktop strategy</span><h3>Carry your old memory forward</h3><p>The inverse of the laptop rule. On a self-build, the RAM and SSD are now the expensive parts and the CPU and board are the cheap ones. Reusing a working 32 GB kit removes the worst line item from the build.</p><ul class="bul"><li>Self-builds are up the most of any segment: <b>+55% to 2027</b></li><li>Check pre-builts for &quot;no RAM included&quot; listings before comparing prices</li></ul></div><div class="card"><span class="k">Budget end</span><h3>Refurbished has gone mainstream</h3><p>With the sub-&euro;500 new-laptop tier being withdrawn, the European secondary market has become the default answer at that budget rather than a compromise. A 2023&ndash;2024 business ultrabook with 16 GB is the value position of this cycle.</p><ul class="bul"><li>Prefer machines with <b>upgradeable SO-DIMM slots</b> already populated</li><li>Ex-lease Latitude / ThinkPad / EliteBook stock is plentiful in the EU</li></ul></div></div><div class="callout"><span class="k">If you are buying for a business</span><p>Refresh cycles are the lever, not the purchase price. Extending a fleet from three to four years across this window avoids the peak entirely, and costs less than the 30% premium on replacing it in 2027&ndash;2028. If a refresh is unavoidable, contract the configuration and the price now &mdash; vendors are repricing quarterly.</p></div></div></section><section id="risks"><div class="wrap"><span class="eyebrow">Falsifiers</span><h2>What would make this forecast wrong</h2><p>The base case is a bet on the AI capex cycle staying intact through 2027. Here is what to watch, in order of how much it would move the answer.</p><div class="tw"><table class=""><thead><tr><th>Signal</th><th>What it would mean</th><th>Effect on PC prices</th><th>Direction</th></tr></thead><tbody><tr><td>Memory prices fall <b>while</b> bit shipments stall</td><td>Scarcity premium and volume demand both breaking &mdash; the classic top of a memory cycle</td><td>Sharp relief within two to three quarters</td><td><span class="badge b-lo">Cheaper</span></td></tr><tr><td>Hyperscaler capex guidance cut for 2027</td><td>The 50% capex growth assumption fails; wafers return to consumer parts</td><td>Relief scenario becomes the base case</td><td><span class="badge b-lo">Cheaper</span></td></tr><tr><td>Fab ramps pulled forward from 2H27</td><td>Korean and US expansion delivering ahead of guidance</td><td>Peak arrives in 2027 instead of 2028</td><td><span class="badge b-lo">Cheaper</span></td></tr><tr><td>Suppliers pause expansion to defend pricing</td><td>Memory makers behaving as a disciplined oligopoly rather than racing for share</td><td>Prolonged scenario, high prices past 2029</td><td><span class="badge b-hi">Dearer</span></td></tr><tr><td>HBM contract prices rise another 70&ndash;140% in 2027</td><td>Wafer reallocation to HBM accelerates rather than stabilises</td><td>Consumer memory squeezed further</td><td><span class="badge b-hi">Dearer</span></td></tr><tr><td>New tariffs or export controls on memory or finished PCs</td><td>A cost layer entirely separate from the shortage</td><td>Additive to every scenario above</td><td><span class="badge b-hi">Dearer</span></td></tr><tr><td>Euro weakness against the dollar and won</td><td>Component costs are dollar-denominated; EU retail carries the FX on top</td><td>Amplifies or dampens all of the above for euro-area buyers</td><td><span class="badge b-md">Either</span></td></tr></tbody></table></div><div class="callout"><span class="k">Honest uncertainty</span><p>Published estimates of how long this lasts range from six months to a decade. Samsung and SK hynix have warned the crunch could last until 2027 and beyond, with Notebookcheck reporting SK hynix sees no quick recovery before 2028; several analysts expect normalisation between mid-2027 and 2028. The scenario probabilities on this page are the author's weighting of that spread, not a consensus figure.</p></div></div></section><section id="sources" class="alt"><div class="wrap"><span class="eyebrow">Sources</span><h2>Everything above, traceable</h2><p>Figures attributed to IDC, TrendForce, Omdia, Counterpoint, Gartner and 3DCenter are as published. Index levels, scenario probabilities and segment splits are the author's model built on those inputs and are labelled as such wherever they appear.</p><ol class="src"><li><a href="https://www.idc.com/resource-center/blog/pc-market-enters-volatile-territory-as-memory-shortage-persists-through-2027/" target="_blank" rel="noopener">IDC &mdash; PC Market Enters Volatile Territory as Memory Shortage Persists Through 2027 (2026 ASP +17%, shipments &minus;11.3%, Q4 &minus;20%)</a></li><li><a href="https://www.tomshardware.com/tech-industry/idc-expects-average-pc-prices-to-jump-by-up-to-8-percent-in-2026-due-to-crushing-memory-shortages-some-vendors-already-selling-pre-builts-without-ram" target="_blank" rel="noopener">Tom's Hardware &mdash; IDC expects average PC prices to jump by up to 8% in 2026; some vendors selling pre-builts without RAM</a></li><li><a href="https://www.tomshardware.com/pc-components/ram/memory-price-surge-begins-to-cool-as-consumers-hit-affordability-limit-ai-demand-still-keeps-dram-and-nand-prices-climbing-through-q3-2026" target="_blank" rel="noopener">Tom's Hardware &mdash; Memory price surge begins to cool as consumers hit affordability limit (Q3 2026: DRAM +13&ndash;18%, NAND +10&ndash;15%)</a></li><li><a href="https://www.tomshardware.com/pc-components/ram/ram-price-index-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities" target="_blank" rel="noopener">Tom's Hardware &mdash; RAM price index, updated 27 August 2026 (DDR5 32&nbsp;GB from $389; $100&ndash;200 in October 2025)</a></li><li><a href="https://www.trendforce.com/presscenter/news/20260331-12995.html" target="_blank" rel="noopener">TrendForce &mdash; AI server demand to drive memory contract price increases in 2Q26 (conventional DRAM +58&ndash;63%, NAND +70&ndash;75%)</a></li><li><a href="https://www.trendforce.com/presscenter/news/20260730-13158.html" target="_blank" rel="noopener">TrendForce &mdash; Diverging memory market outlook in 2027: DRAM stays tight, NAND eases in 2H27</a></li><li><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener">TrendForce &mdash; Memory to account for 68% of major CSP capex in 2027; server DRAM +270% in 2026; HBM +70&ndash;140% in 2027</a></li><li><a href="https://www.trendforce.com/news/2025/12/05/exclusive-memory-crunch-hits-pcs-dell-hikes-prices-15-20-mid-december-lenovo-from-january-2026/" target="_blank" rel="noopener">TrendForce &mdash; Memory crunch hits PCs: Dell hikes prices 15&ndash;20% mid-December, Lenovo from January 2026</a></li><li><a href="https://www.barchart.com/story/news/657173/omdia-global-pc-shipments-to-decline-12-in-2026-amid-severe-memory-and-storage-supply-challenges" target="_blank" rel="noopener">Omdia via Barchart &mdash; Global PC shipments to decline 12% in 2026; added memory and storage cost of $90&ndash;165 per unit; sub-$500 tier &minus;28%</a></li><li><a href="https://wccftech.com/memory-ssd-prices-jumped-massively-in-q1-2026-forcing-pc-makers-into-a-desperate-stockpiling-race/" target="_blank" rel="noopener">Counterpoint Research via Wccftech &mdash; Q1 2026 memory +110% and SSD +147%; PC makers stockpiling</a></li><li><a href="https://counterpointresearch.com/en/insights/global-pc-shipments-q1-2026" target="_blank" rel="noopener">Counterpoint Research &mdash; Global PC shipments grow 3.2% YoY in Q1 2026 on pre-emptive buying</a></li><li><a href="https://www.notebookcheck.net/DRAM-crisis-EU-prices-for-RAM-and-SSDs-increased-only-slightly-in-June.1322267.0.html" target="_blank" rel="noopener">Notebookcheck &mdash; DRAM crisis: EU prices for RAM and SSDs increased only slightly in June (3DCenter tracking; 32&nbsp;GB DDR5 4&times; June 2025; 8&nbsp;TB SSD from &euro;1,029)</a></li><li><a href="https://gulfnews.com/business/retail/laptop-prices-are-exploding-in-2026-and-ai-is-the-biggest-reason-why-1.500555161" target="_blank" rel="noopener">Gulf News &mdash; Laptop prices are exploding in 2026 (Dell, HP, Lenovo up 15&ndash;30%; Gartner: entry-level non-viable)</a></li><li><a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/samsung-and-sk-hynix-warn-ai-driven-memory-shortages-could-last-until-2027-and-beyond-as-hbm-demand-explodes-customers-already-reserving-supply-years-ahead-while-the-wider-dram-market-begins-to-tighten" target="_blank" rel="noopener">Tom's Hardware &mdash; Samsung and SK hynix warn AI-driven memory shortages could last until 2027 and beyond</a></li><li><a href="https://invezz.com/news/2026/08/07/what-samsung-sk-hynix-and-microns-capex-mean-for-the-future-of-the-memory-trade/" target="_blank" rel="noopener">Invezz &mdash; What Samsung, SK hynix and Micron's capex mean for the memory trade (capex +340% 2024&ndash;2027; Yongin 2029; M17 late 2028)</a></li><li><a href="https://siliconangle.com/2026/08/08/forecasting-ai-bubble-scarcity-turns-surplus/" target="_blank" rel="noopener">SiliconANGLE &mdash; Forecasting the AI bubble: when scarcity turns to surplus (2028&ndash;2029 risk window)</a></li><li><a href="https://www.theregister.com/2026/02/16/refurbished_pcs_memory_crunch/" target="_blank" rel="noopener">The Register &mdash; Secondary laptop market goes mainstream amid the memory crunch</a></li><li><a href="https://www.tomshardware.com/desktops/gaming-pcs/idc-slashes-2026-pc-shipment-forecast-amid-memory-shortages-total-pc-market-value-to-nonetheless-increase-to-usd274-billion-due-to-ongoing-price-hikes" target="_blank" rel="noopener">Tom's Hardware &mdash; IDC slashes 2026 PC shipment forecast; total PC market value still rises to $274bn on price hikes</a></li><li><a href="https://www.notebookcheck.net/DRAM-crisis-may-last-until-2028-SK-Hynix-sees-no-quick-recovery.1187137.0.html" target="_blank" rel="noopener">Notebookcheck &mdash; DRAM crisis may last until 2028: SK hynix sees no quick recovery</a></li><li><a href="https://www.notebookcheck.net/Dell-raises-PC-prices-by-up-to-20-as-Lenovo-warns-of-January-hikes-amid-soaring-DRAM-costs.1179336.0.html" target="_blank" rel="noopener">Notebookcheck &mdash; Dell raises PC prices by up to 20% as Lenovo warns of January hikes amid soaring DRAM costs</a></li></ol></div></section><footer><div class="wrap"><div class="mono">Briefing prepared 31 August 2026 &middot; euro-area retail perspective</div><div class="mono">Analysis, not investment or purchasing advice</div></div></footer>
+<div id="tip" role="status" aria-live="off"></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  document.addEventListener('mouseover',function(e){
+    var m=e.target.closest?e.target.closest('.mk'):null;
+    if(!m||!m.dataset.t){return;}
+    tip.innerHTML=m.dataset.t;tip.style.opacity='1';
+  });
+  document.addEventListener('mousemove',function(e){
+    if(tip.style.opacity!=='1')return;
+    var x=e.clientX+14,y=e.clientY-34;
+    if(x+tip.offsetWidth>window.innerWidth-10)x=e.clientX-tip.offsetWidth-14;
+    if(y<8)y=e.clientY+22;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  });
+  document.addEventListener('mouseout',function(e){
+    var m=e.target.closest?e.target.closest('.mk'):null;
+    if(m){tip.style.opacity='0';}
+  });
+})();
+</script>
+</body></html>
